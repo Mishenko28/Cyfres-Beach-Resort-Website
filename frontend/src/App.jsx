@@ -16,11 +16,11 @@ function App() {
                 />
                 <Route 
                     path='/login'
-                    element={<LoginAndSignup />}
+                    element={<LoginAndSignup type='login' />}
                 />
                 <Route 
                     path='/signup'
-                    element={<LoginAndSignup />}
+                    element={<LoginAndSignup type='signup' />}
                 />
             </Routes>
         </>

@@ -1,22 +1,34 @@
 import '../styles/loginAndSignup.css'
 
-export default function LoginAndSignup() {
+export default function LoginAndSignup({ type }) {
+    
+
     return (
         <div className="loginAndSignup-card">
             <div className="card-header">
-                <div className="log">Welcome Back</div>
+                <div className="log">{type == 'login' ? "Welcome Back" : "Create Account"}</div>
             </div>
             <form>
                 <div className="form-group">
                     <label htmlFor="username">Email:</label>
-                    <input autoComplete='true' required="" name="username" id="username" type="text" />
+                    <input
+                        autoComplete='true'
+                        required
+                        id="username"
+                        type="email"
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
-                    <input autoComplete='true' required="" name="password" id="password" type="password" />
+                    <input
+                        autoComplete='true'
+                        required
+                        id="password"
+                        type="password"
+                    />
                 </div>
-                    <div className="form-group">
-                    <input value="Login" type="submit" />
+                <div className="form-group">
+                    <button>{type == 'login' ? "Login" : "Signup"}</button>
                 </div>
             </form>
         </div>
