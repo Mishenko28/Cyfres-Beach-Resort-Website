@@ -2,9 +2,8 @@ import React from "react"
 import { Routes, Route } from 'react-router-dom'
 
 import Navbar from './Components/Navbar'
-import Login from './pages/Login'
+import LoginAndSignup from './pages/LoginAndSignup'
 import Home from './pages/Home'
-import Signup from './pages/Signup'
 
 function App() {
     return (
@@ -17,11 +16,11 @@ function App() {
                 />
                 <Route 
                     path='/login'
-                    element={<Login />}
+                    element={<LoginAndSignup />}
                 />
                 <Route 
                     path='/signup'
-                    element={<Signup />}
+                    element={<LoginAndSignup />}
                 />
             </Routes>
         </>

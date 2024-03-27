@@ -1,4 +1,5 @@
 import '../styles/navbar.css'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     return (
@@ -6,15 +7,17 @@ export default function Navbar() {
             <div className='logo-auth'>
                 <div className="logo"></div>
                 <ul className='auth'>
-                    <li>Login</li>
-                    <li>Signup</li>
+                    <Link to={'/login'}><li>Login</li></Link>
+                    <hr />
+                    <Link to={'/signup'}><li>Signup</li></Link>
                 </ul>
             </div>
             <ul className='nav'>
-                <li>Home</li>
-                <li>Home</li>
-                <li>Home</li>
-                <li>Home</li>
+                <Link to={'/'}><li>HOME</li></Link>
+                <li>BOOKING</li>
+                <li>ACCOMODATIONS</li>
+                <li>AMENITIES</li>
+                <li>GALLERY</li>
             </ul>
         </div>
     )

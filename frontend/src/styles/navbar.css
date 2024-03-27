@@ -1,18 +1,18 @@
 .navbar {
-    height: 80px;
-    background-color: #fff;
+    height: 150px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
 }
 .navbar .logo-auth {
     display: flex;
     justify-content: space-between;
+    align-items: start;
     margin-inline: 20px;
 }
 .navbar .logo {
-    background-color: black;
+    border: 1px solid #000;
     height: 50px;
     width: 100px;
 }
@@ -21,11 +21,57 @@
     list-style: none;
     gap: 10px;
 }
+.navbar .auth li {
+    color: #000;
+}
 .navbar .nav {
     display: flex;
-    margin-inline: 20px;
-    justify-content: end;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 15px;
     list-style: none;
+    justify-content: center;
+}
+.navbar .nav li {
     font-size: 14px;
+    border-bottom: 1px solid #000;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) {
+    .navbar {
+        height: 200px;
+    }
+    .navbar .logo {
+        height: 100px;
+        width: 200px;
+    }
+    .navbar .auth {
+        font-size: 24px;
+    }
+    .navbar .nav li {
+        font-size: 22px;
+        border-bottom: 3px solid #000;
+        transition: all 0.3s;
+    }
+    .navbar .nav {
+        gap: 35px;
+    }
+    .navbar .logo {
+        margin-left: 50px;
+    }
+    .navbar .nav li:hover {
+        border-bottom: 3px solid #0f0;
+        transform: scale(110%);
+    }
+
+
 }
