@@ -1,14 +1,45 @@
+import { useEffect, useState } from 'react'
 import '../styles/loginAndSignup.css'
 
 export default function LoginAndSignup({ type }) {
-    
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        setError("")
+    }, [type])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setIsLoading(true)
+
+        const response = await fetch('http://localhost:5000/auth/' + type, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email, password})
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            setError(json.error)
+        }
+        
+        setIsLoading(false)
+
+        
+
+    }
 
     return (
         <div className="loginAndSignup-card">
             <div className="card-header">
                 <div className="log">{type == 'login' ? "Welcome Back" : "Create Account"}</div>
+                {error && <div className='error'>{error}</div>}
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Email:</label>
                     <input
@@ -16,6 +47,8 @@ export default function LoginAndSignup({ type }) {
                         required
                         id="username"
                         type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
@@ -25,10 +58,12 @@ export default function LoginAndSignup({ type }) {
                         required
                         id="password"
                         type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
-                    <button>{type == 'login' ? "Login" : "Signup"}</button>
+                    <button disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
                 </div>
             </form>
         </div>
