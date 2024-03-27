@@ -1,0 +1,31 @@
+.navbar {
+    height: 80px;
+    background-color: #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.navbar .logo-auth {
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 20px;
+}
+.navbar .logo {
+    background-color: black;
+    height: 50px;
+    width: 100px;
+}
+.navbar .auth {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+.navbar .nav {
+    display: flex;
+    margin-inline: 20px;
+    justify-content: end;
+    gap: 10px;
+    list-style: none;
+    font-size: 14px;
+}
