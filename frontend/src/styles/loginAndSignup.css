@@ -1,11 +1,11 @@
 .loginAndSignup-card {
     width: 250px;
-    margin: 80px auto;
+    margin: 90px auto;
     padding: 20px;
     border: 1px solid #cccccc;
     border-radius: 10px;
-    background-color: #f2f2f2;
-    box-shadow: 2px 2px 10px #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
 }
 .loginAndSignup-card .card-header {
     margin-bottom: 20px
@@ -27,7 +27,6 @@
 }
 .loginAndSignup-card label {
     font-size: 18px;
-    margin-bottom: 5px;
 }
 .loginAndSignup-card input[type="email"], input[type="password"] {
     width: 100%;
@@ -36,19 +35,17 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    transition: 0.5s;
+    margin-top: 5px;
 }
 .loginAndSignup-card button {
     width: 100%;
-    background-color: #333;
+    background-color: #3981c9;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
 }
-
 
 
 
@@ -57,8 +54,10 @@
     .loginAndSignup-card {
         width: 300px;
     }
-    .loginAndSignup-card input[type="submit"]:hover {
-        background-color: #656565;
-        color: black;
+    .loginAndSignup-card button:hover {
+        background-color: #113e6a;
+    }
+    .loginAndSignup-card button {
+        cursor: pointer;
     }
 }

@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import '../styles/loginAndSignup.css'
+import { useGlobalContext } from '../hooks/useGlobalContext'
 
 export default function LoginAndSignup({ type }) {
+    const { dispatch } = useGlobalContext()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -25,12 +28,11 @@ export default function LoginAndSignup({ type }) {
 
         if (!response.ok) {
             setError(json.error)
+        } else {
+            localStorage.setItem('user', JSON.stringify(json))
+            dispatch({type: "LOGIN", payload: json})
         }
-        
         setIsLoading(false)
-
-        
-
     }
 
     return (
