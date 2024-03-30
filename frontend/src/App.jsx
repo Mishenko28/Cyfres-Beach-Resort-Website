@@ -9,7 +9,7 @@ import Accomodations from './pages/Accomodations'
 import Booking from './pages/Booking'
 import Amenities from './pages/Amenities'
 import Gallery from './pages/Gallery'
-
+ 
 function App() {
     const { state } = useGlobalContext()
 

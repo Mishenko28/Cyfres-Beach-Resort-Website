@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import '../styles/loginAndSignup.css'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
 export default function LoginAndSignup({ type }) {
