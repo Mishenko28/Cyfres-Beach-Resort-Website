@@ -1,0 +1,52 @@
+.loginAndSignup-card {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginAndSignup-card form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+    border-radius: 10px;
+}
+.loginAndSignup-card form div {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+.loginAndSignup-card form div input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+}
+.loginAndSignup-card form h2 {
+    border: 1px solid #f00;
+    color: #f00;
+    padding: 10px 5px;
+    font-size: 12px;
+}
+.loginAndSignup-card form button {
+    padding-block: 14px;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+}
+.loginAndSignup-card form button:hover {
+    border: 2px solid #ccc;
+}
+.loginAndSignup-card form a button {
+    width: 100%;
+    background-color: #4991d9;
+}
+.loginAndSignup-card form h3 {
+    font-size: 16px;
+}

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useGlobalContext } from '../hooks/useGlobalContext'
+import '../styles/loginAndSignup.css'
+import { Link } from 'react-router-dom'
 
 export default function LoginAndSignup({ type }) {
     const { dispatch } = useGlobalContext()
@@ -35,14 +37,12 @@ export default function LoginAndSignup({ type }) {
     }
 
     return (
-        <div className="loginAndSignup-card">
-            <div className="card-header">
-                <div className="log">{type == 'login' ? "Welcome Back" : "Create Account"}</div>
-                {error && <div className='error'>{error}</div>}
-            </div>
+        <div className='loginAndSignup-card'>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="username">Email:</label>
+                <h1>{type == 'login' ? "Welcome Back" : "Create Account"}</h1>
+                {error && <h2>{error}</h2>}
+                <div>
+                    <label>Email:</label>
                     <input
                         autoComplete='true'
                         required
@@ -52,8 +52,8 @@ export default function LoginAndSignup({ type }) {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                <div>
+                    <label>Password:</label>
                     <input
                         autoComplete='true'
                         required
@@ -63,11 +63,15 @@ export default function LoginAndSignup({ type }) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
-                    <button disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
-                </div>
+                <button style={type == 'login' ? {backgroundColor: '#4991d9'} : {backgroundColor: '#28cf89'}} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
+                {type == 'signup' &&
+                <>
+                    <hr />
+                    <Link to='/login'><button>Login</button></Link>
+                </>
+                }
+                {type == 'login' && <h3>Do not have an Account? <Link to='/signup'>Create one</Link></h3>}
             </form>
         </div>
-
     )
 }

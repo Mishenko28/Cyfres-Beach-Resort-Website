@@ -13,7 +13,7 @@ export default function Menu() {
 
     useEffect(() => {
         const handleResize = (e) => {
-            if (e.target.innerWidth >= 720) {
+            if (e.target.innerWidth >= 860) {
                 setNavTog(true)
             } else {
                 setNavTog(false)
