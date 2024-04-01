@@ -1,0 +1,43 @@
+.login-admin-card {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-admin-card form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: #000;
+    border-radius: 10px;
+    color: #fff;
+}
+.login-admin-card form div {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+.login-admin-card form div input {
+    padding: 10px;
+    border-radius: 3px;
+}
+.login-admin-card form h2 {
+    border: 1px solid #f00;
+    color: #f00;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: 100;
+}
+.login-admin-card form button {
+    padding-block: 14px;
+    border: none;
+    border-radius: 3px;
+    color: #000;
+    background-color: #5b5b5b;
+    cursor: pointer;
+}

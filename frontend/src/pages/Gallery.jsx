@@ -1,7 +1,12 @@
+import Navbar from '../Components/Navbar'
+
 export default function Gallery() {
     return (
-        <div className="gallery">
-            <h1>GALLERY</h1>
-        </div>
+        <>
+            <Navbar />
+            <div className="booking">
+                <h1>GALLERY</h1>
+            </div>
+        </>
     )
 }

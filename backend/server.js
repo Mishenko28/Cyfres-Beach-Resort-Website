@@ -3,6 +3,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/authRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
+app.use('/admin', adminRoutes)
 app.use('/auth', authRoutes)
 
 mongoose.connect('mongodb://localhost:27017/Cyfres')

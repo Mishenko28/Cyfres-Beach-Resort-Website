@@ -31,7 +31,7 @@ export default function LoginAndSignup({ type }) {
             setError(json.error)
         } else {
             localStorage.setItem('user', JSON.stringify(json))
-            dispatch({type: "LOGIN", payload: json})
+            dispatch({type: "USER_LOGIN", payload: json})
         }
         setIsLoading(false)
     }
@@ -45,7 +45,7 @@ export default function LoginAndSignup({ type }) {
                 <div>
                     <label>Email:</label>
                     <input
-                        autoComplete='true'
+                        autoComplete='on'
                         required
                         id="username"
                         type="email"
@@ -56,7 +56,7 @@ export default function LoginAndSignup({ type }) {
                 <div>
                     <label>Password:</label>
                     <input
-                        autoComplete='true'
+                        autoComplete='off'
                         required
                         id="password"
                         type="password"
