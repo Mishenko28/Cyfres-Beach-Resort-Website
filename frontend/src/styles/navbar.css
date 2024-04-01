@@ -31,7 +31,6 @@
     font-weight: 700;
     color: #fff;
     background-color: #28cf89;
-    box-shadow: 0 0 8px #b4b4b4;
     cursor: pointer;
 }
 .navbar .btn-cont a:last-child button {
@@ -65,6 +64,7 @@
     flex-direction: column;
     background-color: #93c9ff;
     align-items: center;
+    animation: profile-nav 1s;
 }
 .navbar .top {
     display: flex;
@@ -86,6 +86,7 @@
     color: #fff;
     border-radius: 3px;
     box-shadow: inset 0 0 10px #2669ab;
+    cursor: pointer;
 }
 .navbar .nav i {
     width: 16px;
@@ -112,6 +113,7 @@
     border-radius: 3px;
     background-color: #2b4c6d;
     box-shadow: 0 0 3px #000;
+    cursor: pointer;
 }
 .navbar .profile-pic {
     width: 80px;
@@ -146,7 +148,6 @@
     text-decoration-line: none;
     display: flex;
     background-color: #d2dc12;
-    box-shadow: 0 0 8px #b4b4b4;
     padding: 12px 14px;
     display: flex;
     align-items: center;
@@ -209,7 +210,16 @@
     transform-origin: left;
     transform: rotateZ(-45deg) translate(-5px, 5px);
 }
-  
+
+@keyframes profile-nav {
+    0% {
+        transform: translateX(220px);
+    }
+}
+
+
+
+
 @media only screen and (min-width: 860px) {
     .navbar {
         padding-inline: 30px;

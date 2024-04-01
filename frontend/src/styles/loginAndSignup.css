@@ -50,3 +50,9 @@
 .loginAndSignup-card form h3 {
     font-size: 16px;
 }
+.loginAndSignup-card i {
+    font-size: 32px;
+    color: #f00;
+    align-self: flex-end;
+    cursor: pointer;
+}

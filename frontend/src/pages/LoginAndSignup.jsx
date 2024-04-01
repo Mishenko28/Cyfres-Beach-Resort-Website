@@ -39,6 +39,7 @@ export default function LoginAndSignup({ type }) {
     return (
         <div className='loginAndSignup-card'>
             <form onSubmit={handleSubmit}>
+                <i onClick={() => window.history.back()} className="fa-solid fa-circle-xmark" />
                 <h1>{type == 'login' ? "Welcome Back" : "Create Account"}</h1>
                 {error && <h2>{error}</h2>}
                 <div>

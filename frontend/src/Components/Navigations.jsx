@@ -11,8 +11,7 @@ export default function Navigations() {
     const styleActive = (num) => {
         if (activeNav == num) {
             return {backgroundColor: '#000000',
-                    transform: 'scale(108%)',
-                    boxShadow: '0 0 8px #111'
+                    transform: 'scale(108%)'
             }
         } else {
             return null
