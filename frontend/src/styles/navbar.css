@@ -64,7 +64,20 @@
     flex-direction: column;
     background-color: #93c9ff;
     align-items: center;
-    animation: profile-nav 1s;
+}
+.profile-transition-enter {
+    transform: translateX(220px);
+}
+.profile-transition-enter-active {
+    transform: translateX(0);
+    transition: transform 0.3s;
+}
+.profile-transition-exit {
+    transform: translateX(0);
+}
+.profile-transition-exit-active {
+    transform: translateX(220px);
+    transition: transform 0.3s;
 }
 .navbar .top {
     display: flex;
@@ -209,12 +222,6 @@
     stroke-dashoffset: 0;
     transform-origin: left;
     transform: rotateZ(-45deg) translate(-5px, 5px);
-}
-
-@keyframes profile-nav {
-    0% {
-        transform: translateX(220px);
-    }
 }
 
 

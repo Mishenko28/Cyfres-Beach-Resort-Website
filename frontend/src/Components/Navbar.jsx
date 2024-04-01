@@ -2,6 +2,7 @@ import '../styles/navbar.css'
 import { Link } from 'react-router-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import { useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
 
 import Menu from './Menu'
 import ProfileDrawer from './ProfileDrawer'
@@ -30,7 +31,14 @@ export default function Navbar() {
                     <i className="fa-solid fa-cart-flatbed" />
                     <div className='profile-cont'>
                         <i className="fa-solid fa-user" onClick={handleProfileTog}/>
-                        {profileTog && <ProfileDrawer state={state} dispatch={dispatch} handleProfileTog={handleProfileTog}/>}
+                        <CSSTransition
+                            in={profileTog}
+                            timeout={300}
+                            classNames='profile-transition'
+                            unmountOnExit
+                        >
+                            <ProfileDrawer state={state} dispatch={dispatch} handleProfileTog={handleProfileTog}/>
+                        </CSSTransition>
                     </div>
                 </div>}
             </div>
