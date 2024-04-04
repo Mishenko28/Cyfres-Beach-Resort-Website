@@ -9,5 +9,13 @@ module.exports = mongoose.model('User', new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    booked: {
+        type: Boolean,
+        default: false
+    },
+    lastOnline : {
+        type: Date,
+        default: Date.now
     }
 }, { timestamps: true }), 'users')

@@ -10,7 +10,7 @@ export default function Navigations() {
 
     const styleActive = (num) => {
         if (activeNav == num) {
-            return {backgroundColor: '#000000',
+            return {backgroundColor: '#000',
                     transform: 'scale(108%)'
             }
         } else {

@@ -11,9 +11,10 @@ const createToken = (id) => {
 
 const loginUser = async (req, res) => {
     const { email, password } = await req.body
+    const lastOnline = new Date()
 
     try {
-        const user = await User.findOne({email})
+        const user = await User.findOneAndUpdate({email}, {lastOnline})
 
         if (!user) {
             throw Error("Email is not registered")

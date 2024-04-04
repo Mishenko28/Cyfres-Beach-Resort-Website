@@ -5,8 +5,8 @@ import { useGlobalContext } from '../hooks/useGlobalContext'
 export default function AdminLogin() {
     const { state, dispatch } = useGlobalContext()
 
-    const [admin, setAdmin] = useState("")
-    const [password, setPassword] = useState("")
+    const [admin, setAdmin] = useState("thomas123")
+    const [password, setPassword] = useState("thomas1228")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState("")
 

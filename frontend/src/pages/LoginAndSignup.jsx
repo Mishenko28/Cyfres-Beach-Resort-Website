@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 export default function LoginAndSignup({ type }) {
     const { dispatch } = useGlobalContext()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("johnthomasalog@gmail.com")
+    const [password, setPassword] = useState("thomas1228")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
@@ -39,7 +39,7 @@ export default function LoginAndSignup({ type }) {
     return (
         <div className='loginAndSignup-card'>
             <form onSubmit={handleSubmit}>
-                <i onClick={() => window.history.back()} className="fa-solid fa-circle-xmark" />
+                <Link to='/'><i className="fa-solid fa-circle-xmark" /></Link>
                 <h1>{type == 'login' ? "Welcome Back" : "Create Account"}</h1>
                 {error && <h2>{error}</h2>}
                 <div>

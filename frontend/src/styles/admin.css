@@ -1,0 +1,251 @@
+.admin {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+/* PANEL */
+.admin .panel-cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: #1f1f1f;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+.admin .panel-cont .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-block: 15px;
+}
+.admin .panel-cont .top h2 {
+    background-color: #4a4aff;
+    padding: 4px 18px;
+    border-radius: 4px;
+}
+.admin .panel-cont .middle {
+    padding: 10px;
+    flex-grow: 1;
+    overflow: auto;
+}
+.admin .panel-cont .middle .parent-cont {
+    display: flex;
+    flex-direction: column;
+}
+.admin .panel-cont .middle .btn {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    padding: 20px 12px;
+    cursor: pointer;
+}
+.admin .panel-cont .bottom {
+    padding: 10px;
+}
+.admin .panel-cont .bottom .logout {
+    background-color: #760404;
+    border-radius: 5px;
+    padding: 12px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    cursor: pointer;
+}
+.admin .panel-cont .bottom .logout:hover {
+    background-color: #840303;
+}
+.admin .panel-cont .bottom .logout i {
+    font-size: 20px;
+}
+.admin .panel-cont .bottom .logout h1 {
+    font-size: 18px;
+}
+.admin .panel-cont .middle .btn:hover {
+    background-color: #555;
+}
+.admin .panel-cont .middle .btn-selections {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-inline: 30px;
+    margin-block: 10px 20px;
+}
+.admin .panel-cont .middle .btn-selections h1 {
+    background-color: #2b2b2b;
+    border-radius: 6px;
+    padding: 5px 20px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.admin .panel-cont .middle i {
+    font-size: 20px;
+}
+.admin .panel-cont .middle h1 {
+    font-size: 18px;
+}
+
+
+/* NAV */
+.admin .nav-cont {
+    position: absolute;
+    top: 10px;
+    left: 270px;
+    right: 10px;
+    height: 80px;
+    background-color: #1f1f1f;
+    border-radius: 4px;
+    color: #fff;
+    display: flex;
+    z-index: 1;
+}
+.admin .nav-cont .users {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 50px;
+    width: 100%;
+}
+.admin .nav-cont .users .heading {
+    font-size: 42px;
+}
+.admin .nav-cont .users .search {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.admin .nav-cont .users .search .search-items {
+    position: absolute;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #fff;
+    background-color: #2b2b2b;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.admin .nav-cont .users .search .search-items h1 {
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+}
+.admin .nav-cont .users .search .search-items h1:hover {
+    background-color: #1f1f1f;
+}
+.admin .nav-cont .users .search form {
+    display: flex;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.admin .nav-cont .users .search form input {
+    width: 600px;
+    padding: 10px;
+    color: #fff;
+    background-color: unset;
+    border: none;
+    font-size: 20px;
+}
+.admin .nav-cont .users .search form button {
+    color: #000;
+    background-color: #fff;
+    border: none;
+    padding-inline: 20px;
+}
+.admin .nav-cont .users .search form button i {
+    font-size: 20px;
+}
+
+
+
+/* BODY */
+.admin .body {
+    position: absolute;
+    top: 100px;
+    left: 270px;
+    right: 10px;
+    bottom: 10px;
+    background-color: #1f1f1f;
+    border-radius: 4px;
+    overflow: auto;
+}
+.admin .body .users {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+}
+.admin .body .users .heading {
+    font-size: 36px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background-color: #2b2b2b;
+}
+.admin .body .users .users-table {
+    border: 1px solid #fff;
+    border-radius: 6px;
+    display: flex;
+    overflow: hidden;
+}
+.admin .body .users .users-table .user-tabs {
+    display: flex;
+    flex-direction: column;
+}
+.admin .body .users .users-table .user-tabs:first-child {
+    flex-grow: 1;
+}
+.admin .body .users .users-table .user-tabs h1 {
+    font-size: 24px;
+    border: 1px solid #fff;
+    padding: 5px 15px;
+}
+.admin .body .users .users-table .user-tabs h2 {
+    text-align: center;
+    font-size: 16px;
+    padding: 15px;
+    border-inline: 1px solid #fff;
+}
+.admin .body .users .users-table .user-tabs h2 .fa-circle-check {
+    color: #0f0;
+}
+.admin .body .users .users-table .user-tabs h2 .fa-circle-xmark {
+    color: #f00;
+}
+.admin .body .users .users-table .user-tabs:first-child h2 {
+    text-align: start;
+}
+.admin .body .users .users-table .user-tabs h2:nth-child(even) {
+    background-color: #2b2b2b;
+}
+.admin .body .users .users-page {
+    align-self: center;
+    display: flex;
+    border: 1px solid #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 8px;
+}
+.admin .body .users .users-page button {
+    background-color: #1f1f1f;
+    border: 0;
+    cursor: pointer;
+}
+.admin .body .users .users-page button i {
+    font-size: 18px;
+    color: #fff;
+}
+.admin .body .users .users-page h1 {
+    font-size: 18px;
+    padding-inline: 15px;
+}

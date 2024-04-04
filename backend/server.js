@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/authRoutes')
 const adminRoutes = require('./routes/adminRoutes')
+const databaseRoutes = require('./routes/databaseRoutes')
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use(express.json())
 
 app.use('/admin', adminRoutes)
 app.use('/auth', authRoutes)
+app.use('/database', databaseRoutes)
 
 mongoose.connect('mongodb://localhost:27017/Cyfres')
     .then(() => {
