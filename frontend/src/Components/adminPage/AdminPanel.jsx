@@ -1,13 +1,9 @@
-import AdminDashboard from "./AdminPanelDashboard"
-import AdminConfiguration from "./AdminPanelConfiguration"
-import AdminUtilities from "./AdminPanelUtilities"
-import AdminSettings from "./AdminPanelSettings"
+import AdminDashboard from "./adminPanel/AdminPanelDashboard"
+import AdminConfiguration from "./adminPanel/AdminPanelConfiguration"
+import AdminUtilities from "./adminPanel/AdminPanelUtilities"
+import AdminSettings from "./adminPanel/AdminPanelSettings"
 
 export default function AdminPanel({ active, setActive, state, dispatch }) {
-
-    const handleSelected = (type, sub) => {
-        setActive({type, sub})
-    }
 
     const styleActive = (target) => {
         return target ? { borderLeft: '6px solid #fff' } : null
@@ -31,22 +27,22 @@ export default function AdminPanel({ active, setActive, state, dispatch }) {
             </div>
             <div className='middle'>
                 <AdminDashboard
-                    handleSelected={handleSelected} 
+                    setActive={setActive}
                     styleActive={styleActive}
                     styleSubActive={styleSubActive}
                 />
                 <AdminConfiguration
-                    handleSelected={handleSelected} 
+                    setActive={setActive}
                     styleActive={styleActive}
                     styleSubActive={styleSubActive}
                 />
                 <AdminUtilities
-                    handleSelected={handleSelected} 
+                    setActive={setActive}
                     styleActive={styleActive}
                     styleSubActive={styleSubActive}
                 />
                 <AdminSettings
-                    handleSelected={handleSelected} 
+                    setActive={setActive}
                     styleActive={styleActive}
                     styleSubActive={styleSubActive}
                 />

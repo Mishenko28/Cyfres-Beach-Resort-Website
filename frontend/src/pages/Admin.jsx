@@ -9,7 +9,7 @@ import AdminBody from '../Components/adminPage/AdminBody'
 export default function Admin() {
     const { state, dispatch } = useGlobalContext()
 
-    const [active, setActive] = useState({type: null, sub: null})
+    const [active, setActive] = useState({type: null, sub: null, others: null})
 
     return (
         <div className="admin">
@@ -19,7 +19,7 @@ export default function Admin() {
                 state={state}
                 dispatch={dispatch} 
             />
-            <AdminNav active={active} />
+            <AdminNav active={active} setActive={setActive}/>
             <AdminBody
                 active={active}
                 setActive={setActive}

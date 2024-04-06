@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function AdminSettings({ handleSelected, styleActive, styleSubActive }) {
+export default function AdminSettings({ setActive, styleActive, styleSubActive }) {
     const [settTog, setSettTog] = useState(false)
 
     return (
@@ -16,23 +16,23 @@ export default function AdminSettings({ handleSelected, styleActive, styleSubAct
             {settTog &&
             <div className="btn-selections">
                 <h1
-                    onClick={() => handleSelected("sett", "15")}
+                    onClick={() => setActive(p => ({type: "sett", sub: "15", others: null}))}
                     style={styleSubActive("15")}
                 >example10</h1>
                 <h1
-                    onClick={() => handleSelected("sett", "16")}
+                    onClick={() => setActive(p => ({type: "sett", sub: "16", others: null}))}
                     style={styleSubActive("16")}
                 >example11</h1>
                 <h1
-                    onClick={() => handleSelected("sett", "17")}
+                    onClick={() => setActive(p => ({type: "sett", sub: "17", others: null}))}
                     style={styleSubActive("17")}
                 >example12</h1>
                 <h1
-                    onClick={() => handleSelected("sett", "18")}
+                    onClick={() => setActive(p => ({type: "sett", sub: "18", others: null}))}
                     style={styleSubActive("18")}
                 >example13</h1>
                 <h1
-                    onClick={() => handleSelected("sett", "19")}
+                    onClick={() => setActive(p => ({type: "sett", sub: "19", others: null}))}
                     style={styleSubActive("19")}
                 >example14</h1>
             </div>

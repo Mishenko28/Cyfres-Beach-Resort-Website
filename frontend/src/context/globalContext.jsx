@@ -12,6 +12,10 @@ const reducer = (state, action) => {
             return { ...state, admin: action.payload }
         case "ADMIN_LOGOUT":
             return { ...state, admin: null }
+        case "SET_DISPO":
+            return { ...state, disposableCont: action.payload }
+        case "CLEAR_DISPO":
+            return { ...state, disposableCont: null }
         default:
             return state
     }
@@ -20,7 +24,8 @@ const reducer = (state, action) => {
 export default function GlobalContextProvider({children}) {
     const [state, dispatch] = useReducer(reducer, {
         user: null,
-        admin: null
+        admin: null,
+        disposableCont: null
     })
 
     useEffect(() => {
