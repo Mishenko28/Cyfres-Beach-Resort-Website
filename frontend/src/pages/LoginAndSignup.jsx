@@ -18,7 +18,7 @@ export default function LoginAndSignup({ type }) {
         e.preventDefault()
         setIsLoading(true)
 
-        const response = await fetch('http://localhost:5000/auth/' + type, {
+        const response = await fetch('https://cyfres-beach-resort-api.onrender.com:5000/auth/' + type, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
