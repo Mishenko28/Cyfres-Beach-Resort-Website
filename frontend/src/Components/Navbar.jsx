@@ -17,7 +17,7 @@ export default function Navbar() {
 
     return (
         <div className="navbar">
-            <img className="logo" src='src/images/cyfresLogo.jpg'/>
+            <img className="logo" src='public/images/cyfresLogo.jpg'/>
             <div className='menu-btn-cont'>
                 <Menu />
                 {!state.user &&
