@@ -27,7 +27,7 @@ app.use('/admin', adminRoutes)
 app.use('/auth', authRoutes)
 app.use('/database', databaseRoutes)
 
-mongoose.connect('mongodb://localhost:27017/Cyfres')
+mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres')
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log('DB connected on port ' + process.env.PORT)
