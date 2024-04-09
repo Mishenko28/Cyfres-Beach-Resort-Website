@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import '../styles/loginAndSignup.css'
 import { Link } from 'react-router-dom'
 
 export default function LoginAndSignup({ type }) {

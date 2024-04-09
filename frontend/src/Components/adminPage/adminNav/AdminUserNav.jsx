@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from "react"
-import { useGlobalContext } from '../../../hooks/useGlobalContext'
 
-export default function AdminUserNav({ setActive }) {
-    const { dispatch } = useGlobalContext()
+export default function AdminUserNav({ state, dispatch, setActive }) {
 
     const [searchUser, setSearchUser] = useState("")
     const [matchingUser, setMatchingUser] = useState([])
@@ -10,9 +8,15 @@ export default function AdminUserNav({ setActive }) {
 
     useEffect(() => {
         const fetchMatchingItem = async () =>{
-            const response = await fetch(`http://localhost:5000/database/users/search?user=${searchUser}&returnedNumUser=12`)
+            const response = await fetch(`http://localhost:5000/database/users/search?user=${searchUser}&returnedNumUser=12`, {
+                headers: {
+                    Authorization: `Bearer ${state.admin.token}`
+                }
+            })
 
             const json = await response.json()
+
+            json.error && json.error.message == 'jwt expired' && dispatch({type: "ADMIN_LOGOUT"})
             
             response.ok && setMatchingUser(json.matching)
         }
@@ -42,7 +46,7 @@ export default function AdminUserNav({ setActive }) {
     
     return (
         <div className="users">
-            <h1 className="heading">DASHBOARD</h1>
+            <h1 className="heading">CONFIGUATION</h1>
             <div className="search">
                 <form onSubmit={handleSearch}>
                     <input ref={searchRef} value={searchUser} onChange={e => setSearchUser(e.target.value.trim())} type="text" placeholder="search user..."/>

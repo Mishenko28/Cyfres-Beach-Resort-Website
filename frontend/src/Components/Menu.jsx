@@ -21,14 +21,14 @@ export default function Menu() {
             }
         }
 
-        if (window.innerWidth >= 720) {
+        if (window.innerWidth >= 860) {
             setNavTog(true)
         } else {
             setNavTog(false)
         }
 
         window.addEventListener('resize', handleResize)
-    
+        
         return () => {
             window.removeEventListener('resize', handleResize)
         }

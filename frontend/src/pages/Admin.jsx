@@ -1,5 +1,4 @@
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import '../styles/admin.css'
 import React, { useState } from 'react'
 
 import AdminPanel from '../Components/adminPage/AdminPanel'
@@ -19,8 +18,14 @@ export default function Admin() {
                 state={state}
                 dispatch={dispatch} 
             />
-            <AdminNav active={active} setActive={setActive}/>
+            <AdminNav
+                state={state}
+                dispatch={dispatch}
+                active={active}
+                setActive={setActive}/>
             <AdminBody
+                state={state}
+                dispatch={dispatch}
                 active={active}
                 setActive={setActive}
             />

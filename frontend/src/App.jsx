@@ -3,10 +3,11 @@ import { useGlobalContext } from './hooks/useGlobalContext'
 
 import LoginAndSignup from './pages/LoginAndSignup'
 import Home from './pages/Home'
-import Accomodations from './pages/Accomodations'
+import Accommodations from './pages/Accommodations'
 import Booking from './pages/Booking'
 import Amenities from './pages/Amenities'
 import Gallery from './pages/Gallery'
+import AboutUs from './pages/AboutUs'
 import AdminLogin from './pages/AdminLogin'
 import Admin from './pages/Admin'
 import Navbar from './Components/Navbar'
@@ -16,7 +17,7 @@ function App() {
 
     return (
         <>
-            {['/', '/accomodations', '/booking', '/amenities', '/gallery'].includes(useLocation().pathname) &&
+            {['/', '/accommodations', '/booking', '/amenities', '/gallery', '/about-us'].includes(useLocation().pathname) &&
                 <Navbar />
             }
             <Routes>
@@ -27,8 +28,8 @@ function App() {
                             element={<Home />}
                         />
                         <Route 
-                            path='/accomodations'
-                            element={<Accomodations />}
+                            path='/accommodations'
+                            element={<Accommodations />}
                         />
                         <Route 
                             path='/booking'
@@ -41,6 +42,10 @@ function App() {
                         <Route 
                             path='/gallery'
                             element={<Gallery />}
+                        />
+                        <Route 
+                            path='/about-us'
+                            element={<AboutUs />}
                         />
                         <Route 
                             path='/login'

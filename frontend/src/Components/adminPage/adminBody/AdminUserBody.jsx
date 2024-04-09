@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { formatDistanceToNow, format } from 'date-fns'
 
-export default function AdminUserBody() {
+export default function AdminUserBody({ state, dispatch }) {
     const [users, setUsers] = useState(null)
     const [totalUsers, setTotalUsers] = useState(null)
     const [page, setPage] = useState(1)
@@ -9,8 +9,15 @@ export default function AdminUserBody() {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch(`http://localhost:5000/database/users?page=${page}`)
+            const response = await fetch(`http://localhost:5000/database/users?page=${page}`, {
+                headers: {
+                    Authorization: `Bearer ${state.admin.token}`
+                }
+            })
             const json = await response.json()
+
+            json.error && json.error.message == 'jwt expired' && dispatch({type: "ADMIN_LOGOUT"})
+
             setUsers(json.users)
             setTotalUsers(json.totalUsers)
             setTotalPage(Math.max(1, Math.ceil(json.totalUsers / 10)))

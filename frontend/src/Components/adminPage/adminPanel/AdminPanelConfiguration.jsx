@@ -16,9 +16,9 @@ export default function AdminConfiguration({ setActive, styleActive, styleSubAct
             {configTog &&
             <div className="btn-selections">
                 <h1
-                    onClick={() => setActive(p => ({type: "config", sub: "5", others: null}))}
-                    style={styleSubActive("5")}
-                >example5</h1>
+                    onClick={() => setActive(p => ({type: "config", sub: "users", others: null}))}
+                    style={styleSubActive("users")}
+                >Users</h1>
                 <h1
                     onClick={() => setActive(p => ({type: "config", sub: "6", others: null}))}
                     style={styleSubActive("6")}

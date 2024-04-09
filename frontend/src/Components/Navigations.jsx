@@ -10,9 +10,8 @@ export default function Navigations() {
 
     const styleActive = (num) => {
         if (activeNav == num) {
-            return {backgroundColor: '#000',
-                    transform: 'scale(108%)'
-            }
+            return window.innerWidth >= 860 ? {boxShadow: 'inset 0 -5px 0 #ff0'
+            } : {backgroundColor: '#000'}
         } else {
             return null
         }
@@ -21,9 +20,10 @@ export default function Navigations() {
     useEffect(() => {
         window.location.pathname == '/' ? setActiveNav(1) : null
         window.location.pathname == '/booking' ? setActiveNav(2) : null
-        window.location.pathname == '/accomodations' ? setActiveNav(3) : null
+        window.location.pathname == '/accommodations' ? setActiveNav(3) : null
         window.location.pathname == '/amenities' ? setActiveNav(4) : null
         window.location.pathname == '/gallery' ? setActiveNav(5) : null
+        window.location.pathname == '/about-us' ? setActiveNav(6) : null
     }, [])
 
   return (
@@ -36,8 +36,8 @@ export default function Navigations() {
             <h6>BOOKING</h6>
             <i className="fa-regular fa-calendar-check" />
         </Link>
-        <Link to='/accomodations' onClick={() => handleActiveNav(3)} style={styleActive(3)}>
-            <h6>ACCOMODATIONS</h6>
+        <Link to='/accommodations' onClick={() => handleActiveNav(3)} style={styleActive(3)}>
+            <h6>ACCOMMODATIONS</h6>
             <i className="fa-solid fa-bed" />
         </Link>
         <Link to='/amenities' onClick={() => handleActiveNav(4)} style={styleActive(4)}>
@@ -47,6 +47,10 @@ export default function Navigations() {
         <Link to='/gallery' onClick={() => handleActiveNav(5)} style={styleActive(5)}>
             <h6>GALLERY</h6>
             <i className="fa-solid fa-image" />
+        </Link>
+        <Link to='/about-us' onClick={() => handleActiveNav(6)} style={styleActive(6)}>
+            <h6>ABOUT US</h6>
+            <i class="fa-solid fa-users" />
         </Link>
     </div>
   )

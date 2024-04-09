@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../styles/adminLogin.css'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
 export default function AdminLogin() {

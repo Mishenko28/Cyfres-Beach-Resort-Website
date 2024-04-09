@@ -1,4 +1,3 @@
-import '../styles/navbar.css'
 import { Link } from 'react-router-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import { useState } from 'react'
@@ -18,7 +17,7 @@ export default function Navbar() {
 
     return (
         <div className="navbar">
-            <div className="logo"></div>
+            <img className="logo" src='src/images/cyfresLogo.jpg'/>
             <div className='menu-btn-cont'>
                 <Menu />
                 {!state.user &&
@@ -42,7 +41,6 @@ export default function Navbar() {
                     </div>
                 </div>}
             </div>
-
         </div>
     )
 }

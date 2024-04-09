@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
-import { useGlobalContext } from '../../../hooks/useGlobalContext'
 
-export default function AdminUserSearched({ setActive }) {
-    const { state } = useGlobalContext()
-    
+export default function AdminUserSearched({ state, dispatch, setActive }) {    
     const [searchedUsers, setSearchedUsers] = useState([])
     const [totalUsers, setTotalUsers] = useState(null)
     const [page, setPage] = useState(1)
@@ -14,9 +11,15 @@ export default function AdminUserSearched({ setActive }) {
 
     useEffect(() => {
         const fetchSearchedUsers = async () => {
-            const response = await fetch(`http://localhost:5000/database/users/search?user=${state.disposableCont}&returnedNumUser=10&page=${page}`)
+            const response = await fetch(`http://localhost:5000/database/users/search?user=${state.disposableCont}&returnedNumUser=10&page=${page}`, {
+                headers: {
+                    Authorization: `Bearer ${state.admin.token}`
+                }
+            })
 
             const json = await response.json()
+
+            json.error && json.error.message == 'jwt expired' && dispatch({type: "ADMIN_LOGOUT"})
 
             setSearchedUsers(json.matching)
             setTotalUsers(json.totalUsers)

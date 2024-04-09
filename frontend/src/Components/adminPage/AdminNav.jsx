@@ -1,12 +1,12 @@
 import AdminUserNav from "./adminNav/AdminUserNav"
 
-export default function AdminNav({ active, setActive }) {
+export default function AdminNav({ state, dispatch, active, setActive }) {
     return (
         <div className='nav-cont'>
             {active.type ?
                 <>
-                    {active.type == "dash" && <AdminUserNav setActive={setActive}/>}
-                    {active.type == "config" && <h1>CONFIGURATION</h1>}
+                    {active.type == "dash" && <h1>DASHBOARD</h1>}
+                    {active.type == "config" && <AdminUserNav state={state} dispatch={dispatch} setActive={setActive}/>}
                     {active.type == "util" && <h1>UTILITIES</h1>}
                     {active.type == "sett" && <h1>SETTINGS</h1>}
                 </>

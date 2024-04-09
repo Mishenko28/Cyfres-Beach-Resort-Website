@@ -1,4 +1,3 @@
-import { CSSTransition } from 'react-transition-group'
 import { useState } from 'react'
 
 export default function AdminDashboard({ setActive, styleActive, styleSubActive }) {
@@ -17,9 +16,9 @@ export default function AdminDashboard({ setActive, styleActive, styleSubActive 
             {dashTog &&
             <div className="btn-selections">
                 <h1
-                    onClick={() => setActive(p => ({type: "dash", sub: "users", others: null}))}
-                    style={styleSubActive("users")}
-                >Users</h1>
+                    onClick={() => setActive(p => ({type: "dash", sub: "0", others: null}))}
+                    style={styleSubActive("0")}
+                >example0</h1>
                 <h1
                     onClick={() => setActive(p => ({type: "dash", sub: "1", others: null}))}
                     style={styleSubActive("1")}
