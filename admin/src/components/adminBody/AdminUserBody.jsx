@@ -9,7 +9,7 @@ export default function AdminUserBody({ state, dispatch }) {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch(`http://localhost:5000/database/users?page=${page}`, {
+            const response = await fetch(`https://cyfres-beach-resort-api.onrender.com/database/users?page=${page}`, {
                 headers: {
                     Authorization: `Bearer ${state.admin.token}`
                 }

@@ -11,7 +11,7 @@ export default function AdminUserSearched({ state, dispatch, setActive }) {
 
     useEffect(() => {
         const fetchSearchedUsers = async () => {
-            const response = await fetch(`http://localhost:5000/database/users/search?user=${state.disposableCont}&returnedNumUser=10&page=${page}`, {
+            const response = await fetch(`https://cyfres-beach-resort-api.onrender.com/database/users/search?user=${state.disposableCont}&returnedNumUser=10&page=${page}`, {
                 headers: {
                     Authorization: `Bearer ${state.admin.token}`
                 }

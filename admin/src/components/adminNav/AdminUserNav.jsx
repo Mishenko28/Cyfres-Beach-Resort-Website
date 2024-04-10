@@ -8,7 +8,7 @@ export default function AdminUserNav({ state, dispatch, setActive }) {
 
     useEffect(() => {
         const fetchMatchingItem = async () =>{
-            const response = await fetch(`http://localhost:5000/database/users/search?user=${searchUser}&returnedNumUser=12`, {
+            const response = await fetch(`https://cyfres-beach-resort-api.onrender.com/database/users/search?user=${searchUser}&returnedNumUser=12`, {
                 headers: {
                     Authorization: `Bearer ${state.admin.token}`
                 }
