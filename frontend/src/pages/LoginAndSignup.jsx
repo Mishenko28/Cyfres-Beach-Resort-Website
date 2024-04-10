@@ -20,8 +20,8 @@ export default function LoginAndSignup({ type }) {
 
         const response = await fetch('https://cyfres-beach-resort-api.onrender.com/auth/' + type, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
         })
 
         const json = await response.json()
@@ -30,7 +30,7 @@ export default function LoginAndSignup({ type }) {
             setError(json.error)
         } else {
             localStorage.setItem('user', JSON.stringify(json))
-            dispatch({type: "LOGIN", payload: json})
+            dispatch({ type: "LOGIN", payload: json })
         }
         setIsLoading(false)
     }
@@ -38,7 +38,7 @@ export default function LoginAndSignup({ type }) {
     return (
         <div className='loginAndSignup-card'>
             <form onSubmit={handleSubmit}>
-                <Link to='/'><i className="fa-solid fa-circle-xmark" /></Link>
+                <Link className='back' to='/'><i className="fa-solid fa-circle-xmark" /></Link>
                 <h1>{type == 'login' ? "Welcome Back" : "Create Account"}</h1>
                 {error && <h2>{error}</h2>}
                 <div>
@@ -63,15 +63,28 @@ export default function LoginAndSignup({ type }) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button style={type == 'login' ? {backgroundColor: '#4991d9'} : {backgroundColor: '#28cf89'}} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
+                <button style={type == 'login' ? { backgroundColor: '#4991d9' } : { backgroundColor: '#28cf89' }} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
                 {type == 'signup' &&
-                <>
-                    <hr />
-                    <Link to='/login'><button>Login</button></Link>
-                </>
+                    <>
+                        <hr />
+                        <Link to='/login'><button>Login</button></Link>
+                    </>
                 }
                 {type == 'login' && <h3>Do not have an Account? <Link to='/signup'>Create one</Link></h3>}
             </form>
+            {isLoading &&
+                <div class="hourglassBackground">
+                    <div class="hourglassContainer">
+                        <div class="hourglassCurves"></div>
+                        <div class="hourglassCapTop"></div>
+                        <div class="hourglassGlassTop"></div>
+                        <div class="hourglassSand"></div>
+                        <div class="hourglassSandStream"></div>
+                        <div class="hourglassCapBottom"></div>
+                        <div class="hourglassGlass"></div>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
