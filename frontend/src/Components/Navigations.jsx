@@ -50,7 +50,7 @@ export default function Navigations() {
         </Link>
         <Link to='/about-us' onClick={() => handleActiveNav(6)} style={styleActive(6)}>
             <h6>ABOUT US</h6>
-            <i class="fa-solid fa-users" />
+            <i className="fa-solid fa-users" />
         </Link>
     </div>
   )

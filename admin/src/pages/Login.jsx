@@ -4,8 +4,8 @@ import { useGlobalContext } from '../hooks/useGlobalContext'
 export default function AdminLogin() {
     const { state, dispatch } = useGlobalContext()
 
-    const [admin, setAdmin] = useState("")
-    const [password, setPassword] = useState("")
+    const [admin, setAdmin] = useState("thomas123")
+    const [password, setPassword] = useState("thomas1228")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState("")
 
@@ -18,14 +18,14 @@ export default function AdminLogin() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({admin, password})
         })
-
+        
         const json = await response.json()
 
         if (!response.ok) {
             setError(json.error)
         } else {
             localStorage.setItem('admin', JSON.stringify(json))
-            dispatch({type: "ADMIN_LOGIN", payload: json})
+            dispatch({type: "LOGIN", payload: json})
         }
         setIsLoading(false)
     }

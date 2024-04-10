@@ -1,9 +1,9 @@
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import React, { useState } from 'react'
 
-import AdminPanel from '../Components/adminPage/AdminPanel'
-import AdminNav from '../Components/adminPage/AdminNav'
-import AdminBody from '../Components/adminPage/AdminBody'
+import AdminPanel from '../components/AdminPanel'
+import AdminNav from '../components/AdminNav'
+import AdminBody from '../components/AdminBody'
 
 export default function Admin() {
     const { state, dispatch } = useGlobalContext()

@@ -5,9 +5,9 @@ export const GlobalContext = createContext()
 const reducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
-            return { ...state, user: action.payload }
+            return { ...state, admin: action.payload }
         case "LOGOUT":
-            return { ...state, user: null }
+            return { ...state, admin: null }
         case "SET_DISPO":
             return { ...state, disposableCont: action.payload }
         case "CLEAR_DISPO":
@@ -19,15 +19,15 @@ const reducer = (state, action) => {
 
 export default function GlobalContextProvider({children}) {
     const [state, dispatch] = useReducer(reducer, {
-        user: null,
+        admin: null,
         disposableCont: null
     })
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'))
+        const admin = JSON.parse(localStorage.getItem('admin'))
         
-        if (user) {
-            dispatch({type:"LOGIN", payload: user})
+        if (admin) {
+            dispatch({type:"LOGIN", payload: admin})
         }
 
     }, [])

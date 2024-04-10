@@ -5,7 +5,7 @@ export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
     const handleLogout = () => {
         handleProfileTog()
         localStorage.removeItem('user')
-        dispatch({type: "USER_LOGOUT"})
+        dispatch({type: "LOGOUT"})
     }
 
     return (

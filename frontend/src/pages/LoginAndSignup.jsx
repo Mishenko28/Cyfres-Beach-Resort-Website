@@ -30,7 +30,7 @@ export default function LoginAndSignup({ type }) {
             setError(json.error)
         } else {
             localStorage.setItem('user', JSON.stringify(json))
-            dispatch({type: "USER_LOGIN", payload: json})
+            dispatch({type: "LOGIN", payload: json})
         }
         setIsLoading(false)
     }

@@ -15,7 +15,7 @@ export default function AdminPanel({ active, setActive, state, dispatch }) {
 
     const handleLogout = () => {
         localStorage.removeItem('admin')
-        dispatch({type: "ADMIN_LOGOUT"})
+        dispatch({type: "LOGOUT"})
     }
 
 
