@@ -7,19 +7,23 @@
     align-items: center;
     gap: 10px;
 }
+
 .navbar .logo {
     width: 100px;
 }
+
 .navbar .menu-btn-cont {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .navbar .menu-btn-cont .btn-cont {
     display: flex;
     gap: 10px;
 }
+
 .navbar .menu-btn-cont .btn-cont a button {
     border: 2px solid #28cf89;
     padding: 8px 14px;
@@ -31,19 +35,23 @@
     background-color: #28cf89;
     cursor: pointer;
 }
+
 .navbar .btn-cont a:last-child button {
     background-color: #4991d9;
     border: 2px solid #4991d9;
 }
+
 .navbar .profile-nav {
     display: flex;
     gap: 20px;
 }
+
 .navbar .profile-nav .fa-cart-flatbed {
     font-size: 20px;
     color: #28cf89;
     cursor: pointer;
 }
+
 .navbar .profile-nav .profile-cont .fa-user {
     font-size: 20px;
     color: #4991d9;
@@ -63,20 +71,25 @@
     background-color: #93c9ff;
     align-items: center;
 }
+
 .profile-transition-enter {
     transform: translateX(220px);
 }
+
 .profile-transition-enter-active {
     transform: translateX(0);
     transition: transform 0.3s;
 }
+
 .profile-transition-exit {
     transform: translateX(0);
 }
+
 .profile-transition-exit-active {
     transform: translateX(220px);
     transition: transform 0.3s;
 }
+
 .navbar .top {
     display: flex;
     flex-direction: column;
@@ -87,6 +100,7 @@
     background-color: #3c76b0;
     box-shadow: inset 0 0 20px #2669ab;
 }
+
 .navbar .nav {
     width: 160px;
     padding: 10px;
@@ -99,14 +113,17 @@
     box-shadow: inset 0 0 10px #2669ab;
     cursor: pointer;
 }
+
 .navbar .nav i {
     width: 16px;
     font-size: 16px;
 }
+
 .navbar .nav h6 {
     font-weight: 100;
     font-size: 14px;
 }
+
 .navbar .top h5 {
     color: #fff;
     font-weight: 600;
@@ -115,6 +132,7 @@
     border-radius: 2px;
     box-shadow: 0 0 3px #153a5f;
 }
+
 .navbar .top .fa-angle-right {
     color: #fff;
     font-size: 30px;
@@ -126,6 +144,7 @@
     box-shadow: 0 0 3px #000;
     cursor: pointer;
 }
+
 .navbar .profile-pic {
     width: 80px;
     height: 80px;
@@ -135,6 +154,7 @@
     overflow: hidden;
     box-shadow: inset 0 0 10px #285d81;
 }
+
 .navbar .profile-pic i {
     margin-top: 9px;
     font-size: 72px;
@@ -145,26 +165,30 @@
 .navbar .menu {
     position: relative;
 }
+
 .navbar .menu-nav-cont {
     position: absolute;
     display: flex;
     flex-direction: column;
     top: 40px;
     left: -10px;
-    background-color: #d2dc12;
-    width: 180px;
+    background-color: #ddd;
+    width: 100vw;
 }
+
 .navbar .menu-nav-cont a {
     text-decoration-line: none;
     display: flex;
     justify-content: space-between;
     padding: 12px 16px;
-    color: #fff;
+    color: #555;
     transition: background-color 0.2s;
 }
+
 .navbar .menu-nav-cont a h6 {
     font-size: 12px;
 }
+
 .navbar .menu-nav-cont a i {
     font-size: 12px;
 }
@@ -176,6 +200,7 @@
     transform: 0.2s;
     position: relative;
 }
+
 .hamburger .checkbox {
     position: absolute;
     opacity: 0;
@@ -183,34 +208,42 @@
     width: 100%;
     cursor: pointer;
 }
+
 .line {
     transition: 0.5s;
     stroke-width: 6px;
     stroke: black;
 }
+
 .lineTop {
     stroke-dasharray: 40 40;
     stroke-dashoffset: 25;
 }
+
 .lineBottom {
     stroke-dasharray: 40 40;
     stroke-dashoffset: 60;
 }
+
 .lineMid {
     stroke-dasharray: 40 40;
 }
-.hamburger .checkbox:checked + svg .line {
+
+.hamburger .checkbox:checked+svg .line {
     stroke: crimson;
 }
-.hamburger .checkbox:checked + svg .lineTop {
+
+.hamburger .checkbox:checked+svg .lineTop {
     stroke-dashoffset: 0;
     transform-origin: left;
     transform: rotateZ(45deg) translate(-7px, -5px);
 }
-.hamburger .checkbox:checked + svg .lineMid {
+
+.hamburger .checkbox:checked+svg .lineMid {
     stroke-dashoffset: 40;
 }
-.hamburger .checkbox:checked + svg .lineBottom {
+
+.hamburger .checkbox:checked+svg .lineBottom {
     stroke-dashoffset: 0;
     transform-origin: left;
     transform: rotateZ(-45deg) translate(-5px, 5px);
@@ -226,26 +259,33 @@
         align-items: end;
         gap: 30px;
     }
+
     .navbar .hamburger {
         display: none;
     }
+
     .navbar .logo {
         width: 150px;
     }
+
     .navbar .profile-nav .fa-cart-flatbed {
         font-size: 30px;
     }
+
     .navbar .profile-nav .profile-cont .fa-user {
         font-size: 30px;
     }
+
     .navbar .btn-cont a button:hover {
         background-color: #fff;
         color: #28cf89;
     }
+
     .navbar .btn-cont a:last-child button:hover {
         color: #4991d9;
         background-color: #fff;
     }
+
     .navbar .menu-nav-cont {
         display: flex;
         flex-direction: row;
@@ -255,6 +295,7 @@
         width: max-content;
         background-color: unset;
     }
+
     .navbar .menu-nav-cont a {
         display: flex;
         justify-content: space-between;
@@ -262,13 +303,16 @@
         padding: 12px 10px;
         color: #555;
     }
+
     .navbar .menu-nav-cont a:hover {
         box-shadow: inset 0 0 1px 1px #555;
         border-radius: 4px;
     }
+
     .navbar .menu-nav-cont a h6 {
         font-size: 12px;
     }
+
     .navbar .menu-nav-cont a i {
         font-size: 12px;
     }
