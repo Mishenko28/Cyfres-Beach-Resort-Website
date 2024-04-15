@@ -7,6 +7,7 @@ export default function LoginAndSignup({ type }) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
@@ -17,6 +18,12 @@ export default function LoginAndSignup({ type }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
+
+        if (type == 'signup' && password !== confirmPassword) {
+            setError("Password dont match")
+            setIsLoading(false)
+            return
+        }
 
         const response = await fetch('https://cyfres-beach-resort-api.onrender.com/auth/' + type, {
             method: 'POST',
@@ -32,14 +39,18 @@ export default function LoginAndSignup({ type }) {
             localStorage.setItem('user', JSON.stringify(json))
             dispatch({ type: "LOGIN", payload: json })
         }
+
         setIsLoading(false)
     }
 
+    if (state.user) {
+        return <Navigate to='/' />
+    }
+
     return (
-        state.user ? <Navigate to='/' />
-        :
         <div className='loginAndSignup-card'>
             <form onSubmit={handleSubmit}>
+                {isLoading && <div className="loader"></div>}
                 <Link className='back' to='/'><i className="fa-solid fa-circle-xmark" /></Link>
                 <h1>{type == 'login' ? "Welcome Back" : "Create Account"}</h1>
                 {error && <h2>{error}</h2>}
@@ -48,7 +59,6 @@ export default function LoginAndSignup({ type }) {
                     <input
                         autoComplete='on'
                         required
-                        id="username"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -59,34 +69,33 @@ export default function LoginAndSignup({ type }) {
                     <input
                         autoComplete='off'
                         required
-                        id="password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    {type == 'signup' &&
+                        <>
+                            <label>Confirm Password:</label>
+                            <input
+                                autoComplete='off'
+                                required
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                        </>
+                    }
                 </div>
                 <button style={type == 'login' ? { backgroundColor: '#4991d9' } : { backgroundColor: '#28cf89' }} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
                 {type == 'signup' &&
                     <>
                         <hr />
-                        <Link to='/login'><button>Login</button></Link>
+                        <h4>Already have an Account?</h4>
+                        <Link to='/login'><button disabled={isLoading} >Login</button></Link>
                     </>
                 }
-                {type == 'login' && <h3>Do not have an Account? <Link to='/signup'>Create one</Link></h3>}
+                {type == 'login' && <h3>Do not have an Account? <Link to={isLoading ? '/login' : '/signup'}>Create one</Link></h3>}
             </form>
-            {isLoading &&
-                <div className="hourglassBackground">
-                    <div className="hourglassContainer">
-                        <div className="hourglassCurves"></div>
-                        <div className="hourglassCapTop"></div>
-                        <div className="hourglassGlassTop"></div>
-                        <div className="hourglassSand"></div>
-                        <div className="hourglassSandStream"></div>
-                        <div className="hourglassCapBottom"></div>
-                        <div className="hourglassGlass"></div>
-                    </div>
-                </div>
-            }
         </div>
     )
 }

@@ -1,11 +1,9 @@
-import React from 'react'
-
 export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
 
     const handleLogout = () => {
         handleProfileTog()
         localStorage.removeItem('user')
-        dispatch({type: "LOGOUT"})
+        dispatch({ type: "LOGOUT" })
         window.location.pathname = '/login'
     }
 
@@ -31,5 +29,5 @@ export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
                 <i className="fa-solid fa-right-from-bracket" />
             </div>
         </div>
-  )
+    )
 }
