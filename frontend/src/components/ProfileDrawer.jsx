@@ -4,7 +4,6 @@ export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
         handleProfileTog()
         localStorage.removeItem('user')
         dispatch({ type: "LOGOUT" })
-        window.location.pathname = '/login'
     }
 
     return (
