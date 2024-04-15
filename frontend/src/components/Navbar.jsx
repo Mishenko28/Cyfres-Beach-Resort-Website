@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 import Menu from './Menu'
@@ -8,7 +8,6 @@ import ProfileDrawer from './ProfileDrawer'
 
 export default function Navbar() {
     const { state, dispatch } = useGlobalContext()
-    const profileDrawerRef = useRef(null)
 
     const [profileTog, setProfileTog] = useState(false)
 
@@ -36,10 +35,9 @@ export default function Navbar() {
                                     in={profileTog}
                                     timeout={300}
                                     classNames='profile-transition'
-                                    nodeRef={profileDrawerRef}
                                     unmountOnExit
                                 >
-                                    <ProfileDrawer forwardRef={profileDrawerRef} state={state} dispatch={dispatch} handleProfileTog={handleProfileTog} />
+                                    <ProfileDrawer state={state} dispatch={dispatch} handleProfileTog={handleProfileTog} />
                                 </CSSTransition>
                             </div>
                         </div>}
