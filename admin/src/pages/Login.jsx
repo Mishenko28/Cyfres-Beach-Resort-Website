@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { Navigate } from "react-router-dom"
 
 export default function Login({ setAdmin }) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('thomas28')
+    const [password, setPassword] = useState('thomas1228')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
@@ -13,13 +12,14 @@ export default function Login({ setAdmin }) {
 
         const response = await fetch('https://cyfres-beach-resort-api.onrender.com/admin/login', {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({email, password})
         })
         const json = await response.json()
-
+        
         if (response.ok) {
             localStorage.setItem('cyfresAdmin', JSON.stringify(json))
-            setAdmin(json.admin)
+            setAdmin(json)
         } else {
             setError(json.error)
         }
@@ -38,7 +38,7 @@ export default function Login({ setAdmin }) {
                         <input
                             autoComplete='on'
                             required
-                            type="email"
+                            type="text"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />

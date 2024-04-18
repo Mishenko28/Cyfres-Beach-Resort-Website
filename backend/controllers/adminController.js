@@ -41,7 +41,7 @@ const addNewAdmin = async (req, res) => {
         if (exist) {
             throw Error("Admin already exist")
         }
-        if (admin.length < 8) {
+        if (email.length < 8) {
             throw Error("Admin must atleast 8 characters")
         }
         if (!validator.isStrongPassword(password, {minUppercase: 0, minNumbers: 0, minSymbols: 0})) {
@@ -51,7 +51,7 @@ const addNewAdmin = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
 
-        const admin = await Admin.create({admin, password: hash})
+        const admin = await Admin.create({email, password: hash})
 
         const token = createToken(admin._id)
 
