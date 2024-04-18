@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import { useGlobalContext } from '../hooks/useGlobalContext'
+import { useState } from "react"
+import { Navigate } from "react-router-dom"
 
-export default function AdminLogin() {
-    const { state, dispatch } = useGlobalContext()
-
-    const [admin, setAdmin] = useState("thomas123")
-    const [password, setPassword] = useState("thomas1228")
-    const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState("")
+export default function Login({ setAdmin }) {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -15,50 +13,49 @@ export default function AdminLogin() {
 
         const response = await fetch('https://cyfres-beach-resort-api.onrender.com/admin/login', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({admin, password})
+            body: JSON.stringify({email, password})
         })
-        
         const json = await response.json()
 
-        if (!response.ok) {
-            setError(json.error)
+        if (response.ok) {
+            localStorage.setItem('cyfresAdmin', JSON.stringify(json))
+            setAdmin(json.admin)
         } else {
-            localStorage.setItem('admin', JSON.stringify(json))
-            dispatch({type: "LOGIN", payload: json})
+            setError(json.error)
         }
         setIsLoading(false)
     }
 
-  return (
-    <div className='login-admin-card'>
-        <form onSubmit={handleSubmit}>
-            <h1>Welcome to Admin</h1>
-            {error && <h2>{error}</h2>}
-            <div>
-                <label>Admin:</label>
-                <input
-                    autoComplete='off'
-                    required
-                    id="username"
-                    type="text"
-                    value={admin}
-                    onChange={(e) => setAdmin(e.target.value)}
-                />
+    return (
+        <>
+            <div className="login-body">
+                <form onSubmit={handleSubmit}>
+                    {isLoading && <div className="loader"></div>}
+                    <h1>Welcome to Admin Page</h1>
+                    {error && <h2>{error}</h2>}
+                    <div>
+                        <label>Email:</label>
+                        <input
+                            autoComplete='on'
+                            required
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input
+                            autoComplete='off'
+                            required
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button disabled={isLoading}>Login</button>
+                </form>
             </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    autoComplete='off'
-                    required
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <button disabled={isLoading}>Login</button>
-        </form>
-    </div>
-  )
+        </>
+    )
 }

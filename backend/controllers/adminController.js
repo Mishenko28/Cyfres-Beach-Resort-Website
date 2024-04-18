@@ -8,24 +8,24 @@ const createToken = (id) => {
 }
 
 const loginAdmin = async (req, res) => {
-    const { admin, password } = await req.body
+    const { email, password } = await req.body
 
     try {
-        const adminUser = await Admin.findOne({admin})
+        const admin = await Admin.findOne({email})
 
-        if (!adminUser) {
+        if (!admin) {
             throw Error("Admin not Found")
         }
 
-        const match = await bcrypt.compare(password, adminUser.password)
+        const match = await bcrypt.compare(password, admin.password)
 
         if (!match) {
             throw Error("Incorrect password")
         }
 
-        const token = createToken(adminUser._id)
+        const token = createToken(admin._id)
 
-        res.status(200).json({admin, token})
+        res.status(200).json({email, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -33,10 +33,10 @@ const loginAdmin = async (req, res) => {
 }
 
 const addNewAdmin = async (req, res) => {
-    const { admin, password } = await req.body
+    const { email, password } = await req.body
 
     try {
-        const exist = await Admin.findOne({admin})
+        const exist = await Admin.findOne({email})
         
         if (exist) {
             throw Error("Admin already exist")
@@ -51,11 +51,11 @@ const addNewAdmin = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
 
-        const user = await Admin.create({admin, password: hash})
+        const admin = await Admin.create({admin, password: hash})
 
         const token = createToken(admin._id)
 
-        res.status(200).json({admin, token})
+        res.status(200).json({email, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }

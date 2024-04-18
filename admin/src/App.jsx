@@ -1,16 +1,38 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useGlobalContext } from './hooks/useGlobalContext'
+import { useEffect, useState } from 'react'
 
+import Dashboard from './pages/Dashboard'
+import Configuration from './pages/Configuration'
+import Utilities from './pages/Utilities'
+import Settings from './pages/Settings'
 import Login from './pages/Login'
-import Admin from './pages/Admin'
+
+import RootLayout from './layouts/RootLayout'
 
 function App() {
-    const { state } = useGlobalContext()
-    
+    const [admin, setAdmin] = useState(false)
+
+    useEffect(() => {
+        const admin = localStorage.getItem('cyfresAdmin')
+        admin && setAdmin(JSON.parse(admin))
+    }, [])
+
     return (
         <Routes>
-            <Route path='/login' element={state.admin ? <Navigate to='/' /> : <Login />} />
-            <Route path='/' element={state.admin ? <Admin /> : <Navigate to='/login' />} />
+            {admin ?
+                <Route path="/" element={<RootLayout admin={admin} setAdmin={setAdmin} />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/configuration" element={<Configuration />} />
+                    <Route path="/utilities" element={<Utilities />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path='*' element={<Navigate to='/' />} />
+                </Route>
+                :
+                <>
+                    <Route path="/login" element={<Login setAdmin={setAdmin} />} />
+                    <Route path='*' element={<Navigate to='/login' />} />
+                </>
+            }
         </Routes>
     )
 }

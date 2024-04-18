@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 module.exports = mongoose.model('Admin', new mongoose.Schema({
-    admin: {
+    email: {
         type: String,
         required: true,
         unique: true
