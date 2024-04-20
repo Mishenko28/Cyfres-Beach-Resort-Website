@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 
 import Dashboard from './pages/Dashboard'
 import Configuration from './pages/Configuration'
@@ -12,6 +13,12 @@ import Users from './pages/Configuration/Users'
 import RootLayout from './layouts/RootLayout'
 
 function App() {
+    if (isMobile) {
+        return (
+            <div className='mobile'>This is only available on PC</div>
+        )
+    }
+
     const [admin, setAdmin] = useState(false)
 
     useEffect(() => {
