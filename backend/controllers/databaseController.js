@@ -8,8 +8,8 @@ const getUsers = async (req, res) => {
         
         const users = await User.find({})
             .sort({ createdAt: -1 })
-            .skip((page - 1) * 10)
-            .limit(10)
+            .skip((page - 1) * 30)
+            .limit(30)
             .select('_id email booked createdAt lastOnline')
 
 

@@ -1,5 +1,5 @@
 .navigation {
-    width: 210px;
+    min-width: 180px;
     margin: 10px;
     background-color: #002244;
     border-radius: 15px;
@@ -10,15 +10,24 @@
 
 .navigation .top {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    padding-block: 20px;
-    color: #0f0;
+    padding-block: 10px;
 }
 
 .navigation .top img {
-    width: 80px;
+    width: 150px;
+}
+
+.navigation .top h1 {
+    color: #0f0;
+    font-size: 1.5rem;
+}
+
+.navigation hr {
+    box-shadow: 0 0 0 0.5px #fff;
 }
 
 .navigation .navs {
@@ -27,9 +36,10 @@
     gap: 15px;
     flex-grow: 1;
     padding-top: 20px;
+    overflow: auto;
 }
 
-.navigation .navs a {
+.navigation .navs .main {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,18 +53,37 @@
     color: #fff;
 }
 
-.navigation .navs .active {
+.navigation .navs .main.active {
     color: #002244;
     background-color: #fff;
 }
 
-.navigation .navs .active:hover {
+.navigation .navs .main.active:hover {
     color: #002244;
     background-color: #fff;
 }
 
 .navigation .navs a h2 {
-    font-size: 20px;
+    font-size: 1rem;
+}
+
+.navigation .navs div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0 10px 10px 10px;
+}
+
+.navigation .navs div a {
+    font-size: 0.7rem;
+    color: #fff;
+    padding: 6px 16px;
+    font-weight:6700;
+    transition: box-shadow 0.5s;
+}
+
+.navigation .navs div a.active {
+    box-shadow: inset 0 0 0 0.5px #fff;
 }
 
 .navigation .bottom button {
@@ -65,7 +94,7 @@
     color: #fff;
     background-color: #002244;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     gap: 20px;

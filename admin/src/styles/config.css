@@ -1,0 +1,226 @@
+.config {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.config h1 {
+    margin: 30px;
+    font-size: 3rem;
+    color: #002244;
+}
+
+.config .cont i {
+    position: fixed;
+    font-size: 90vh;
+    color: rgba(0, 34, 68, 0.5);
+}
+
+.config .cont {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.config .cont a {
+    width: 350px;
+    height: 200px;
+    background-color: rgba(0, 34, 68, 0.95);
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    z-index: 1;
+}
+
+.config .cont a:hover {
+    transform: scale(105%);
+}
+
+/* USERS */
+.config .users {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.config .users .nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #002244;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.config .users .nav h2 {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.config .users .nav h3 {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.config .users .nav .btns {
+    display: flex;
+    color: #fff;
+    gap: 5px;
+    align-items: center;
+}
+
+.config .users .nav .btns i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.config .users .nav .btns i:hover {
+    color: #0f0;
+}
+
+.config .users .nav input {
+    font-size: 1rem;
+    padding: 10px 15px;
+    width: 50%;
+    background-color: #fff;
+    color: #002244;
+    border-radius: 20px;
+}
+
+.config .users .users-body .table {
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    background-color: #002244;
+    padding: 10px;
+}
+
+.config .users .users-body .table .user-cont-nav {
+    color: #fff;
+    display: flex;
+    padding-block: 10px;
+}
+
+.config .users .users-body .table .user-cont-nav h3 {
+    font-size: 1.2rem;
+    width: 200px;
+    text-align: center;
+}
+
+.config .users .users-body .table .user-cont-nav h3:nth-child(1) {
+    padding-left: 10px;
+    text-align: start;
+    width: 80px;
+}
+
+.config .users .users-body .table .user-cont-nav h3:nth-child(2) {
+    flex-grow: 1;
+    text-align: start;
+}
+
+.config .users .users-body .table .user-cont-body {
+    color: #002244;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.config .users .users-body .table .user-cont-body .user-cont {
+    display: flex;
+    gap: 2px;
+}
+
+.config .users .users-body .table .user-cont-body .user-cont:hover {
+    background-color: #eee;
+}
+
+.config .users .users-body .table .user-cont-body .user-cont h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 200px;
+    text-align: center;
+    padding-block: 12px;
+}
+
+.config .users .users-body .table .user-cont-body .user-cont h3:nth-child(1) {
+    text-align: start;
+    padding-left: 20px;
+    width: 70px;
+}
+
+.config .users .users-body .table .user-cont-body .user-cont h3:nth-child(2) {
+    text-align: start;
+    flex-grow: 1;
+}
+
+
+/* LOADER */
+.dots-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding-block: 100px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.dot:nth-child(5) {
+    animation-delay: 1s;
+}
+
+.dot:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        background-color: #0054a8;
+        box-shadow: 0 0 0 0 rgba(0, 34, 68, 0.7);
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: #003e7c;
+        box-shadow: 0 0 0 8px rgba(0, 34, 68, 0);
+    }
+
+    100% {
+        transform: scale(0.8);
+        background-color: #002244;
+        box-shadow: 0 0 0 0 rgba(0, 34, 68, 0.7);
+    }
+}

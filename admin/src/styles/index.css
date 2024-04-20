@@ -4,10 +4,19 @@
     font-family: sans-serif;
     text-decoration: none;
     border: none;
+    user-select: none;
 }
 
 .app {
     height: 100vh;
     display: flex;
-    background-color: #fffad7;
+    background-color: #d3feff;
+}
+
+.fa-circle-check {
+    color: #0f0;
+}
+
+.fa-circle-xmark {
+    color: #f00;
 }
