@@ -30,7 +30,7 @@ const getMatchingUser = async (req, res) => {
             .sort({ createdAt: -1 })
             .skip((page - 1) * returnedNumUser)
             .limit(returnedNumUser)
-            .select('email _id')
+            .select('_id email booked createdAt lastOnline')
         
         const totalUsers = await User.countDocuments({ email: { $regex: `^${searchUser}`, $options: 'i' }})
 
