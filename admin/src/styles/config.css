@@ -60,18 +60,26 @@
     justify-content: space-between;
     align-items: center;
     background-color: #002244;
-    padding: 5px 10px;
+    padding: 8px 10px;
     border-radius: 6px;
 }
 
 .config .users .nav h2 {
     font-size: 2rem;
     color: #fff;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.config .users .nav h2 i {
+    font-size: 1.5rem;
 }
 
 .config .users .nav h3 {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #fff;
+    font-weight: 100;
 }
 
 .config .users .nav .btns {
@@ -97,6 +105,18 @@
     background-color: #fff;
     color: #002244;
     border-radius: 20px;
+}
+
+.config .users .nav .fa-rotate {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.config .users .nav .fa-rotate:active {
+    transform: rotate(60deg);
 }
 
 .config .users .users-body .table {
