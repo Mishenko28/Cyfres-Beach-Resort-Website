@@ -155,6 +155,7 @@
     background-color: #fff;
     border-radius: 6px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .config .users .users-body .table .user-cont-body .user-cont {
@@ -184,6 +185,108 @@
     text-align: start;
     flex-grow: 1;
 }
+
+.config .users .selected-user-cont {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.config .users .selected-user-cont .selected-user-card {
+    background-color: #002244;
+    width: 700px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-nav .fa-user {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #002244;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-nav h2 {
+    color: #fff;
+    margin-left: 20px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-nav .fa-square-xmark {
+    color: #f00;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body {
+    background-color: #fff;
+    flex-grow: 1;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    gap: 10px;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont h4 {
+    font-size: 1.5rem;
+    color: #555;
+    background-color: #ccc;
+    width: 100%;
+    text-align: center;
+    padding-block: 5px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details {
+    display: flex;
+    margin-inline: 10px;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details h2 {
+    font-size: 1.2rem;
+    width: 200px;
+    color: #555;
+}
+
+.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details h3 {
+    font-size: 1.2rem;
+    color: #002244;
+}
+
+
 
 
 /* LOADER */

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function LoginAndSignup({ type }) {
-    const { state, dispatch } = useGlobalContext()
+    const { dispatch } = useGlobalContext()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("johnthomasalog@gmail.com")
+    const [password, setPassword] = useState("thomas1228")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +25,7 @@ export default function LoginAndSignup({ type }) {
             return
         }
 
-        const response = await fetch('https://cyfres-beach-resort-api.onrender.com/auth/' + type, {
+        const response = await fetch('http://localhost:5000/auth/' + type, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -41,10 +41,6 @@ export default function LoginAndSignup({ type }) {
         }
 
         setIsLoading(false)
-    }
-
-    if (state.user) {
-        return <Navigate to='/' />
     }
 
     return (

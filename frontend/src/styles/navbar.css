@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jersey+15&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .navbar {
     padding: 10px;
@@ -174,26 +174,32 @@
     flex-direction: column;
     top: 40px;
     left: -10px;
-    background-color: #eee;
+    background-color: #fdfdfd;
     width: 100vw;
+}
+
+.navbar .menu-nav-cont hr {
+    border: none;
 }
 
 .navbar .menu-nav-cont a {
     text-decoration-line: none;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 12px 16px;
     color: #555;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
 .navbar .menu-nav-cont .active {
     background-color: #f37f51;
+    color: #fff;
 }
 
 .navbar .menu-nav-cont a h6 {
     font-size: 12px;
-    font-family: 'Roboto';
+    font-family: 'Poppins', sans-serif;
 }
 
 .navbar .menu-nav-cont a i {
@@ -297,9 +303,13 @@
         flex-direction: row;
         top: -19.5px;
         left: -10px;
-        gap: 25px;
+        gap: 5px;
         width: max-content;
         background-color: unset;
+    }
+
+    .navbar .menu-nav-cont hr {
+        border: 1px solid #ddd;
     }
 
     .navbar .menu-nav-cont a {
@@ -313,6 +323,7 @@
     .navbar .menu-nav-cont .active {
         box-shadow: inset 0 -4px 0 #f37f51;
         background-color: unset;
+        color: #555;
     }
 
     .navbar .menu-nav-cont a h6 {

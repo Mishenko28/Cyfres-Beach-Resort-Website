@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
+import useAdmin from './hooks/useAdmin'
 
 import Dashboard from './pages/Dashboard'
 import Configuration from './pages/Configuration'
@@ -12,24 +13,21 @@ import Users from './pages/Configuration/Users'
 
 import RootLayout from './layouts/RootLayout'
 
+import TokenExpired from './components/TokenExpired'
+import OfflinePage from './components/OfflinePage'
+import PCOnly from './components/PCOnly'
+
 function App() {
-    if (isMobile) {
-        return (
-            <div className='mobile'>This is only available on PC</div>
-        )
-    }
+    const { state } = useAdmin()
 
-    const [admin, setAdmin] = useState(false)
-
-    useEffect(() => {
-        const admin = localStorage.getItem('cyfresAdmin')
-        admin && setAdmin(JSON.parse(admin))
-    }, [])
+    if (state.admin.expired) { return <TokenExpired /> }
+    if (isMobile) { return <PCOnly /> }
+    if (!navigator.onLine) { return <OfflinePage /> }
 
     return (
         <Routes>
-            {admin ?
-                <Route path="/" element={<RootLayout admin={admin} setAdmin={setAdmin} />}>
+            {state.admin.email ?
+                <Route path="/" element={<RootLayout />}>
                     <Route index element={<h1>helloo</h1>} />
                     <Route path="dashboard" element={<Dashboard />}>
                         <Route path='reservation' element={<h1>reservation</h1>} />
@@ -41,7 +39,7 @@ function App() {
                         <Route path='amenities' element={<h1>amenities</h1>} />
                         <Route path='gallery' element={<h1>gallery</h1>} />
                         <Route path='about-us' element={<h1>about us</h1>} />
-                        <Route path='users' element={<Users admin={admin} />} />
+                        <Route path='users' element={<Users />} />
                     </Route>
                     <Route path="utilities" element={<Utilities />}>
                         <Route path='admin' element={<h1>admin</h1>} />
@@ -56,7 +54,7 @@ function App() {
                 </Route>
                 :
                 <>
-                    <Route path="/login" element={<Login setAdmin={setAdmin} />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path='*' element={<Navigate to='/login' />} />
                 </>
             }

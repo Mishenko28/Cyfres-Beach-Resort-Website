@@ -21,7 +21,72 @@
     color: #f00;
 }
 
-.mobile {
-    font-size: 4rem;
-    text-align: center;
+
+.tiles-cont {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tiles-cont::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background:
+        linear-gradient(90deg, #eee 1px, transparent 1px),
+        linear-gradient(#eee 1px, transparent 1px);
+    background-size: 100px 100px;
+}
+
+.tiles-cont .offline-mssg {
+    font-size: 3rem;
+    font-weight: 700;
+    z-index: 1;
+    background-color: #fff;
+    padding: 50px;
+}
+
+.tiles-cont .mobile {
+    font-size: 3rem;
+    font-weight: 700;
+    z-index: 1;
+    background-color: #fff;
+    padding: 50px;
+}
+
+.tiles-cont .expired-card {
+    box-shadow: 0 5px 20px #ccc;
+    background-color: #fff;
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    z-index: 1
+}
+
+.tiles-cont .expired-card .btn-cont {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tiles-cont .expired-card .btn-cont button {
+    width: 100px;
+    height: 40px;
+    background-color: #00f;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tiles-cont .expired-card .btn-cont button:last-child {
+    background-color: #f00;
 }

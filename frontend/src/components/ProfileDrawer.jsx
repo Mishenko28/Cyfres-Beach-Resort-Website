@@ -1,4 +1,7 @@
-export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
+import { useGlobalContext } from "../hooks/useGlobalContext"
+
+export default function ProfileDrawer({ handleProfileTog }) {
+    const { state, dispatch } = useGlobalContext()
 
     const handleLogout = () => {
         handleProfileTog()
@@ -16,12 +19,12 @@ export default function ProfileDrawer({ state, dispatch, handleProfileTog }) {
                 <h5>{state.user.email}</h5>
             </div>
             <div className='nav'>
-                <h6>User Settings</h6>
-                <i className="fa-solid fa-user-pen" />
-            </div>
-            <div className='nav'>
                 <h6>Book Now</h6>
                 <i className="fa-regular fa-calendar-check" />
+            </div>
+            <div className='nav'>
+                <h6>Settings</h6>
+                <i className="fa-solid fa-user-pen" />
             </div>
             <div className='nav' onClick={handleLogout}>
                 <h6>Logout</h6>

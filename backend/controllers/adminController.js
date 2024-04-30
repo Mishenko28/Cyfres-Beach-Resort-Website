@@ -4,7 +4,7 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 
 const createToken = (id) => {
-    return jwt.sign({id}, process.env.TOKENPASSWORD, { expiresIn: '8h' })
+    return jwt.sign({id}, process.env.TOKENPASSWORD, { expiresIn: '3s' })
 }
 
 const loginAdmin = async (req, res) => {

@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
+import useAdmin from '../hooks/useAdmin'
 
-export default function RootLayout({ admin, setAdmin }) {
+export default function RootLayout() {
     const [dashboardChildNavs, setDashboardChildNavs] = useState(false)
     const [utilitiesChildNavs, setUtilitiesChildNavs] = useState(false)
     const [settingsChildNavs, setSettingsChildNavs] = useState(false)
     const [confiurationChildNavs, setConfigurationChildNavs] = useState(false)
 
+    const { state, dispatch } = useAdmin()
+
     const handleLogout = () => {
-        localStorage.removeItem('cyfresAdmin')
-        setAdmin(null)
+        dispatch({ type: "LOGOUT" })
     }
 
     return (
@@ -17,7 +19,7 @@ export default function RootLayout({ admin, setAdmin }) {
             <div className="navigation">
                 <div className="top">
                     <img src="/cyfresLogo.jpg" />
-                    <h1>{admin.email}</h1>
+                    <h1>{state.admin.email}</h1>
                 </div>
                 <hr />
                 <div className="navs">

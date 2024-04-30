@@ -7,7 +7,7 @@ import Menu from './Menu'
 import ProfileDrawer from './ProfileDrawer'
 
 export default function Navbar() {
-    const { state, dispatch } = useGlobalContext()
+    const { state } = useGlobalContext()
 
     const [profileTog, setProfileTog] = useState(false)
 
@@ -37,7 +37,7 @@ export default function Navbar() {
                                     classNames='profile-transition'
                                     unmountOnExit
                                 >
-                                    <ProfileDrawer state={state} dispatch={dispatch} handleProfileTog={handleProfileTog} />
+                                    <ProfileDrawer handleProfileTog={handleProfileTog} />
                                 </CSSTransition>
                             </div>
                         </div>}

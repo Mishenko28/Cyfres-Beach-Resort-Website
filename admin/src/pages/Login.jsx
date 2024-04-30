@@ -1,25 +1,27 @@
 import { useState } from "react"
+import useAdmin from "../hooks/useAdmin"
 
-export default function Login({ setAdmin }) {
+export default function Login() {
     const [email, setEmail] = useState('thomas28')
     const [password, setPassword] = useState('thomas1228')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
+    const { dispatch } = useAdmin()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
 
-        const response = await fetch('https://cyfres-beach-resort-api.onrender.com/admin/login', {
+        const response = await fetch('http://localhost:5000/admin/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({ email, password })
         })
         const json = await response.json()
-        
+
         if (response.ok) {
-            localStorage.setItem('cyfresAdmin', JSON.stringify(json))
-            setAdmin(json)
+            dispatch({ type: "LOGIN", payload: json })
         } else {
             setError(json.error)
         }
