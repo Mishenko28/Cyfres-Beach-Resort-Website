@@ -20,7 +20,8 @@ const reducer = (state, action) => {
 export default function GlobalContextProvider({children}) {
     const [state, dispatch] = useReducer(reducer, {
         user: null,
-        disposableCont: null
+        disposableCont: null,
+        uri: "https://cyfres-beach-resort-api.onrender.com"
     })
 
     useEffect(() => {

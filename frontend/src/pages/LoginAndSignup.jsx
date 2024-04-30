@@ -3,7 +3,7 @@ import { useGlobalContext } from '../hooks/useGlobalContext'
 import { Link } from 'react-router-dom'
 
 export default function LoginAndSignup({ type }) {
-    const { dispatch } = useGlobalContext()
+    const { state, dispatch } = useGlobalContext()
 
     const [email, setEmail] = useState("johnthomasalog@gmail.com")
     const [password, setPassword] = useState("thomas1228")
@@ -25,7 +25,7 @@ export default function LoginAndSignup({ type }) {
             return
         }
 
-        const response = await fetch('http://localhost:5000/auth/' + type, {
+        const response = await fetch( state.uri + '/auth/' + type, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
