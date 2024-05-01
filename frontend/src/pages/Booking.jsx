@@ -1,9 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Booking() {
     const [dateIn, setDateIn] = useState(new Date().toLocaleDateString('en-CA'))
     const [dateOut, setDateOut] = useState(new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString('en-CA'))
     const totalPeriod = (new Date(dateOut) - new Date(dateIn)) / 86400000
+    const [totalAmount, setTotalAmount] = useState(0)
+    const [rooms, setRooms] = useState([])
+
+    useEffect(() => {
+        const rooms = [
+            { _id: 123, name: 'Room 1', max: 3, rate: 1500 },
+            { _id: 223, name: 'Room 2', max: 5, rate: 2500 },
+            { _id: 323, name: 'Room 3', max: 4, rate: 2000 },
+            { _id: 423, name: 'Room 4', max: 1, rate: 1000 }
+        ]
+
+        setRooms(rooms.map(room => ({ ...room, isChecked: false })))
+    }, [])
+
+    useEffect(() => {
+        setTotalAmount(0)
+        rooms.map(room => room.isChecked && setTotalAmount(p => p + room.rate))
+    }, [rooms])
 
     const handleDate = (e, type) => {
         if (type == 'in') {
@@ -19,8 +37,11 @@ export default function Booking() {
             } else {
                 setDateOut(new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString('en-CA'))
             }
-
         }
+    }
+
+    const handleCheckbox = (id) => {
+        setRooms(prev => prev.map(room => (room._id == id ? { ...room, isChecked: !room.isChecked } : { ...room })))
     }
 
     return (
@@ -39,31 +60,23 @@ export default function Booking() {
                     <div>
                         <h3>Total Period:</h3>
                         {totalPeriod !== 0 &&
-                            <h5>{totalPeriod} {totalPeriod == 1 ? 'Day' : 'Days'}</h5>
+                            <h5>{totalPeriod} Day{totalPeriod !== 1 && 's'}</h5>
                         }
                     </div>
                 </div>
                 <div className="rooms-cont">
                     <h3>Select Room/s</h3>
-                    <h4>Total Amount:</h4>
-                    <h4>Deposit Amount:</h4>
+                    <h4>Total Amount: ₱ {totalAmount}</h4>
+                    <h4>Minimum Deposit: ₱ {totalAmount * 0.5}</h4>
                     <div className="rooms">
-                        <div className="room">
-                            <input type="checkbox" id="room1" />
-                            <label htmlFor="room1">Room 1</label>
-                        </div>
-                        <div className="room">
-                            <input type="checkbox" id="room2" />
-                            <label htmlFor="room2">Room 2</label>
-                        </div>
-                        <div className="room">
-                            <input type="checkbox" id="room3" />
-                            <label htmlFor="room3">Room 3</label>
-                        </div>
-                        <div className="room">
-                            <input type="checkbox" id="room4" />
-                            <label htmlFor="room4">Room 4</label>
-                        </div>
+                        {rooms.map(room => (
+                            <div key={room._id} className="room">
+                                <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.name} />
+                                <label htmlFor={room.name}>{room.name}</label>
+                                <h6>max {room.max} Person{room.max !== 1 && 's'}</h6>
+                                <h6>₱ {room.rate}</h6>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="req">
