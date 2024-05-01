@@ -60,6 +60,19 @@
     padding: 4px 10px;
 }
 
+.booking form .date div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.booking form .date div h5 {
+    color: #444;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    padding-inline: 5px;
+}
+
 .booking form .rooms-cont {
     display: flex;
     flex-direction: column;
@@ -114,4 +127,17 @@
     align-self: center;
     color: #fff;
     padding: 10px 20px;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 860px) {
+    .booking form {
+        width: 750px;
+        padding: 30px;
+        gap: 30px;
+    }
+
+    .booking form button {
+        padding: 15px 30px;
+    }
 }
