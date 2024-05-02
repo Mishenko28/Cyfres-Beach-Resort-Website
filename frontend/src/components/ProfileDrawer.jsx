@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useGlobalContext } from "../hooks/useGlobalContext"
 
 export default function ProfileDrawer({ handleProfileTog }) {
@@ -18,14 +19,14 @@ export default function ProfileDrawer({ handleProfileTog }) {
                 </div>
                 <h5>{state.user.email}</h5>
             </div>
-            <div className='nav'>
+            <Link to='/booking' className='nav' onClick={() => handleProfileTog(false)}>
                 <h6>Book Now</h6>
                 <i className="fa-regular fa-calendar-check" />
-            </div>
-            <div className='nav'>
+            </Link>
+            <Link to='/settings' className='nav' onClick={() => handleProfileTog(false)}>
                 <h6>Settings</h6>
                 <i className="fa-solid fa-user-pen" />
-            </div>
+            </Link>
             <div className='nav' onClick={handleLogout}>
                 <h6>Logout</h6>
                 <i className="fa-solid fa-right-from-bracket" />

@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 import Menu from './Menu'
@@ -10,6 +10,18 @@ export default function Navbar() {
     const { state } = useGlobalContext()
 
     const [profileTog, setProfileTog] = useState(false)
+
+    useEffect(() => {
+        const handler = () => {
+            setProfileTog(false)
+        }
+
+        window.addEventListener('scroll', handler)
+
+        return () => {
+            window.removeEventListener('scroll', handler)
+        }
+    }, [])
 
     const handleProfileTog = () => {
         setProfileTog(!profileTog)

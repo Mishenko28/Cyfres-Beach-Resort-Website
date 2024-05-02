@@ -28,17 +28,17 @@ export default function Menu() {
         }
 
         window.addEventListener('resize', handleResize)
-        
+
         return () => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
-    
-    
+
+
     return (
         <div className="menu">
-            <MenuBtn handleNavTog={handleNavTog} checked={checked}/>
-            {navTog && <Navigations />}
+            <MenuBtn handleNavTog={handleNavTog} checked={checked} />
+            {navTog && <Navigations handleNavTog={handleNavTog} />}
         </div>
     )
 }

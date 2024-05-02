@@ -104,7 +104,7 @@
 }
 
 .navbar .nav {
-    width: 160px;
+    width: 180px;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -114,6 +114,7 @@
     border-radius: 3px;
     box-shadow: inset 0 0 10px #2669ab;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .navbar .nav i {
@@ -129,10 +130,6 @@
 .navbar .top h5 {
     color: #fff;
     font-weight: 600;
-    background-color: #235383;
-    padding: 5px 8px;
-    border-radius: 2px;
-    box-shadow: 0 0 3px #153a5f;
 }
 
 .navbar .top .fa-angle-right {

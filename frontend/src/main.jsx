@@ -5,6 +5,7 @@ import './styles/index.css'
 import './styles/navbar.css'
 import './styles/loginAndSignup.css'
 import './styles/booking.css'
+import './styles/settings.css'
 import GlobalContextProvider from './context/globalContext'
 import { BrowserRouter } from 'react-router-dom'
 

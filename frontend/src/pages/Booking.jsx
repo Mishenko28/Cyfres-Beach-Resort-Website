@@ -73,7 +73,7 @@ export default function Booking() {
                             <div key={room._id} className="room">
                                 <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.name} />
                                 <label htmlFor={room.name}>{room.name}</label>
-                                <h6>max {room.max} Person{room.max !== 1 && 's'}</h6>
+                                <h6>Max {room.max} Person{room.max !== 1 && 's'}</h6>
                                 <h6>₱ {room.rate}</h6>
                             </div>
                         ))}
