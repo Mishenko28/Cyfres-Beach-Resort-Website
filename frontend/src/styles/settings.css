@@ -47,7 +47,7 @@
     border: 1px solid #ccc;
     font-size: 0.9rem;
     color: #444;
-    font-weight: 200;
+    font-weight: 400;
     text-align: end;
     width: 190px;
     padding: 3px;
@@ -60,7 +60,7 @@
 .settings .details div .sex h3 {
     font-size: 0.9rem;
     color: #444;
-    font-weight: 200;
+    font-weight: 400;
     width: 190px;
     text-align: end;
     border: 1px solid #ccc;
