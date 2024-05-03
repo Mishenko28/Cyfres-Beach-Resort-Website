@@ -24,4 +24,4 @@ module.exports = mongoose.model('Book', new mongoose.Schema({
         type: String,
         default: "Pending"
     }
-}, { timestamps: true }), 'book')
+}, { timestamps: true }), 'books')
