@@ -17,6 +17,7 @@ export default function Booking() {
     const [rooms, setRooms] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [books, setBooks] = useState([])
+    const [emptyTogg, setEmptyTogg] = useState(false)
 
     useEffect(() => {
         if (state.user) {
@@ -85,6 +86,11 @@ export default function Booking() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if (slctRoom.length == 0) {
+            setEmptyTogg(true)
+            return
+        }
 
         const fetchAddBook = async () => {
             const response = await fetch(`${state.uri}/database/user/book`, {
@@ -159,7 +165,7 @@ export default function Booking() {
                                 }
                             </div>
                         </div>
-                        <div className="rooms-cont">
+                        <div style={emptyTogg ? {border: '1px solid #f00'} : null} className="rooms-cont">
                             <h3>Select Room/s</h3>
                             <h4>Total Amount: ₱ {totalAmount}</h4>
                             <h4>Minimum Deposit: ₱ {totalAmount * 0.5}</h4>
