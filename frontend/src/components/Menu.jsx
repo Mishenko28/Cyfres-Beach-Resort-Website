@@ -1,10 +1,11 @@
 import Navigations from "./Navigations"
 import MenuBtn from "./MenuBtn"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function Menu() {
     const [navTog, setNavTog] = useState(false)
     const [checked, setChecked] = useState(false)
+    const menuRef = useRef()
 
     const handleNavTog = () => {
         setNavTog(!navTog)
@@ -21,6 +22,13 @@ export default function Menu() {
             }
         }
 
+        const handleClick = (e) => {
+            if (menuRef.current !== e.target && !menuRef.current.contains(e.target)) {
+                setNavTog(false)
+                setChecked(false)
+            }
+        }
+
         if (window.innerWidth >= 860) {
             setNavTog(true)
         } else {
@@ -28,15 +36,16 @@ export default function Menu() {
         }
 
         window.addEventListener('resize', handleResize)
+        window.addEventListener('click', handleClick)
 
         return () => {
             window.removeEventListener('resize', handleResize)
+            window.removeEventListener('click', handleClick)
         }
     }, [])
 
-
     return (
-        <div className="menu">
+        <div ref={menuRef} className="menu">
             <MenuBtn handleNavTog={handleNavTog} checked={checked} />
             {navTog && <Navigations handleNavTog={handleNavTog} />}
         </div>

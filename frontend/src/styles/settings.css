@@ -50,7 +50,8 @@
     font-weight: 400;
     text-align: end;
     width: 190px;
-    padding: 3px;
+    padding-inline: 3px;
+    height: 30px;
 }
 
 .settings .details div .sex {
@@ -62,9 +63,13 @@
     color: #444;
     font-weight: 400;
     width: 190px;
-    text-align: end;
     border: 1px solid #ccc;
-    padding: 3px;
+    padding-inline: 3px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
 }
 
 .settings .details div .sex .sex-dropdown {

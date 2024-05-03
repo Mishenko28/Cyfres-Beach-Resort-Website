@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const UserDetails = require('../models/userDetailsModel')
 
 const getUsers = async (req, res) => {
     const page = req.query.page
@@ -40,7 +41,52 @@ const getMatchingUser = async (req, res) => {
     }
 }
 
+const addUserDetails = async (req, res) => {
+    const { _id, name, age, sex, address, contact } = req.body
+
+    try {
+        const exist = await UserDetails.findOne({ userId: _id })
+
+        if (exist) {
+            throw Error("user already have details")
+        }
+
+        const userDetails = await UserDetails.create({ name, age, sex, address, contactNumber: contact, userId: _id })
+
+        res.status(200).json(userDetails)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const getUserDetails = async (req, res) => {
+    const { _id } = req.query
+    try {
+        const userDetails = await UserDetails.find({ userId: _id })
+
+        res.status(200).json(userDetails)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const updateUserDetails = async (req, res) => {
+    const { _id, name, age, sex, address, contact } = req.body
+    console.log(name)
+    try {
+        const userDetails = await UserDetails.findOneAndUpdate({ userId: _id }, { name, age, sex, address, contactNumber: contact }, { new: true })
+
+        res.status(200).json(userDetails)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+
 module.exports = {
     getUsers,
-    getMatchingUser
+    getMatchingUser,
+    getUserDetails,
+    addUserDetails,
+    updateUserDetails
 }

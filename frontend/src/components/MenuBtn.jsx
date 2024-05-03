@@ -12,7 +12,7 @@ export default function MenuBtn({ handleNavTog, checked }) {
                     stroke="black"
                     d="M6 11L44 11"
                 ></path>
-                    <path
+                <path
                     strokeLinecap="round"
                     strokeWidth="4"
                     stroke="black"

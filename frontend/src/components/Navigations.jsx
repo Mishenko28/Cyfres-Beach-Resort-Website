@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom"
 
 export default function Navigations({ handleNavTog }) {
     return (
-        <div onClick={() => handleNavTog(false)} className="menu-nav-cont">
+        <div className="menu-nav-cont">
             <NavLink to='/'>
                 <h6>HOME</h6>
                 <i className="fa-solid fa-house" />
             </NavLink>
             <hr />
-            <NavLink to='/booking'>
+            <NavLink onClick={handleNavTog} to='/booking'>
                 <h6>BOOKING</h6>
                 <i className="fa-regular fa-calendar-check" />
             </NavLink>

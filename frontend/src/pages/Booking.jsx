@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
+import { useGlobalContext } from "../hooks/useGlobalContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Booking() {
+    const { state, dispatch } = useGlobalContext()
+    const navigate = useNavigate()
+
     const [dateIn, setDateIn] = useState(new Date().toLocaleDateString('en-CA'))
     const [dateOut, setDateOut] = useState(new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString('en-CA'))
     const totalPeriod = (new Date(dateOut) - new Date(dateIn)) / 86400000
@@ -8,6 +13,18 @@ export default function Booking() {
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
+        if (state.user) {
+            fetch(`${state.uri}/database/user/details?_id=${state.user._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${state.user.token}`
+                }
+            })
+                .then(response => response.json())
+                .then(json => json.length == 0 && navigate('/settings/personal-details'))
+        } else {
+            navigate('/signup')
+        }
+
         const rooms = [
             { _id: 123, name: 'Room 1', max: 3, rate: 1500 },
             { _id: 223, name: 'Room 2', max: 5, rate: 2500 },

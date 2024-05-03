@@ -72,6 +72,7 @@
     flex-direction: column;
     background-color: #93c9ff;
     align-items: center;
+    z-index: 1;
 }
 
 .profile-transition-enter {
@@ -171,8 +172,9 @@
     flex-direction: column;
     top: 40px;
     left: -10px;
-    background-color: #fdfdfd;
+    background-color: #fbfbfb;
     width: 100vw;
+    z-index: 1;
 }
 
 .navbar .menu-nav-cont hr {

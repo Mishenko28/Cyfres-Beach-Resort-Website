@@ -28,10 +28,12 @@ function App() {
                 <Route path='amenities' element={<Amenities />} />
                 <Route path='gallery' element={<Gallery />} />
                 <Route path='about-us' element={<AboutUs />} />
-                <Route path='settings' element={<Settings />}>
-                    <Route path='personal-details' element={<PersonalDetails />} />
-                    <Route path='account' element={<Account />} />
-                </Route>
+                {state.user &&
+                    <Route path='settings' element={<Settings />}>
+                        <Route path='personal-details' element={<PersonalDetails />} />
+                        <Route path='account' element={<Account />} />
+                    </Route>
+                }
                 {!state.user &&
                     <>
                         <Route path='login' element={<LoginAndSignup type='login' />} />

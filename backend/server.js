@@ -3,7 +3,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const databaseRoutes = require('./routes/databaseRoutes')
 
