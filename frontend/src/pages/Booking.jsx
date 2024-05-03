@@ -100,6 +100,7 @@ export default function Booking() {
 
             setBooks(p => [...p, json.book])
         }
+        window.scrollTo({ top: 0, behavior: "smooth" })
         fetchAddBook()
     }
 
