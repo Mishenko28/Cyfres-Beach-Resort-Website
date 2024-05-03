@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../hooks/useGlobalContext"
 
 export default function ProfileDrawer({ handleProfileTog }) {
     const { state, dispatch } = useGlobalContext()
+    const navigate = useNavigate()
 
     const handleLogout = () => {
         handleProfileTog()
         localStorage.removeItem('user')
         dispatch({ type: "LOGOUT" })
+        navigate('/signup')
     }
 
     return (
