@@ -105,6 +105,11 @@
     cursor: pointer;
 }
 
+.settings .details div h5 {
+    color: #f00;
+    font-size: 1.2rem;
+}
+
 .settings .account {
     margin-inline: 20px;
 }

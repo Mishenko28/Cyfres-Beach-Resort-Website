@@ -13,6 +13,7 @@ export default function PersonalDetails() {
     const [isLoading, setIsLoading] = useState(false)
     const [userDetails, setUserDetails] = useState([])
     const [saveTogg, setSaveTogg] = useState(false)
+    const [emptyTogg, setEmptyTogg] = useState(false)
 
     const [sexTogg, setSexTogg] = useState(false)
     const sexRef = useRef()
@@ -76,8 +77,15 @@ export default function PersonalDetails() {
     const handleSave = (e) => {
         e.preventDefault()
 
+        if (name == "" || age == "" || sex == "" || address == "" || contact == "") {
+            setEmptyTogg(true)
+            return
+        }
+
         if (userDetails.length == 1) {
             const fetchUpdate = async () => {
+                setIsLoading(true)
+
                 const response = await fetch(`${state.uri}/database/user/details`, {
                     method: 'PATCH',
                     body: JSON.stringify({ _id: state.user._id, name, age, sex, address, contact }),
@@ -91,10 +99,13 @@ export default function PersonalDetails() {
 
                 setUserDetails([json])
                 setSaveTogg(false)
+                setIsLoading(false)
             }
             fetchUpdate()
         } else {
             const fetchAdd = async () => {
+                setIsLoading(true)
+
                 const response = await fetch(`${state.uri}/database/user/details`, {
                     method: 'POST',
                     body: JSON.stringify({ _id: state.user._id, name, age, sex, address, contact }),
@@ -108,10 +119,10 @@ export default function PersonalDetails() {
 
                 setUserDetails([json])
                 setSaveTogg(false)
+                setIsLoading(false)
             }
             fetchAdd()
         }
-
     }
 
     return (
@@ -124,15 +135,24 @@ export default function PersonalDetails() {
                         <h2>Please fill all the details to continue BOOKING.</h2>
                     </div>
                     <div>
-                        <h2>Name</h2>
+                        <div>
+                            {emptyTogg && name == "" && <h5>*</h5>}
+                            <h2>Name</h2>
+                        </div>
                         <input onChange={(e) => setName(e.target.value)} value={name} type="text" />
                     </div>
                     <div>
-                        <h2>Age</h2>
+                        <div>
+                            {emptyTogg && age == "" && <h5>*</h5>}
+                            <h2>Age</h2>
+                        </div>
                         <input onChange={(e) => setAge(parseInt(e.target.value) || "")} value={age} type="number" />
                     </div>
                     <div>
-                        <h2>Sex</h2>
+                        <div>
+                            {emptyTogg && sex == "" && <h5>*</h5>}
+                            <h2>Sex</h2>
+                        </div>
                         <div ref={sexRef} className="sex">
                             <h3 style={sexTogg ? { boxShadow: "inset 0 0 0 1px #000" } : null} onClick={() => setSexTogg(!sexTogg)}>{sex}</h3>
                             {sexTogg &&
@@ -145,11 +165,17 @@ export default function PersonalDetails() {
                         </div>
                     </div>
                     <div>
-                        <h2>Address</h2>
+                        <div>
+                            {emptyTogg && address == "" && <h5>*</h5>}
+                            <h2>Address</h2>
+                        </div>
                         <input onChange={(e) => setAddress(e.target.value)} value={address} type="text" />
                     </div>
                     <div>
-                        <h2>Contact Number</h2>
+                        <div>
+                            {emptyTogg && contact == "" && <h5>*</h5>}
+                            <h2>Contact Number</h2>
+                        </div>
                         <input onChange={(e) => setContact(parseInt(e.target.value) || "")} value={contact} type="tel" />
                     </div>
                     {saveTogg &&
