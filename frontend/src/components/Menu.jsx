@@ -8,8 +8,10 @@ export default function Menu() {
     const menuRef = useRef()
 
     const handleNavTog = () => {
-        setNavTog(!navTog)
-        setChecked(!checked)
+        if (window.innerWidth <= 860) {
+            setNavTog(!navTog)
+            setChecked(!checked)
+        }
     }
 
     useEffect(() => {
@@ -24,8 +26,10 @@ export default function Menu() {
 
         const handleClick = (e) => {
             if (menuRef.current !== e.target && !menuRef.current.contains(e.target)) {
-                setNavTog(false)
-                setChecked(false)
+                if (window.innerWidth <= 860) {
+                    setNavTog(false)
+                    setChecked(false)
+                }
             }
         }
 
@@ -43,7 +47,7 @@ export default function Menu() {
             window.removeEventListener('click', handleClick)
         }
     }, [])
-
+    console.log(navTog)
     return (
         <div ref={menuRef} className="menu">
             <MenuBtn handleNavTog={handleNavTog} checked={checked} />
