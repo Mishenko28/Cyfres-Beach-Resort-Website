@@ -25,12 +25,12 @@ export default function LoginAndSignup({ type }) {
             return
         }
 
-        const response = await fetch( state.uri + '/auth/' + type, {
+        const response = await fetch(`${state.uri}/auth/${type}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         })
-
+        
         const json = await response.json()
 
         if (!response.ok) {
