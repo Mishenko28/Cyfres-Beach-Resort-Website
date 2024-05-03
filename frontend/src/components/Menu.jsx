@@ -47,7 +47,7 @@ export default function Menu() {
             window.removeEventListener('click', handleClick)
         }
     }, [])
-    console.log(navTog)
+    
     return (
         <div ref={menuRef} className="menu">
             <MenuBtn handleNavTog={handleNavTog} checked={checked} />

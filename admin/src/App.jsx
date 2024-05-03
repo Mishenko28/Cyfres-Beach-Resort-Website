@@ -28,7 +28,7 @@ function App() {
         <Routes>
             {state.admin.email ?
                 <Route path="/" element={<RootLayout />}>
-                    <Route index element={<h1>helloo</h1>} />
+                    <Route index element={<h1>In development...</h1>} />
                     <Route path="dashboard" element={<Dashboard />}>
                         <Route path='reservation' element={<h1>reservation</h1>} />
                         <Route path='reports' element={<h1>reports</h1>} />

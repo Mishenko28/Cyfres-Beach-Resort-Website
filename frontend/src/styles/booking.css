@@ -1,7 +1,9 @@
 .booking {
     padding-block: 20px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .booking form {
@@ -150,6 +152,38 @@
     color: #fff;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+/* Booked */
+
+.booking .books {
+    background-color: #abfeff;
+    width: 290px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 5px;
+}
+
+.booking .books h2 {
+    font-size: 0.7rem;
+    color: #444;
+}
+
+.booking .books .room {
+    display: flex;
+    gap: 20px;
+}
+
+.booking .books hr {
+    border: none;
+    box-shadow: 0 0 0 0.2px #ccc;
+}
+
+.booking .books .room h3 {
+    color: #444;
+    font-size: 0.8rem;
 }
 
 @media only screen and (min-width: 860px) {

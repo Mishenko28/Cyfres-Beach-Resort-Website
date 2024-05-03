@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const UserDetails = require('../models/userDetailsModel')
+const Book = require('../models/bookModel')
 
 const getUsers = async (req, res) => {
     const page = req.query.page
@@ -61,6 +62,7 @@ const addUserDetails = async (req, res) => {
 
 const getUserDetails = async (req, res) => {
     const { _id } = req.query
+
     try {
         const userDetails = await UserDetails.find({ userId: _id })
 
@@ -72,7 +74,7 @@ const getUserDetails = async (req, res) => {
 
 const updateUserDetails = async (req, res) => {
     const { _id, name, age, sex, address, contact } = req.body
-    console.log(name)
+
     try {
         const userDetails = await UserDetails.findOneAndUpdate({ userId: _id }, { name, age, sex, address, contactNumber: contact }, { new: true })
 
@@ -82,11 +84,37 @@ const updateUserDetails = async (req, res) => {
     }
 }
 
+const addBooking = async (req, res) => {
+    const { _id, dateIn, dateOut, question, slctRoom } = req.body
+
+    try {
+        const book = await Book.create({ userId: _id, dateIn, dateOut, question, slctRoom })
+
+        res.status(200).json({ book })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const getBookings = async (req, res) => {
+    const { _id } = req.query
+    console.log("asd")
+
+    try {
+        const books = await Book.find({ userId: _id })
+
+        res.status(200).json({ books })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 
 module.exports = {
     getUsers,
     getMatchingUser,
     getUserDetails,
     addUserDetails,
-    updateUserDetails
+    updateUserDetails,
+    addBooking,
+    getBookings
 }
