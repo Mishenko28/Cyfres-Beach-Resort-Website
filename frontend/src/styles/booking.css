@@ -123,8 +123,14 @@
     font-size: 0.6rem;
 }
 
-.booking form .rooms-cont .room h6:last-child {
+.booking form .rooms-cont .room h6:nth-child(4) {
     min-width: 40px;
+}
+
+.booking form .rooms-cont .room i {
+    color: #0f0;
+    font-size: 1.4rem;
+    cursor: pointer;
 }
 
 .booking form .req {
@@ -152,6 +158,36 @@
     align-self: center;
     color: #fff;
     padding: 10px 20px;
+    cursor: pointer;
+}
+
+.booking .img {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.booking .img div {
+    width: 90%;
+    position: relative;
+    max-width: 700px;
+}
+
+.booking .img div img {
+    width: 100%;
+}
+
+.booking .img div i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #f00;
+    font-size: 2rem;
     cursor: pointer;
 }
 

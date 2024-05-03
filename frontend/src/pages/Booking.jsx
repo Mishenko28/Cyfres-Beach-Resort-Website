@@ -18,6 +18,7 @@ export default function Booking() {
     const [isLoading, setIsLoading] = useState(true)
     const [books, setBooks] = useState([])
     const [emptyTogg, setEmptyTogg] = useState(false)
+    const [roomImg, setRoomImg] = useState(false)
 
     useEffect(() => {
         if (state.user) {
@@ -129,6 +130,14 @@ export default function Booking() {
         <div className="booking">
             {!isLoading &&
                 <>
+                    {roomImg &&
+                        <div className="img">
+                            <div>
+                                <i onClick={() => setRoomImg(false)} class="fa-solid fa-square-xmark" />
+                                <img src="images/room.jpeg" />
+                            </div>
+                        </div>
+                    }
                     {books.map(book => (
                         <div key={book._id} className="books">
                             <h1 style={book.status == "Pending" ? { color: '#ffc720' } : null}>{book.status}</h1>
@@ -165,7 +174,7 @@ export default function Booking() {
                                 }
                             </div>
                         </div>
-                        <div style={emptyTogg ? {border: '1px solid #f00'} : null} className="rooms-cont">
+                        <div style={emptyTogg ? { border: '1px solid #f00' } : null} className="rooms-cont">
                             <h3>Select Room/s</h3>
                             <h4>Total Amount: ₱ {totalAmount}</h4>
                             <h4>Minimum Deposit: ₱ {totalAmount * 0.5}</h4>
@@ -176,6 +185,7 @@ export default function Booking() {
                                         <label htmlFor={room.name}>{room.name}</label>
                                         <h6>Max {room.max} Person{room.max !== 1 && 's'}</h6>
                                         <h6>₱ {room.rate}</h6>
+                                        <i onClick={() => setRoomImg(true)} className="fa-solid fa-image" />
                                     </div>
                                 ))}
                             </div>
