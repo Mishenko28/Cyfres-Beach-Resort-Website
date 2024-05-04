@@ -178,7 +178,7 @@ export default function Booking() {
                         <div className="note">
                             <h3>Note:</h3>
                             <h2>
-                                To ensure a secure booking system for all guest, Cyfres Beach Resort
+                                To ensure a secure booking system for All guest, Cyfres Beach Resort
                                 request for a minimum of 50% down payment to help us gurantee the availability
                                 of your room/s. Our team will contact you within 24 hours to process your
                                 request. We appreciate your understanding and We are happy to assist you!
