@@ -25,6 +25,7 @@
 }
 
 .settings .details {
+    position: relative;
     margin-inline: 20px;
     display: flex;
     flex-direction: column;
@@ -35,11 +36,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.settings .details .loader-cont {
-    justify-content: center;
-    padding-block: 20px;
 }
 
 .settings .details div h2 {

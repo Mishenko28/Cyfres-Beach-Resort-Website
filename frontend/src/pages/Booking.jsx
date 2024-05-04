@@ -131,7 +131,7 @@ export default function Booking() {
 
         return 0
     }
-    
+
     return (
         <div className="booking">
             {isLoading ?
@@ -142,7 +142,7 @@ export default function Booking() {
                         <div className="img">
                             <div>
                                 <i onClick={() => setRoomImg(false)} className="fa-solid fa-square-xmark" />
-                                <img src="images/room.jpeg" />
+                                <img src="images/room.jpg" />
                             </div>
                         </div>
                     }
@@ -177,7 +177,12 @@ export default function Booking() {
                         <h1>Reservation Form</h1>
                         <div className="note">
                             <h3>Note:</h3>
-                            <h2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt, odio modi? Temporibus ipsa aliquam sint ipsam perferendis labore officia! Rem quia dicta vel, debitis porro voluptatum accusantium sed quae repellat!</h2>
+                            <h2>
+                                To ensure a secure booking system for all guest, Cyfres Beach Resort
+                                request for a minimum of 50% down payment to help us gurantee the availability
+                                of your room/s. Our team will contact you within 24 hours to process your
+                                request. We appreciate your understanding and We are happy to assist you!
+                            </h2>
                         </div>
                         <div className="date">
                             <h3>Check In Date:</h3>

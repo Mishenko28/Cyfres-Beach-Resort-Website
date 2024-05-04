@@ -130,9 +130,7 @@ export default function PersonalDetails() {
     return (
         <form onSubmit={handleSave} className="details">
             {isLoading ?
-                <div className="loader-cont">
-                    <Loader />
-                </div>
+                <div className="loader"></div>
                 :
                 <>
                     <div>
