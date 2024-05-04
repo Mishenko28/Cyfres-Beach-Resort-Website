@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 export default function LoginAndSignup({ type }) {
     const { state, dispatch } = useGlobalContext()
 
-    const [email, setEmail] = useState("johnthomasalog@gmail.com")
-    const [password, setPassword] = useState("thomas1228")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
