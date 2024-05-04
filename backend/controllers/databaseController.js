@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const UserDetails = require('../models/userDetailsModel')
 const Book = require('../models/bookModel')
+const BookCancelled = require('../models/bookCancelledModel')
 
 const getUsers = async (req, res) => {
     const page = req.query.page
@@ -109,6 +110,20 @@ const getBookings = async (req, res) => {
     }
 }
 
+const cancelBook = async (req, res) => {
+    const { _id, book, reason } = req.body
+    console.log(req.body)
+
+    try {
+        await BookCancelled.create({ userId: _id, book, reason })
+        const bookCancel = await Book.findOneAndDelete({ _id: book._id })
+
+        res.status(200).json({ bookCancel })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
 module.exports = {
     getUsers,
     getMatchingUser,
@@ -116,5 +131,6 @@ module.exports = {
     addUserDetails,
     updateUserDetails,
     addBooking,
-    getBookings
+    getBookings,
+    cancelBook
 }

@@ -9,7 +9,7 @@ export default function ProfileDrawer({ handleProfileTog }) {
         handleProfileTog()
         localStorage.removeItem('user')
         dispatch({ type: "LOGOUT" })
-        navigate('/signup')
+        navigate('/login')
     }
 
     return (

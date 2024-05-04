@@ -37,6 +37,11 @@
     align-items: center;
 }
 
+.settings .details .loader-cont {
+    justify-content: center;
+    padding-block: 20px;
+}
+
 .settings .details div h2 {
     font-size: 0.9rem;
     color: #444;

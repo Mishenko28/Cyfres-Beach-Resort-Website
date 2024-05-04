@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useGlobalContext } from "../../hooks/useGlobalContext"
 
+import Loader from "../../components/Loader"
+
 export default function PersonalDetails() {
     const { state } = useGlobalContext()
 
@@ -128,7 +130,9 @@ export default function PersonalDetails() {
     return (
         <form onSubmit={handleSave} className="details">
             {isLoading ?
-                <div>Loading ...</div>
+                <div className="loader-cont">
+                    <Loader />
+                </div>
                 :
                 <>
                     <div>

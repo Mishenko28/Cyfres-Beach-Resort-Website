@@ -3,6 +3,9 @@ import { useGlobalContext } from "../hooks/useGlobalContext"
 import { useNavigate } from "react-router-dom"
 import { format } from 'date-fns'
 
+import Loader from '../components/Loader'
+import CancelOptions from "../components/CancelOptions"
+
 export default function Booking() {
     const { state } = useGlobalContext()
     const navigate = useNavigate()
@@ -17,8 +20,10 @@ export default function Booking() {
     const [rooms, setRooms] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [books, setBooks] = useState([])
-    const [emptyTogg, setEmptyTogg] = useState(false)
     const [roomImg, setRoomImg] = useState(false)
+
+    const [emptyTogg, setEmptyTogg] = useState(false)
+    const [cancelOpts, setCancelOpts] = useState([])
 
     useEffect(() => {
         if (state.user) {
@@ -105,7 +110,8 @@ export default function Booking() {
 
             const json = await response.json()
 
-            setBooks(p => [...p, json.book])
+            setBooks(p => [json.book, ...p])
+            setRooms(rooms.map(room => ({ ...room, isChecked: false })))
         }
         window.scrollTo({ top: 0, behavior: "smooth" })
         fetchAddBook()
@@ -125,35 +131,46 @@ export default function Booking() {
 
         return 0
     }
-
+    
     return (
         <div className="booking">
-            {!isLoading &&
+            {isLoading ?
+                <Loader />
+                :
                 <>
                     {roomImg &&
                         <div className="img">
                             <div>
-                                <i onClick={() => setRoomImg(false)} class="fa-solid fa-square-xmark" />
+                                <i onClick={() => setRoomImg(false)} className="fa-solid fa-square-xmark" />
                                 <img src="images/room.jpeg" />
                             </div>
                         </div>
                     }
                     {books.map(book => (
                         <div key={book._id} className="books">
-                            <h1 style={book.status == "Pending" ? { color: '#ffc720' } : null}>{book.status}</h1>
+                            <div className="head">
+                                <h1 style={book.status == "Pending" ? { color: '#ffc720' } : null}>{book.status}</h1>
+                                {book.status == "Pending" && !cancelOpts.includes(book._id) && <button onClick={() => setCancelOpts(p => [...p, book._id])}>Cancel</button>}
+                            </div>
                             <hr />
-                            <h2>{format(book.dateIn, 'MMM d, yyyy')} - {format(book.dateOut, 'MMM d, yyyy')}</h2>
-                            <hr />
-                            {book.slctRoom.map(room => (
-                                <div key={room._id} className="room">
-                                    <h3>{room.name}</h3>
-                                    <h3>Max {room.max} Person{room.max !== 1 && 's'}</h3>
-                                    <h3>₱{room.rate}</h3>
-                                </div>
-                            ))}
-                            <hr />
-                            <h2>Total Amount: ₱{total('amount', book.slctRoom)}</h2>
-                            <h2>Minimum Deposit: ₱{total('deposit', book.slctRoom)}</h2>
+                            {cancelOpts.includes(book._id) ?
+                                <CancelOptions setBooks={setBooks} books={books} book={book} setCancelOpts={setCancelOpts} />
+                                :
+                                <>
+                                    <h2>{format(book.dateIn, 'MMM d, yyyy')} - {format(book.dateOut, 'MMM d, yyyy')}</h2>
+                                    <hr />
+                                    {book.slctRoom.map(room => (
+                                        <div key={room._id} className="room">
+                                            <h3>{room.name}</h3>
+                                            <h3>Max {room.max} Person{room.max !== 1 && 's'}</h3>
+                                            <h3>₱{room.rate}</h3>
+                                        </div>
+                                    ))}
+                                    <hr />
+                                    <h2>Total Amount: ₱{total('amount', book.slctRoom)}</h2>
+                                    <h2>Minimum Deposit: ₱{total('deposit', book.slctRoom)}</h2>
+                                </>
+                            }
                         </div>
                     ))}
                     <form onSubmit={handleSubmit}>
