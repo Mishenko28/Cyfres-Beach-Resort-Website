@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 import Menu from './Menu'
@@ -10,16 +10,19 @@ export default function Navbar() {
     const { state } = useGlobalContext()
 
     const [profileTog, setProfileTog] = useState(false)
+    const profileRef = useRef()
 
     useEffect(() => {
-        const handler = () => {
-            setProfileTog(false)
+        const handler = (e) => {
+            if (e.target !== profileRef.current && !profileRef.current.contains(e.target)) {
+                setProfileTog(false)
+            }
         }
 
-        window.addEventListener('scroll', handler)
+        window.addEventListener('click', handler)
 
         return () => {
-            window.removeEventListener('scroll', handler)
+            window.removeEventListener('click', handler)
         }
     }, [])
 
@@ -41,7 +44,7 @@ export default function Navbar() {
                     {state.user &&
                         <div className='profile-nav'>
                             <i className="fa-solid fa-cart-flatbed" />
-                            <div className='profile-cont'>
+                            <div ref={profileRef} className='profile-cont'>
                                 <i className="fa-solid fa-user" onClick={handleProfileTog} />
                                 <CSSTransition
                                     in={profileTog}

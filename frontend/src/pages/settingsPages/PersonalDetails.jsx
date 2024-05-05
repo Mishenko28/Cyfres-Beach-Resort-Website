@@ -134,8 +134,9 @@ export default function PersonalDetails() {
                 :
                 <>
                     <div>
-                        <h2>Please fill all the details to continue BOOKING.</h2>
+                        <h2 className="text">Please fill all the details to continue BOOKING. Make sure the Contact Number is correct</h2>
                     </div>
+                    <hr />
                     <div>
                         <div>
                             {emptyTogg && name == "" && <h5>*</h5>}
@@ -178,7 +179,10 @@ export default function PersonalDetails() {
                             {emptyTogg && contact == "" && <h5>*</h5>}
                             <h2>Contact Number</h2>
                         </div>
-                        <input onChange={(e) => setContact(parseInt(e.target.value) || "")} value={contact} type="tel" />
+                        <div>
+                            <h6>+63</h6>
+                            <input className="contact" onChange={(e) => setContact(parseInt(e.target.value) || "")} value={contact} type="tel" />
+                        </div>
                     </div>
                     {saveTogg &&
                         <button>Save</button>
