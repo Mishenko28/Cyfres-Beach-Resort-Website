@@ -3,7 +3,7 @@
 .navbar {
     padding: 10px;
     background-color: #fff;
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,20 +27,20 @@
 }
 
 .navbar .menu-btn-cont .btn-cont a button {
-    border: 2px solid #28cf89;
+    border: 2px solid var(--green);
     padding: 8px 14px;
     width: 80px;
     border-radius: 3px;
     font-weight: 700;
     font-size: 10px;
     color: #fff;
-    background-color: #28cf89;
+    background-color: var(--green);
     cursor: pointer;
 }
 
 .navbar .btn-cont a:last-child button {
-    background-color: #4991d9;
-    border: 2px solid #4991d9;
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
 }
 
 .navbar .profile-nav {
@@ -50,13 +50,13 @@
 
 .navbar .profile-nav .fa-cart-flatbed {
     font-size: 20px;
-    color: #28cf89;
+    color: var(--green);
     cursor: pointer;
 }
 
 .navbar .profile-nav .profile-cont .fa-user {
     font-size: 20px;
-    color: #4991d9;
+    color: var(--blue);
     cursor: pointer;
 }
 
@@ -70,7 +70,8 @@
     display: flex;
     gap: 8px;
     flex-direction: column;
-    background-color: #93c9ff;
+    background-color: #fff;
+    box-shadow: var(--shadow);
     align-items: center;
     z-index: 1;
 }
@@ -100,8 +101,7 @@
     align-items: center;
     width: 100%;
     padding-block: 12px;
-    background-color: #3c76b0;
-    box-shadow: inset 0 0 20px #2669ab;
+    background-color: var(--blue);
 }
 
 .navbar .nav {
@@ -110,12 +110,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #3c76b0;
+    background-color: var(--blue);
     color: #fff;
     border-radius: 3px;
-    box-shadow: inset 0 0 10px #2669ab;
     cursor: pointer;
     text-decoration: none;
+    box-shadow: var(--shadow);
 }
 
 .navbar .nav i {
@@ -129,8 +129,15 @@
 }
 
 .navbar .top h5 {
-    color: #fff;
+    color: var(--gray);
     font-weight: 600;
+    background-color: #fff;
+    width: 180px;
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .navbar .top .fa-angle-right {
@@ -140,25 +147,23 @@
     align-self: flex-start;
     margin-left: 10px;
     border-radius: 3px;
-    background-color: #2b4c6d;
-    box-shadow: 0 0 3px #000;
+    background-color: var(--red);
     cursor: pointer;
 }
 
 .navbar .profile-pic {
     width: 80px;
     height: 80px;
-    background-color: #93c9ff;
     border-radius: 50%;
     text-align: center;
     overflow: hidden;
-    box-shadow: inset 0 0 10px #285d81;
+    background-color: #fff;
 }
 
 .navbar .profile-pic i {
     margin-top: 9px;
     font-size: 72px;
-    color: #4a4a4a;
+    color: var(--gray);
 }
 
 /* MENU */
@@ -172,9 +177,10 @@
     flex-direction: column;
     top: 40px;
     left: -10px;
-    background-color: #fbfbfb;
+    background-color: #fff;
     width: 100vw;
     z-index: 1;
+    box-shadow: var(--shadow);
 }
 
 .navbar .menu-nav-cont hr {
@@ -187,12 +193,12 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    color: #555;
+    color: var(--gray);
     transition: all 0.2s;
 }
 
 .navbar .menu-nav-cont .active {
-    background-color: #f37f51;
+    background-color: var(--green);
     color: #fff;
 }
 
@@ -242,7 +248,7 @@
 }
 
 .hamburger .checkbox:checked+svg .line {
-    stroke: crimson;
+    stroke: var(--red);
 }
 
 .hamburger .checkbox:checked+svg .lineTop {
@@ -289,11 +295,11 @@
 
     .navbar .btn-cont a button:hover {
         background-color: #fff;
-        color: #28cf89;
+        color: var(--green);
     }
 
     .navbar .btn-cont a:last-child button:hover {
-        color: #4991d9;
+        color: var(--blue);
         background-color: #fff;
     }
 
@@ -305,10 +311,11 @@
         gap: 5px;
         width: max-content;
         background-color: unset;
+        box-shadow: none;
     }
 
     .navbar .menu-nav-cont hr {
-        border: 1px solid #ddd;
+        box-shadow: 0 0 0 0.1px var(--gray);
     }
 
     .navbar .menu-nav-cont a {
@@ -316,13 +323,13 @@
         justify-content: space-between;
         gap: 8px;
         padding: 12px 6px;
-        color: #555;
+        color: var(--gray);
     }
 
     .navbar .menu-nav-cont .active {
-        box-shadow: inset 0 -4px 0 #f37f51;
+        box-shadow: inset 0 -4px 0 var(--green);
         background-color: unset;
-        color: #555;
+        color: var(--gray);
     }
 
     .navbar .menu-nav-cont a h6 {

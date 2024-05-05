@@ -4,6 +4,17 @@
     font-family: sans-serif;
 }
 
+:root {
+    --blue: #55c2da;
+    --green: #5dbea3;
+    --red: #E60000;
+    --gray: #444;
+    --light-gray: #777;
+    --shadow: 0 0 10px #ccc;
+    --border: 1px solid #ccc;
+    --blur: rgba(0, 0, 0, 0.5);
+}
+
 textarea {
     resize: none;
 }
@@ -95,4 +106,39 @@ textarea {
     left: auto;
     right: 15%;
     animation-delay: .3s;
+}
+
+
+/* LOADER */
+.loader {
+    --height-of-loader: 4px;
+    --loader-color: #0071e2;
+    width: 100%;
+    height: var(--height-of-loader);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    background: var(--loader-color);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    animation: moving 1s ease-in-out infinite;
+}
+
+@keyframes moving {
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+        right: 0;
+        left: unset;
+    }
 }

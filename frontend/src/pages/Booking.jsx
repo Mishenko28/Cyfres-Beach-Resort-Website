@@ -149,7 +149,7 @@ export default function Booking() {
                     {books.map(book => (
                         <div key={book._id} className="books">
                             <div className="head">
-                                <h1 style={book.status == "Pending" ? { color: '#ffc720' } : null}>{book.status}</h1>
+                                <h1>{book.status}</h1>
                                 {book.status == "Pending" && !cancelOpts.includes(book._id) && <button onClick={() => setCancelOpts(p => [...p, book._id])}>Cancel</button>}
                             </div>
                             <hr />

@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: var(--shadow);
     padding: 20px;
     border-radius: 10px;
     overflow: hidden;
@@ -29,14 +29,14 @@
 }
 
 .loginAndSignup-card form div input {
-    border: 1px solid #ccc;
+    border: var(--border);
     padding: 10px;
     border-radius: 3px;
 }
 
 .loginAndSignup-card form h2 {
-    border: 1px solid #f00;
-    color: #f00;
+    border: 1px solid var(--red);
+    color: var(--red);
     padding: 10px 5px;
     font-size: 12px;
 }
@@ -49,10 +49,6 @@
     cursor: pointer;
 }
 
-.loginAndSignup-card form button:hover {
-    border: 2px solid #ccc;
-}
-
 .loginAndSignup-card form h4 {
     font-style: 16px;
     font-weight: 100;
@@ -60,7 +56,7 @@
 
 .loginAndSignup-card form a button {
     width: 100%;
-    background-color: #4991d9;
+    background-color: var(--blue);
 }
 
 .loginAndSignup-card form h3 {
@@ -73,41 +69,7 @@
 
 .loginAndSignup-card i {
     font-size: 32px;
-    color: #f00;
+    color: var(--red);
     align-self: flex-end;
     cursor: pointer;
-}
-
-/* LOADER */
-.loader {
-    --height-of-loader: 4px;
-    --loader-color: #0071e2;
-    width: 100%;
-    height: var(--height-of-loader);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.loader::before {
-    content: "";
-    position: absolute;
-    background: var(--loader-color);
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    animation: moving 1s ease-in-out infinite;
-}
-
-@keyframes moving {
-    50% {
-        width: 100%;
-    }
-
-    100% {
-        width: 0;
-        right: 0;
-        left: unset;
-    }
 }
