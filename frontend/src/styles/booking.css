@@ -96,7 +96,44 @@
 .booking form .rooms-cont .rooms {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+}
+
+.booking form .rooms-cont .rooms .add {
+    padding: 5px 10px;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gray);
+}
+
+.booking form .rooms-cont .rooms .add .value {
+    width: 30px;
+    text-align: center;
+}
+
+.booking form .rooms-cont .rooms .add p {
+    font-size: 0.8rem;
+}
+
+.booking form .rooms-cont .rooms .add button {
+    border: 1px solid var(--blue);
+    border-radius: 3px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--blue);
+    background-color: #fff;
+}
+
+.booking form .rooms-cont .rooms .add button:last-child {
+    color: var(--red);
+    border: 1px solid var(--red);
 }
 
 .booking form .rooms-cont .room {
@@ -149,7 +186,7 @@
     padding: 5px;
 }
 
-.booking form button {
+.booking form button.submit {
     border: none;
     border-radius: 4px;
     background-color: var(--green);
@@ -234,6 +271,7 @@
 .booking .books .room {
     display: flex;
     gap: 10px;
+    justify-content: space-between;
 }
 
 .booking .books hr {

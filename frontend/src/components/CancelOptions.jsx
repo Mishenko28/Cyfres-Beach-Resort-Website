@@ -19,9 +19,14 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
         })
 
         const json = await response.json()
-
+        console.log(json)
         setBooks(books.filter(book => book._id !== json.bookCancel._id))
         setIsLoading(false)
+    }
+
+    const handleTextareaChange = (e) => {
+        setSlctReas(e.target.value)
+        document.querySelectorAll('input[type="radio"].reasons').forEach(input => input.checked = false);
     }
 
     return (
@@ -32,24 +37,24 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
                 <>
                     <h1>Why do you want to cancel this Reservation?</h1>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Change of Plans")} type="radio" name="options" />
+                        <input onChange={() => setSlctReas("Change of Plans")} type="radio" className="reasons" name="options" />
                         <h2>Change of Plans</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Financial Constraints")} type="radio" name="options" />
+                        <input onClick={() => setSlctReas("Financial Constraints")} type="radio" className="reasons" name="options" />
                         <h2>Financial Constraints</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Emergency Situations")} type="radio" name="options" />
+                        <input onClick={() => setSlctReas("Emergency Situations")} type="radio" className="reasons" name="options" />
                         <h2>Emergency Situations</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Personal Reasons")} type="radio" name="options" />
+                        <input onClick={() => setSlctReas("Personal Reasons")} type="radio" className="reasons" name="options" />
                         <h2>Personal Reasons</h2>
                     </div>
                     <div className="other">
                         <h2>Other reason:</h2>
-                        <textarea onChange={(e) => setSlctReas(e.target.value)} ></textarea>
+                        <textarea onChange={handleTextareaChange} ></textarea>
                     </div>
                     <div className="btns">
                         <button className="cancel" onClick={() => setCancelOpts(p => p.filter(slct => slct !== book._id))}>Cancel</button>

@@ -86,10 +86,10 @@ const updateUserDetails = async (req, res) => {
 }
 
 const addBooking = async (req, res) => {
-    const { _id, dateIn, dateOut, question, slctRoom } = req.body
+    const { _id, dateIn, dateOut, question, selected } = req.body
 
     try {
-        const book = await Book.create({ userId: _id, dateIn, dateOut, question, slctRoom })
+        const book = await Book.create({ userId: _id, dateIn, dateOut, question, slctRoom: selected })
 
         res.status(200).json({ book })
     } catch (error) {

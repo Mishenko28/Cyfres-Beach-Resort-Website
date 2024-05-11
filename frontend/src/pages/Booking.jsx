@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../hooks/useGlobalContext"
 import { useNavigate } from "react-router-dom"
-import { format } from 'date-fns'
+import { format, set } from 'date-fns'
 
 import Loader from '../components/Loader'
 import CancelOptions from "../components/CancelOptions"
@@ -15,9 +15,12 @@ export default function Booking() {
     const [question, setQuestion] = useState("")
     const [slctRoom, setSlctRoom] = useState([])
 
+    const [cottages, setCottages] = useState([])
+    const [amenities, setAmenities] = useState([])
+    const [rooms, setRooms] = useState([])
+
     const totalPeriod = (new Date(dateOut) - new Date(dateIn)) / 86400000
     const [totalAmount, setTotalAmount] = useState(0)
-    const [rooms, setRooms] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [books, setBooks] = useState([])
     const [roomImg, setRoomImg] = useState(false)
@@ -52,22 +55,46 @@ export default function Booking() {
         }
 
         const rooms = [
-            { _id: 123, name: 'Room 1', max: 3, rate: 1500 },
-            { _id: 223, name: 'Room 2', max: 5, rate: 2500 },
-            { _id: 323, name: 'Room 3', max: 4, rate: 2000 },
-            { _id: 423, name: 'Room 4', max: 1, rate: 1000 }
+            { _id: 111, type: 'room', name: 'Room 1', addFee: 200, max: 3, rate: 1500 },
+            { _id: 112, type: 'room', name: 'Room 2', addFee: 200, max: 5, rate: 2500 },
+            { _id: 113, type: 'room', name: 'Room 3', addFee: 200, max: 4, rate: 2000 },
+            { _id: 114, type: 'room', name: 'Room 4', addFee: 200, max: 1, rate: 1000 }
+        ]
+
+        const cottages = [
+            { _id: 115, type: 'cottage', name: 'Cottage 1', rate: 1000 },
+            { _id: 116, type: 'cottage', name: 'Cottage 2', rate: 1000 },
+            { _id: 117, type: 'cottage', name: 'Cottage 3', rate: 1000 },
+            { _id: 118, type: 'cottage', name: 'Cottage 4', rate: 1000 },
+            { _id: 119, type: 'cottage', name: 'Cottage 5', rate: 1000 },
+            { _id: 120, type: 'cottage', name: 'Cottage 6', rate: 1000 }
+        ]
+
+        const amenities = [
+            { _id: 121, type: 'amenity', name: 'Bed', rate: 250 },
+            { _id: 122, type: 'amenity', name: 'Table', rate: 100 },
+            { _id: 123, type: 'amenity', name: 'Grill', rate: 100 }
         ]
 
         setRooms(rooms.map(room => ({ ...room, isChecked: false })))
-        fetchAllBook()
+        setRooms(rooms.map(room => ({ ...room, add: 0 })))
+        setCottages(cottages.map(cottage => ({ ...cottage, isChecked: false })))
+        setAmenities(amenities.map(amenity => ({ ...amenity, isChecked: false })))
+        state.user && fetchAllBook()
     }, [])
 
     useEffect(() => {
         setTotalAmount(0)
         setSlctRoom([])
-        rooms.map(room => room.isChecked && setTotalAmount(p => p + room.rate))
+
+        rooms.map(room => room.isChecked && setTotalAmount(p => p + room.rate + (room.add * room.addFee)))
+        cottages.map(cottage => cottage.isChecked && setTotalAmount(p => p + cottage.rate))
+        amenities.map(amenity => amenity.isChecked && setTotalAmount(p => p + amenity.rate))
+
         rooms.map(room => room.isChecked && setSlctRoom(p => [...p, room]))
-    }, [rooms])
+        cottages.map(cottage => cottage.isChecked && setSlctRoom(p => [...p, cottage]))
+        amenities.map(amenity => amenity.isChecked && setSlctRoom(p => [...p, amenity]))
+    }, [rooms, cottages, amenities])
 
     const handleDate = (e, type) => {
         if (type == 'in') {
@@ -88,12 +115,18 @@ export default function Booking() {
 
     const handleCheckbox = (id) => {
         setRooms(prev => prev.map(room => (room._id == id ? { ...room, isChecked: !room.isChecked } : { ...room })))
+        setCottages(prev => prev.map(cottage => (cottage._id == id ? { ...cottage, isChecked: !cottage.isChecked } : { ...cottage })))
+        setAmenities(prev => prev.map(amenity => (amenity._id == id ? { ...amenity, isChecked: !amenity.isChecked } : { ...amenity })))
+
+        setRooms(prev => prev.map(room => (room._id == id ? { ...room, add: 0 } : { ...room })))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (slctRoom.length == 0) {
+        const selected = slctRoom.map(({ isChecked, ...rest }) => rest)
+
+        if (!slctRoom.some(item => item.type == 'room' || item.type == 'cottage')) {
             setEmptyTogg(true)
             return
         }
@@ -101,7 +134,7 @@ export default function Booking() {
         const fetchAddBook = async () => {
             const response = await fetch(`${state.uri}/database/user/book`, {
                 method: 'POST',
-                body: JSON.stringify({ _id: state.user._id, dateIn, dateOut, question, slctRoom }),
+                body: JSON.stringify({ _id: state.user._id, dateIn, dateOut, question, selected }),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${state.user.token}`
@@ -109,18 +142,26 @@ export default function Booking() {
             })
 
             const json = await response.json()
-
+            
             setBooks(p => [json.book, ...p])
+
             setRooms(rooms.map(room => ({ ...room, isChecked: false })))
+            setCottages(cottages.map(cottage => ({ ...cottage, isChecked: false })))
+            setAmenities(amenities.map(amenity => ({ ...amenity, isChecked: false })))
         }
         window.scrollTo({ top: 0, behavior: "smooth" })
         fetchAddBook()
     }
 
+    const handleAddPerson = (e, type, _id) => {
+        e.preventDefault()
+        type == 'add' && setRooms(rooms.map(room => (room._id == _id ? { ...room, add: room.add + 1 } : { ...room })))
+        type == 'remove' && setRooms(rooms.map(room => (room._id == _id ? { ...room, add: Math.max(0, room.add - 1) } : { ...room })))
+    }
+
     const total = (type, array) => {
         let num = 0
-
-        array.map(c => num += c.rate)
+        array.map(c => c.add ? num += c.rate + (c.add * c.addFee) : num += c.rate)
 
         if (type == 'amount') {
             return num
@@ -162,8 +203,8 @@ export default function Booking() {
                                     {book.slctRoom.map(room => (
                                         <div key={room._id} className="room">
                                             <h3>{room.name}</h3>
-                                            <h3>Max {room.max} Person{room.max !== 1 && 's'}</h3>
-                                            <h3>₱{room.rate}</h3>
+                                            {room?.max && <h3>{room.add == 0 && 'Max'} {room.max + room.add} Person{room.max !== 1 && 's'}</h3>}
+                                            {room.add ? <h3>₱{room.rate + (room.add * room.addFee)}</h3> : <h3>₱{room.rate}</h3>}
                                         </div>
                                     ))}
                                     <hr />
@@ -173,7 +214,7 @@ export default function Booking() {
                             }
                         </div>
                     ))}
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <h1>Reservation Form</h1>
                         <div className="note">
                             <h3>Note:</h3>
@@ -197,15 +238,47 @@ export default function Booking() {
                             </div>
                         </div>
                         <div style={emptyTogg ? { border: '1px solid #f00' } : null} className="rooms-cont">
-                            <h3>Select Room/s</h3>
+                            <h3>Rooms</h3>
                             <h4>Total Amount: ₱ {totalAmount}</h4>
                             <h4>Minimum Deposit: ₱ {totalAmount * 0.5}</h4>
                             <div className="rooms">
                                 {rooms.map(room => (
+                                    <div key={room._id}>
+                                        <div className="room">
+                                            <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.name} />
+                                            <label htmlFor={room.name}>{room.name}</label>
+                                            <h6>Max {room.max} Person{room.max !== 1 && 's'}</h6>
+                                            <h6>₱ {room.rate}</h6>
+                                            <i onClick={() => setRoomImg(true)} className="fa-solid fa-image" />
+                                        </div>
+                                        {room.isChecked &&
+                                            <div className="add">
+                                                <p>Add Person ₱{room.addFee}:</p>
+                                                <p className="value">{room.add == 0 ? 'none' : room.add}</p>
+                                                <button onClick={(e) => handleAddPerson(e, 'add', room._id)}>+</button>
+                                                <button onClick={(e) => handleAddPerson(e, 'remove', room._id)}>-</button>
+                                            </div>
+                                        }
+                                    </div>
+                                ))}
+                            </div>
+                            <h3>Cottages</h3>
+                            <div className="rooms">
+                                {cottages.map(room => (
                                     <div key={room._id} className="room">
                                         <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.name} />
                                         <label htmlFor={room.name}>{room.name}</label>
-                                        <h6>Max {room.max} Person{room.max !== 1 && 's'}</h6>
+                                        <h6>₱ {room.rate}</h6>
+                                        <i onClick={() => setRoomImg(true)} className="fa-solid fa-image" />
+                                    </div>
+                                ))}
+                            </div>
+                            <h3>Amenities</h3>
+                            <div className="rooms">
+                                {amenities.map(room => (
+                                    <div key={room._id} className="room">
+                                        <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.name} />
+                                        <label htmlFor={room.name}>{room.name}</label>
                                         <h6>₱ {room.rate}</h6>
                                         <i onClick={() => setRoomImg(true)} className="fa-solid fa-image" />
                                     </div>
@@ -216,7 +289,7 @@ export default function Booking() {
                             <h3>Request or Questions?</h3>
                             <textarea placeholder="Optional" onChange={(e) => setQuestion(e.target.value)} value={question} />
                         </div>
-                        <button>Submit</button>
+                        <button onClick={handleSubmit} className="submit">Submit</button>
                     </form>
                 </>
             }

@@ -14,8 +14,10 @@ export default function Navbar() {
 
     useEffect(() => {
         const handler = (e) => {
-            if (e.target !== profileRef.current && !profileRef.current.contains(e.target)) {
-                setProfileTog(false)
+            if (profileRef.current !== null) {
+                if (e.target !== profileRef.current && !profileRef.current.contains(e.target)) {
+                    setProfileTog(false)
+                }
             }
         }
 
