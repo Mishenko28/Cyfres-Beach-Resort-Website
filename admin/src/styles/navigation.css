@@ -2,10 +2,11 @@
     min-width: 180px;
     margin: 10px;
     background-color: #002244;
-    border-radius: 15px;
+    border-radius: 6px;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .navigation .top {
@@ -70,8 +71,10 @@
 .navigation .navs div {
     display: flex;
     flex-direction: column;
+    padding-left: 8px;
     gap: 5px;
     margin: 0 10px 10px 10px;
+    border-left: 1px solid #fff;
 }
 
 .navigation .navs div a {

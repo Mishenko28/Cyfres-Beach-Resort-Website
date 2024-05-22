@@ -1,0 +1,318 @@
+/* RESERVATION */
+.reserv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.reserv .nav {
+    position: sticky;
+    top: 0;
+    background-color: #002244;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.reserv .nav h2 {
+    font-size: 2rem;
+    color: #fff;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.reserv .status-nav-cont {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.reserv .status-nav-cont .status-nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    flex-grow: 1;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(1),
+.reserv .status-nav-cont .status-nav:nth-child(1) .bridge {
+    background-color: orange;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(2),
+.reserv .status-nav-cont .status-nav:nth-child(2) .bridge {
+    background-color: yellow;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(3),
+.reserv .status-nav-cont .status-nav:nth-child(3) .bridge {
+    background-color: green;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(4),
+.reserv .status-nav-cont .status-nav:nth-child(4) .bridge {
+    background-color: blue;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(5),
+.reserv .status-nav-cont .status-nav:nth-child(5) .bridge {
+    background-color: red;
+}
+
+.reserv .status-nav-cont .status-nav:nth-child(6),
+.reserv .status-nav-cont .status-nav:nth-child(6) .bridge {
+    background-color: gray;
+}
+
+.reserv .status-nav-cont .status-nav h2 {
+    color: #fff;
+    font-size: 1.2rem;
+    text-shadow: 0 1px 2px #555;
+}
+
+.reserv .status-nav-cont .status-nav .bridge {
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    height: 40px;
+}
+
+.reserv .status-body .head {
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.reserv .status-body .head h2 {
+    color: #fff;
+    text-shadow: 0 1px 2px #555;
+    font-size: 1rem;
+    width: 160px;
+}
+
+.reserv .status-body .head h2:nth-child(2) {
+    width: 200px;
+}
+
+.reserv .status-body .head h2:nth-child(3),
+.reserv .status-body .head h2:nth-child(4),
+.reserv .status-body .head h2:nth-child(5) {
+    width: 130px;
+    text-align: center;
+}
+
+.reserv .status-body .head h2:nth-child(6) {
+    width: 150px;
+}
+
+.reserv .status-body .head h2:nth-child(7) {
+    width: 80px;
+    text-align: center;
+    margin-right: 100px;
+}
+
+.reserv .status-body .table {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    flex-grow: 1;
+    padding: 0 10px 10px 10px;
+}
+
+.reserv .status-body .data {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.reserv .status-body .pending {
+    background-color: yellow;
+}
+
+.reserv .status-body .pending .box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 15px;
+    min-height: 45px;
+    cursor: pointer;
+}
+
+.reserv .status-body .pending .box i {
+    font-size: 1.5rem;
+    width: 80px;
+    text-align: center;
+    z-index: 1;
+    margin-right: 100px;
+}
+
+.reserv .status-body .pending .box h2 {
+    font-size: 0.7rem;
+    font-weight: 500;
+    width: 160px;
+    color: #002244;
+}
+
+.reserv .status-body .pending .box h2:nth-child(2) {
+    width: 200px;
+}
+
+.reserv .status-body .pending .box h2:nth-child(3),
+.reserv .status-body .pending .box h2:nth-child(4),
+.reserv .status-body .pending .box h2:nth-child(5) {
+    text-align: center;
+    width: 130px;
+}
+
+.reserv .status-body .pending .box:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.reserv .status-body .pending .box:hover {
+    box-shadow: inset 0 0 0 1px #002244;
+}
+
+.reserv .status-body .pending .box .acc {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reserv .status-body .pending .box .acc h3 {
+    font-size: 0.7rem;
+    font-weight: 500;
+    width: 150px;
+    color: #002244;
+}
+
+.reserv .status-body .pending .box .btnss {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reserv .status-body .pending .box .btnss button {
+    padding-block: 5px;
+    border-radius: 4px;
+    color: #fff;
+    width: 80px;
+    cursor: pointer;
+}
+
+.reserv .status-body .pending .box .btnss button:nth-child(1) {
+    background-color: green;
+}
+
+.reserv .status-body .pending .box .btnss button:nth-child(2) {
+    background-color: red;
+}
+
+.reserv .status-body .pending .q-cont {
+    position: relative;
+    background-color: #002244;
+    width: 500px;
+    padding: 20px 10px 10px 10px;
+    border-radius: 6px;
+}
+
+.reserv .status-body .pending .q-cont h2 {
+    color: #fff;
+}
+
+.reserv .status-body .pending .q-cont h3 {
+    background-color: #fff;
+    color: #002244;
+    font-weight: 500;
+    padding: 10px;
+    text-align: justify;
+    border-radius: 6px;
+}
+
+.reserv .status-body .pending .q-cont i {
+    color: red;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.reserv .status-body .pending .edit-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.reserv .status-body .pending .edit-cont .inputs {
+    border: 1px solid #002244;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-inline: 10px;
+}
+
+.reserv .status-body .pending .edit-cont .edit-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.reserv .status-body .pending .edit-cont .edit-div2 {
+    display: flex;
+    gap: 15px;
+}
+
+.reserv .status-body .pending .edit-cont .btns {
+    display: flex;
+    gap: 20px;
+}
+
+.reserv .status-body .pending .edit-cont .btns button {
+    height: 35px;
+    width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.reserv .status-body .pending .edit-cont .btns button:first-child {
+    background-color: #0f0;
+}
+
+.reserv .status-body .pending .edit-cont .btns button:last-child {
+    background-color: #f00;
+}
+
+.reserv .status-body .ongoing {
+    background-color: orange;
+}
+
+.reserv .status-body .confirmed {
+    background-color: green;
+}
+
+.reserv .status-body .completed {
+    background-color: blue;
+}
+
+.reserv .status-body .cancelled {
+    background-color: red;
+}
+
+.reserv .status-body .noshow {
+    background-color: gray;
+}

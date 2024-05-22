@@ -25,7 +25,7 @@ export default function LoginAndSignup({ type }) {
             return
         }
 
-        const response = await fetch(`${state.uri}/auth/${type}`, {
+        const response = await fetch(`${state.uri}/user/${type}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -82,7 +82,7 @@ export default function LoginAndSignup({ type }) {
                         </>
                     }
                 </div>
-                <button style={type == 'login' ? { backgroundColor: '#4991d9' } : { backgroundColor: '#28cf89' }} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
+                <button style={type == 'login' ? { backgroundColor: 'var(--blue)' } : { backgroundColor: 'var(--green)' }} disabled={isLoading}>{type == 'login' ? "Login" : "Signup"}</button>
                 {type == 'signup' &&
                     <>
                         <hr />

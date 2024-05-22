@@ -10,7 +10,7 @@ module.exports = mongoose.model('User', new mongoose.Schema({
         type: String,
         required: true
     },
-    booked: {
+    details: {
         type: Boolean,
         default: false
     },

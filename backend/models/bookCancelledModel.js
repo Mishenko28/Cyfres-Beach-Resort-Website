@@ -12,5 +12,9 @@ module.exports = mongoose.model('BookCancelled', new mongoose.Schema({
     reason: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        default: "Cancelled"
     }
 }, { timestamps: true }), 'book-cancelled')

@@ -10,6 +10,7 @@ import Settings from './pages/Settings'
 import Login from './pages/Login'
 
 import Users from './pages/Configuration/Users'
+import Reservation from './pages/Dashboard/Reservation'
 
 import RootLayout from './layouts/RootLayout'
 
@@ -30,7 +31,7 @@ function App() {
                 <Route path="/" element={<RootLayout />}>
                     <Route index element={<h1>In development...</h1>} />
                     <Route path="dashboard" element={<Dashboard />}>
-                        <Route path='reservation' element={<h1>reservation</h1>} />
+                        <Route path='reservation' element={<Reservation />} />
                         <Route path='reports' element={<h1>reports</h1>} />
                     </Route>
                     <Route path="configuration" element={<Configuration />}>

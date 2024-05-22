@@ -8,6 +8,7 @@ import './styles/navigation.css'
 import './styles/login.css'
 import './styles/body.css'
 import './styles/config.css'
+import './styles/dash.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

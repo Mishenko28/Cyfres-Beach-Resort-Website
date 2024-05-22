@@ -47,7 +47,7 @@ export default function RootLayout() {
                             <NavLink to='utilities/admin'>Admin</NavLink>
                             <NavLink to='utilities/archive'>Archive</NavLink>
                             <NavLink to='utilities/activity-logs'>Activity Logs</NavLink>
-                            <NavLink to='utilities/backup-and-reset'>Backup & Resets</NavLink>
+                            <NavLink to='utilities/backup-and-reset'>Backup & Reset</NavLink>
                         </div>
                     }
                     <NavLink className="main" to='settings' onClick={() => setSettingsChildNavs(!settingsChildNavs)}><h2>Settings</h2><i className="fa-solid fa-gear" /></NavLink>

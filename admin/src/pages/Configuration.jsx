@@ -4,7 +4,7 @@ export default function Configuration() {
     const openNav = useOutletContext()[0]
 
     return (
-        <div className="config">
+        <div className="tab">
             <h1>Configuration</h1>
             {useLocation().pathname === '/configuration' &&
                 < div className="cont">
@@ -14,7 +14,6 @@ export default function Configuration() {
                     <Link onClick={() => openNav(true)} to='/configuration/gallery'>GALLERY</Link>
                     <Link onClick={() => openNav(true)} to='/configuration/about-us'>ABOUT US</Link>
                     <Link onClick={() => openNav(true)} to='/configuration/users'>USERS</Link>
-                    <i className="fa-solid fa-screwdriver-wrench" />
                 </div>
             }
             <Outlet />

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-module.exports = mongoose.model('Book', new mongoose.Schema({
+module.exports = mongoose.model('BookConfirmed', new mongoose.Schema({
     userId: {
         type: String,
         required: true
@@ -20,12 +20,16 @@ module.exports = mongoose.model('Book', new mongoose.Schema({
         type: Array,
         required: true
     },
-    total: {
+    deposit: {
+        type: Number,
+        required: true
+    },
+    balance: {
         type: Number,
         required: true
     },
     status: {
         type: String,
-        default: "Pending"
+        default: "Confirmed"
     }
-}, { timestamps: true }), 'books')
+}, { timestamps: true }), 'book-confirmed')

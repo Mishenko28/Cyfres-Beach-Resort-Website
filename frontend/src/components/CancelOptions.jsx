@@ -9,9 +9,9 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
 
     const handleCancelBook = async () => {
         setIsLoading(true)
-        const response = await fetch(`${state.uri}/database/user/book-cancel`, {
+        const response = await fetch(`${state.uri}/book/cancel`, {
             method: 'POST',
-            body: JSON.stringify({ _id: state.user._id, book, reason: slctReas }),
+            body: JSON.stringify({ book, reason: slctReas }),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${state.user.token}`
@@ -19,7 +19,7 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
         })
 
         const json = await response.json()
-        console.log(json)
+
         setBooks(books.filter(book => book._id !== json.bookCancel._id))
         setIsLoading(false)
     }

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const authRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/adminRoutes')
-const databaseRoutes = require('./routes/databaseRoutes')
+const databaseRoutes = require('./routes/bookRoutes')
 
 const app = express()
 
@@ -34,8 +34,8 @@ app.use('/refresh-token', (req, res) => {
 })
 
 app.use('/admin', adminRoutes)
-app.use('/auth', authRoutes)
-app.use('/database', databaseRoutes)
+app.use('/user', authRoutes)
+app.use('/book', databaseRoutes)
 
 mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres')
     .then(() => {

@@ -30,7 +30,7 @@ export default function Booking() {
 
     useEffect(() => {
         if (state.user) {
-            fetch(`${state.uri}/database/user/details?_id=${state.user._id}`, {
+            fetch(`${state.uri}/user/details?_id=${state.user._id}`, {
                 headers: {
                     'Authorization': `Bearer ${state.user.token}`
                 }
@@ -43,7 +43,7 @@ export default function Booking() {
         }
 
         const fetchAllBook = async () => {
-            const response = await fetch(`${state.uri}/database/user/book?_id=${state.user._id}`, {
+            const response = await fetch(`${state.uri}/book/get?_id=${state.user._id}`, {
                 headers: {
                     'Authorization': `Bearer ${state.user.token}`
                 }
@@ -132,9 +132,9 @@ export default function Booking() {
         }
 
         const fetchAddBook = async () => {
-            const response = await fetch(`${state.uri}/database/user/book`, {
+            const response = await fetch(`${state.uri}/book/add`, {
                 method: 'POST',
-                body: JSON.stringify({ _id: state.user._id, dateIn, dateOut, question, selected }),
+                body: JSON.stringify({ _id: state.user._id, total: totalAmount, dateIn, dateOut, question, selected }),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${state.user.token}`
@@ -142,7 +142,7 @@ export default function Booking() {
             })
 
             const json = await response.json()
-            
+
             setBooks(p => [json.book, ...p])
 
             setRooms(rooms.map(room => ({ ...room, isChecked: false })))
@@ -157,20 +157,6 @@ export default function Booking() {
         e.preventDefault()
         type == 'add' && setRooms(rooms.map(room => (room._id == _id ? { ...room, add: room.add + 1 } : { ...room })))
         type == 'remove' && setRooms(rooms.map(room => (room._id == _id ? { ...room, add: Math.max(0, room.add - 1) } : { ...room })))
-    }
-
-    const total = (type, array) => {
-        let num = 0
-        array.map(c => c.add ? num += c.rate + (c.add * c.addFee) : num += c.rate)
-
-        if (type == 'amount') {
-            return num
-        }
-        if (type == 'deposit') {
-            return num * 0.5
-        }
-
-        return 0
     }
 
     return (
@@ -208,8 +194,8 @@ export default function Booking() {
                                         </div>
                                     ))}
                                     <hr />
-                                    <h2>Total Amount: ₱{total('amount', book.slctRoom)}</h2>
-                                    <h2>Minimum Deposit: ₱{total('deposit', book.slctRoom)}</h2>
+                                    <h2>Total Amount: ₱{book.total}</h2>
+                                    <h2>Minimum Deposit: ₱{book.total * 0.5}</h2>
                                 </>
                             }
                         </div>

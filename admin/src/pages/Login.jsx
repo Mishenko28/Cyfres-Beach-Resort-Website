@@ -7,13 +7,13 @@ export default function Login() {
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
-    const { dispatch } = useAdmin()
+    const { state, dispatch } = useAdmin()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
 
-        const response = await fetch('http://localhost:5000/admin/login', {
+        const response = await fetch(`${state.uri}/admin/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })

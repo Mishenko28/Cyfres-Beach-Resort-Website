@@ -1,59 +1,12 @@
-.config {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-}
-
-.config h1 {
-    margin: 30px;
-    font-size: 3rem;
-    color: #002244;
-}
-
-.config .cont i {
-    position: fixed;
-    font-size: 90vh;
-    color: rgba(0, 34, 68, 0.5);
-}
-
-.config .cont {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    padding: 50px;
-    align-items: center;
-    justify-content: center;
-}
-
-.config .cont a {
-    width: 350px;
-    height: 200px;
-    background-color: rgba(0, 34, 68, 0.95);
-    border-radius: 20px;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    z-index: 1;
-}
-
-.config .cont a:hover {
-    transform: scale(105%);
-}
-
 /* USERS */
-.config .users {
+.users {
     display: flex;
     flex-direction: column;
     gap: 20px;
     height: 100%;
 }
 
-.config .users .nav {
+.users .nav {
     position: sticky;
     top: 0;
     display: flex;
@@ -64,7 +17,7 @@
     border-radius: 6px;
 }
 
-.config .users .nav h2 {
+.users .nav h2 {
     font-size: 2rem;
     color: #fff;
     display: flex;
@@ -72,33 +25,33 @@
     align-items: center;
 }
 
-.config .users .nav h2 i {
+.users .nav h2 i {
     font-size: 1.5rem;
 }
 
-.config .users .nav h3 {
+.users .nav h3 {
     font-size: 0.9rem;
     color: #fff;
     font-weight: 100;
 }
 
-.config .users .nav .btns {
+.users .nav .btns {
     display: flex;
     color: #fff;
     gap: 5px;
     align-items: center;
 }
 
-.config .users .nav .btns i {
+.users .nav .btns i {
     font-size: 1.5rem;
     cursor: pointer;
 }
 
-.config .users .nav .btns i:hover {
+.users .nav .btns i:hover {
     color: #0f0;
 }
 
-.config .users .nav input {
+.users .nav input {
     font-size: 1rem;
     padding: 10px 15px;
     width: 50%;
@@ -107,7 +60,7 @@
     border-radius: 20px;
 }
 
-.config .users .nav .fa-rotate {
+.users .nav .fa-rotate {
     color: #fff;
     font-size: 1.5rem;
     margin-right: 10px;
@@ -115,11 +68,11 @@
     transition: all 0.1s;
 }
 
-.config .users .nav .fa-rotate:active {
+.users .nav .fa-rotate:active {
     transform: rotate(60deg);
 }
 
-.config .users .users-body .table {
+.users .users-body .table {
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -127,30 +80,30 @@
     padding: 10px;
 }
 
-.config .users .users-body .table .user-cont-nav {
+.users .users-body .table .user-cont-nav {
     color: #fff;
     display: flex;
     padding-block: 10px;
 }
 
-.config .users .users-body .table .user-cont-nav h3 {
+.users .users-body .table .user-cont-nav h3 {
     font-size: 1.2rem;
     width: 200px;
     text-align: center;
 }
 
-.config .users .users-body .table .user-cont-nav h3:nth-child(1) {
+.users .users-body .table .user-cont-nav h3:nth-child(1) {
     padding-left: 10px;
     text-align: start;
     width: 80px;
 }
 
-.config .users .users-body .table .user-cont-nav h3:nth-child(2) {
+.users .users-body .table .user-cont-nav h3:nth-child(2) {
     flex-grow: 1;
     text-align: start;
 }
 
-.config .users .users-body .table .user-cont-body {
+.users .users-body .table .user-cont-body {
     color: #002244;
     background-color: #fff;
     border-radius: 6px;
@@ -158,16 +111,16 @@
     cursor: pointer;
 }
 
-.config .users .users-body .table .user-cont-body .user-cont {
+.users .users-body .table .user-cont-body .user-cont {
     display: flex;
     gap: 2px;
 }
 
-.config .users .users-body .table .user-cont-body .user-cont:hover {
+.users .users-body .table .user-cont-body .user-cont:hover {
     background-color: #eee;
 }
 
-.config .users .users-body .table .user-cont-body .user-cont h3 {
+.users .users-body .table .user-cont-body .user-cont h3 {
     font-size: 0.9rem;
     font-weight: 500;
     width: 200px;
@@ -175,175 +128,13 @@
     padding-block: 12px;
 }
 
-.config .users .users-body .table .user-cont-body .user-cont h3:nth-child(1) {
+.users .users-body .table .user-cont-body .user-cont h3:nth-child(1) {
     text-align: start;
     padding-left: 20px;
     width: 70px;
 }
 
-.config .users .users-body .table .user-cont-body .user-cont h3:nth-child(2) {
+.users .users-body .table .user-cont-body .user-cont h3:nth-child(2) {
     text-align: start;
     flex-grow: 1;
-}
-
-.config .users .selected-user-cont {
-    background-color: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.config .users .selected-user-cont .selected-user-card {
-    background-color: #002244;
-    width: 700px;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    gap: 15px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-nav .fa-user {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    color: #002244;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-nav h2 {
-    color: #fff;
-    margin-left: 20px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-nav .fa-square-xmark {
-    color: #f00;
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body {
-    background-color: #fff;
-    flex-grow: 1;
-    border-radius: 6px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    gap: 10px;
-    overflow: hidden;
-    padding-bottom: 10px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont h4 {
-    font-size: 1.5rem;
-    color: #555;
-    background-color: #ccc;
-    width: 100%;
-    text-align: center;
-    padding-block: 5px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details {
-    display: flex;
-    margin-inline: 10px;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details h2 {
-    font-size: 1.2rem;
-    width: 200px;
-    color: #555;
-}
-
-.config .users .selected-user-cont .selected-user-card .selected-user-body .personal-details-cont .personal-details h3 {
-    font-size: 1.2rem;
-    color: #002244;
-}
-
-
-
-
-/* LOADER */
-.dots-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    padding-block: 100px;
-}
-
-.dot {
-    height: 10px;
-    width: 10px;
-    margin-right: 10px;
-    border-radius: 10px;
-    animation: pulse 2s infinite ease-in-out;
-}
-
-.dot:nth-child(5) {
-    animation-delay: 1s;
-}
-
-.dot:nth-child(4) {
-    animation-delay: 0.8s;
-}
-
-.dot:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-.dot:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.dot:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(0.8);
-        background-color: #0054a8;
-        box-shadow: 0 0 0 0 rgba(0, 34, 68, 0.7);
-    }
-
-    50% {
-        transform: scale(1.2);
-        background-color: #003e7c;
-        box-shadow: 0 0 0 8px rgba(0, 34, 68, 0);
-    }
-
-    100% {
-        transform: scale(0.8);
-        background-color: #002244;
-        box-shadow: 0 0 0 0 rgba(0, 34, 68, 0.7);
-    }
 }

@@ -40,7 +40,7 @@ export default function PersonalDetails() {
     useEffect(() => {
         const fetchUserDetails = async () => {
             setIsLoading(true)
-            const response = await fetch(`${state.uri}/database/user/details?_id=${state.user._id}`, {
+            const response = await fetch(`${state.uri}/user/details?_id=${state.user._id}`, {
                 headers: {
                     'Authorization': `Bearer ${state.user.token}`
                 }
@@ -88,7 +88,7 @@ export default function PersonalDetails() {
             const fetchUpdate = async () => {
                 setIsLoading(true)
 
-                const response = await fetch(`${state.uri}/database/user/details`, {
+                const response = await fetch(`${state.uri}/user/details`, {
                     method: 'PATCH',
                     body: JSON.stringify({ _id: state.user._id, name, age, sex, address, contact }),
                     headers: {
@@ -108,9 +108,9 @@ export default function PersonalDetails() {
             const fetchAdd = async () => {
                 setIsLoading(true)
 
-                const response = await fetch(`${state.uri}/database/user/details`, {
+                const response = await fetch(`${state.uri}/user/details`, {
                     method: 'POST',
-                    body: JSON.stringify({ _id: state.user._id, name, age, sex, address, contact }),
+                    body: JSON.stringify({ _id: state.user._id, email: state.user.email, name, age, sex, address, contact }),
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${state.user.token}`

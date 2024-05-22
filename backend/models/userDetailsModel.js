@@ -6,6 +6,10 @@ module.exports = mongoose.model('UserDetails', new mongoose.Schema({
         required: true,
         unique: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true,

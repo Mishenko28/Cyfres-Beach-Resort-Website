@@ -10,23 +10,28 @@ const reducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
             localStorage.setItem('cyfresAdmin', JSON.stringify(action.payload))
-            return { admin: { ...state.admin, ...action.payload } }
+            return { ...state, admin: { ...state.admin, ...action.payload } }
         case "LOGOUT":
             localStorage.removeItem('cyfresAdmin')
-            return { admin: { expired: false } }
+            return { ...state, admin: { expired: false } }
         case "REFRESH":
             localStorage.removeItem('cyfresAdmin')
             localStorage.setItem('cyfresAdmin', JSON.stringify({ email: state.admin.email, token: action.payload }))
-            return { admin: { ...state.admin, expired: false, token: action.payload } }
+            return { ...state, admin: { ...state.admin, expired: false, token: action.payload } }
         case "EXPIRED":
-            return { admin: { ...state.admin, expired: true } }
+            return { ...state, admin: { ...state.admin, expired: true } }
         default:
             return state
     }
 }
 
 export function AdminContextProvider({ children }) {
-    const [state, dispatch] = useReducer(reducer, { admin: { expired: false } })
+    const [state, dispatch] = useReducer(reducer, {
+        admin: { expired: false },
+        uri: "http://localhost:5000"
+    })
+    // DEV      "http://localhost:5000"
+    // SERVER   "https://cyfres-beach-resort-api.onrender.com"
 
     useEffect(() => {
         const admin = localStorage.getItem('cyfresAdmin')
@@ -34,7 +39,7 @@ export function AdminContextProvider({ children }) {
     }, [])
 
     const fetchNewToken = async () => {
-        const response = await fetch('http://localhost:5000/refresh-token', {
+        const response = await fetch(`${state.uri}/refresh-token`, {
             headers: {
                 'Authorization': `Bearer ${state.admin.token}`
             }
