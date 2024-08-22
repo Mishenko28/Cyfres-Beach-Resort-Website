@@ -63,10 +63,30 @@ const confirmBook = async (req, res) => {
     }
 }
 
+const getCancelled = async (req, res) => {
+    try {
+        const cancelled = await BookCancelled.find({})
+        res.status(200).json({ cancelled })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const getConfirmed = async (req, res) => {
+    try {
+        const confirmed = await BookConfirmed.find({})
+        res.status(200).json({ confirmed })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
 module.exports = {
     addBooking,
     getBookings,
     cancelBook,
     getPendings,
-    confirmBook
+    confirmBook,
+    getCancelled,
+    getConfirmed
 }

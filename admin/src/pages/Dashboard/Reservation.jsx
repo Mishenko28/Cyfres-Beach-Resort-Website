@@ -1,6 +1,9 @@
 import { useState } from "react";
+
 import Status from "./Resevation/Status";
 import Pending from "./Resevation/Pending";
+import Cancelled from "./Resevation/Cancelled";
+import Confirmed from "./Resevation/Confirmed";
 
 export default function Reservation() {
     const [toggles, setToggles] = useState('ongoing')
@@ -23,17 +26,7 @@ export default function Reservation() {
                     </div>
                 }
                 {toggles == 'pending' && <Pending />}
-                {toggles == 'confirmed' &&
-                    <div className="confirmed table">
-                        <div className="head">
-
-                        </div>
-                        <div className="data">
-
-                        </div>
-
-                    </div>
-                }
+                {toggles == 'confirmed' && <Confirmed />}
                 {toggles == 'completed' &&
                     <div className="completed table">
                         <div className="head">
@@ -45,17 +38,7 @@ export default function Reservation() {
 
                     </div>
                 }
-                {toggles == 'cancelled' &&
-                    <div className="cancelled table">
-                        <div className="head">
-
-                        </div>
-                        <div className="data">
-
-                        </div>
-
-                    </div>
-                }
+                {toggles == 'cancelled' && <Cancelled />}
                 {toggles == 'noshow' &&
                     <div className="noshow table">
                         <div className="head">

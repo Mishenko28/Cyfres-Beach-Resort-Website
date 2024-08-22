@@ -34,7 +34,7 @@ const loginAdmin = async (req, res) => {
 
 const addNewAdmin = async (req, res) => {
     const { email, password } = await req.body
-
+    
     try {
         const exist = await Admin.findOne({email})
         

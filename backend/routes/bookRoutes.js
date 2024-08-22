@@ -6,7 +6,9 @@ const {
     getBookings,
     cancelBook,
     getPendings,
-    confirmBook
+    confirmBook,
+    getCancelled,
+    getConfirmed
 } = require('../controllers/bookController')
 
 router.use(auth)
@@ -15,6 +17,8 @@ router.post('/add', addBooking)
 router.get('/get', getBookings)
 
 router.get('/get/pending', getPendings)
+router.get('/get/cancel', getCancelled)
+router.get('/get/confirm', getConfirmed)
 
 router.post('/cancel', cancelBook)
 router.post('/confirm', confirmBook)

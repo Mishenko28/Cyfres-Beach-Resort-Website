@@ -12,6 +12,7 @@
     background-color: #002244;
     padding: 8px 10px;
     border-radius: 6px;
+    z-index: 1;
 }
 
 .reserv .nav h2 {
@@ -83,9 +84,19 @@
 }
 
 .reserv .status-body .head {
+    position: relative;
     display: flex;
     padding: 15px;
     justify-content: space-between;
+}
+
+.reserv .status-body .head i {
+    position: absolute;
+    right: 15px;
+    color: #fff;
+    text-shadow: 0 1px 2px #555;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .reserv .status-body .head h2 {
@@ -95,22 +106,22 @@
     width: 160px;
 }
 
-.reserv .status-body .head h2:nth-child(2) {
+.reserv .status-body .pending .head h2:nth-child(2) {
     width: 200px;
 }
 
-.reserv .status-body .head h2:nth-child(3),
-.reserv .status-body .head h2:nth-child(4),
-.reserv .status-body .head h2:nth-child(5) {
+.reserv .status-body .pending .head h2:nth-child(3),
+.reserv .status-body .pending .head h2:nth-child(4),
+.reserv .status-body .pending .head h2:nth-child(5) {
     width: 130px;
     text-align: center;
 }
 
-.reserv .status-body .head h2:nth-child(6) {
+.reserv .status-body .pending .head h2:nth-child(6) {
     width: 150px;
 }
 
-.reserv .status-body .head h2:nth-child(7) {
+.reserv .status-body .pending .head h2:nth-child(7) {
     width: 80px;
     text-align: center;
     margin-right: 100px;
@@ -135,7 +146,7 @@
     background-color: yellow;
 }
 
-.reserv .status-body .pending .box {
+.reserv .status-body .box {
     position: relative;
     display: flex;
     align-items: center;
@@ -154,11 +165,13 @@
     margin-right: 100px;
 }
 
-.reserv .status-body .pending .box h2 {
+.reserv .status-body .box h2 {
     font-size: 0.7rem;
     font-weight: 500;
     width: 160px;
     color: #002244;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .reserv .status-body .pending .box h2:nth-child(2) {
@@ -172,28 +185,28 @@
     width: 130px;
 }
 
-.reserv .status-body .pending .box:nth-child(even) {
+.reserv .status-body .box:nth-child(even) {
     background-color: #f5f5f5;
 }
 
-.reserv .status-body .pending .box:hover {
+.reserv .status-body .box:hover {
     box-shadow: inset 0 0 0 1px #002244;
 }
 
-.reserv .status-body .pending .box .acc {
+.reserv .status-body .box .acc {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
 
-.reserv .status-body .pending .box .acc h3 {
+.reserv .status-body .box .acc h3 {
     font-size: 0.7rem;
     font-weight: 500;
     width: 150px;
     color: #002244;
 }
 
-.reserv .status-body .pending .box .btnss {
+.reserv .status-body .box .btnss {
     position: absolute;
     right: 10px;
     display: flex;
@@ -201,7 +214,7 @@
     gap: 5px;
 }
 
-.reserv .status-body .pending .box .btnss button {
+.reserv .status-body .box .btnss button {
     padding-block: 5px;
     border-radius: 4px;
     color: #fff;
@@ -209,11 +222,11 @@
     cursor: pointer;
 }
 
-.reserv .status-body .pending .box .btnss button:nth-child(1) {
+.reserv .status-body .box .btnss button:nth-child(1) {
     background-color: green;
 }
 
-.reserv .status-body .pending .box .btnss button:nth-child(2) {
+.reserv .status-body .box .btnss button:nth-child(2) {
     background-color: red;
 }
 
@@ -247,7 +260,7 @@
     cursor: pointer;
 }
 
-.reserv .status-body .pending .edit-cont {
+.reserv .status-body .edit-cont {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -257,7 +270,7 @@
     border-radius: 6px;
 }
 
-.reserv .status-body .pending .edit-cont .inputs {
+.reserv .status-body .edit-cont .inputs {
     border: 1px solid #002244;
     height: 30px;
     display: flex;
@@ -265,23 +278,23 @@
     padding-inline: 10px;
 }
 
-.reserv .status-body .pending .edit-cont .edit-div {
+.reserv .status-body .edit-cont .edit-div {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.reserv .status-body .pending .edit-cont .edit-div2 {
+.reserv .status-body .edit-cont .edit-div2 {
     display: flex;
     gap: 15px;
 }
 
-.reserv .status-body .pending .edit-cont .btns {
+.reserv .status-body .edit-cont .btns {
     display: flex;
     gap: 20px;
 }
 
-.reserv .status-body .pending .edit-cont .btns button {
+.reserv .status-body .edit-cont .btns button {
     height: 35px;
     width: 100px;
     border-radius: 4px;
@@ -289,11 +302,11 @@
     color: #fff;
 }
 
-.reserv .status-body .pending .edit-cont .btns button:first-child {
+.reserv .status-body .edit-cont .btns button:first-child {
     background-color: #0f0;
 }
 
-.reserv .status-body .pending .edit-cont .btns button:last-child {
+.reserv .status-body .edit-cont .btns button:last-child {
     background-color: #f00;
 }
 
@@ -311,6 +324,17 @@
 
 .reserv .status-body .cancelled {
     background-color: red;
+}
+
+.reserv .status-body .cancelled .head h2:nth-child(1),
+.reserv .status-body .cancelled .head h2:nth-child(2),
+.reserv .status-body .cancelled .head h2:nth-child(3) {
+    text-align: center;
+}
+
+.reserv .status-body .cancelled .box h2:nth-child(1),
+.reserv .status-body .cancelled .box h2:nth-child(2) {
+    text-align: center;
 }
 
 .reserv .status-body .noshow {

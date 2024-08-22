@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import useAdmin from "../../../hooks/useAdmin"
-import { format, formatDistance, formatDistanceToNow } from "date-fns"
 import User from "../../../components/User"
+import { format, formatDistance } from "date-fns"
 import Confirmation from "../../../components/Confirmation"
 
-export default function Pending() {
+export default function Confirmed() {
     const { state, dispatch } = useAdmin()
-    const [selectedUser, setSelectedUser] = useState([])
-    const [books, setBooks] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [cancelBook, setCancelBook] = useState(null)
-    const [confirmBook, setConfirmBook] = useState(null)
 
-    const [question, setQuestion] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+    const [books, setBooks] = useState([])
+    const [cancelBook, setCancelBook] = useState(null)
+    const [selectedUser, setSelectedUser] = useState([])
+    const [edit, setEdit] = useState(null)
 
     useEffect(() => {
         fetchBooks()
@@ -20,7 +19,7 @@ export default function Pending() {
 
     const fetchBooks = async () => {
         setIsLoading(true)
-        const response = await fetch(`${state.uri}/book/get/pending`, {
+        const response = await fetch(`${state.uri}/book/get/confirm`, {
             headers: {
                 Authorization: `Bearer ${state.admin.token}`
             }
@@ -32,32 +31,8 @@ export default function Pending() {
             return
         }
 
-        setBooks(json.pendings)
+        setBooks(json.confirmed)
         setIsLoading(false)
-    }
-
-    const handleSelectedUser = async (id) => {
-        setIsLoading(true)
-        const response = await fetch(`${state.uri}/user/details?_id=${id}`, {
-            headers: {
-                Authorization: `Bearer ${state.admin.token}`,
-            },
-        })
-
-        const json = await response.json()
-
-        if (json.error?.message == "jwt expired") {
-            dispatch({ type: "EXPIRED" })
-            return
-        }
-
-        setSelectedUser(json.map((u) => ({ ...u, details: true })))
-        setIsLoading(false)
-    }
-
-    const handleQuestion = (e, question) => {
-        e.stopPropagation()
-        setQuestion(question)
     }
 
     const handleCancelBook = async (book) => {
@@ -83,24 +58,10 @@ export default function Pending() {
         setIsLoading(false)
     }
 
-    const handleConfirmBook = async (book) => {
+    const handleSelectedUser = async (id) => {
         setIsLoading(true)
-        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
-
-        const response = await fetch(`${state.uri}/book/confirm`, {
-            method: "POST",
-            body: JSON.stringify({
-                _id,
-                userId,
-                dateIn,
-                dateOut,
-                question,
-                slctRoom,
-                deposit,
-                balance: total - deposit,
-            }),
+        const response = await fetch(`${state.uri}/user/details?_id=${id}`, {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${state.admin.token}`,
             },
         })
@@ -112,8 +73,7 @@ export default function Pending() {
             return
         }
 
-        setBooks(books.filter((book) => book._id !== json._id))
-        setConfirmBook(null)
+        setSelectedUser(json.map((u) => ({ ...u, details: true })))
         setIsLoading(false)
     }
 
@@ -122,9 +82,9 @@ export default function Pending() {
         setCancelBook(book)
     }
 
-    const handleConfirmBtn = (e, book) => {
+    const handleEdit = (e, book) => {
         e.stopPropagation()
-        setConfirmBook({ ...book, deposit: book.total * 0.5 })
+        setEdit(book)
     }
 
     const handleRefresh = () => {
@@ -132,29 +92,26 @@ export default function Pending() {
     }
 
     return (
-        <div className="pending table">
+        <div className="confirmed table">
             {isLoading && <div className="loader"></div>}
             <div className="head">
-                <h2>Submission Time</h2>
                 <h2>Reservation Date</h2>
                 <h2>Total Period</h2>
-                <h2>Sum Total</h2>
-                <h2>Down Payment</h2>
+                <h2>Claimed Deposit</h2>
+                <h2>Remaining Balance</h2>
                 <h2>Accommodations</h2>
-                <h2>Question</h2>
                 <i className="fa-solid fa-rotate" onClick={handleRefresh} />
             </div>
             <div className="data">
-                {books.map((book) => (
+                {books.map(book => (
                     <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
-                        <h2>{formatDistanceToNow(book.createdAt, { addSuffix: true })}</h2>
                         <h2>
                             {format(book.dateIn, "MMM d, yyyy")} - {" "}
                             {format(book.dateOut, "MMM d, yyyy")}
                         </h2>
                         <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
-                        <h2>₱{book.total}</h2>
-                        <h2>₱{book.total * 0.5}</h2>
+                        <h2>{book.deposit}</h2>
+                        <h2>{book.balance}</h2>
                         <div className="acc">
                             {book.slctRoom.map((acc) => {
                                 return (
@@ -162,36 +119,24 @@ export default function Pending() {
                                 )
                             })}
                         </div>
-                        <i style={book.question ? { color: "green" } : { color: "red", cursor: "not-allowed" }} onClick={(e) => handleQuestion(e, book.question)} className="fa-solid fa-circle-question" />
                         <div className="btnss">
-                            <button onClick={(e) => handleConfirmBtn(e, book)}>Confirm</button>
+                            <button onClick={(e) => handleEdit(e, book)}>Edit</button>
                             <button onClick={(e) => handleCancekBtn(e, book)}>Cancel</button>
                         </div>
                     </div>
                 ))}
-                {books.length == 0 && (<div className="box" style={{ justifyContent: "center" }}>There are currently no reservations.</div>)}
             </div>
-            {question && (
-                <div className="blur-cont">
-                    <div className="q-cont">
-                        <i onClick={() => setQuestion("")} className="fa-solid fa-square-xmark" />
-                        <h2>Question:</h2>
-                        <h3>{question}</h3>
-                    </div>
-                </div>
-            )}
-            {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
-            {confirmBook &&
+            {edit &&
                 <div className="blur-cont">
                     <div className="edit-cont">
-                        <h2>Reservation ConfirmFation</h2>
+                        <h2>Edit Reservation</h2>
                         <div className="edit-div">
                             <p>Date In:</p>
-                            <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateIn: e.target.value }))} value={new Date(confirmBook.dateIn).toLocaleDateString("en-CA")} />
+                            <input className="inputs" type="date" onChange={(e) => setEdit(prev => ({ ...prev, dateIn: e.target.value }))} value={new Date(edit.dateIn).toLocaleDateString("en-CA")} />
                         </div>
                         <div className="edit-div">
                             <p>Date Out:</p>
-                            <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(confirmBook.dateOut).toLocaleDateString("en-CA")} />
+                            <input className="inputs" type="date" onChange={(e) => setEdit(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(edit.dateOut).toLocaleDateString("en-CA")} />
                         </div>
                         <div className="edit-div">
                             <p>Room:</p>
@@ -199,23 +144,24 @@ export default function Pending() {
                         </div>
                         <div className="edit-div">
                             <p>Claimed Deposit:</p>
-                            <input className="inputs" type="number" onChange={(e) => setConfirmBook(prev => ({ ...prev, deposit: e.target.value }))} value={confirmBook.deposit} />
+                            <input className="inputs" type="number" onChange={(e) => setEdit(prev => ({ ...prev, deposit: e.target.value }))} value={edit.deposit} />
                         </div>
                         <div className="edit-div2">
                             <p>Total:</p>
-                            <div>₱{confirmBook.total}</div>
+                            <div>₱{edit.balance + edit.deposit}</div>
                         </div>
                         <div className="edit-div2">
-                            <p>Deposit:</p>
-                            <div>₱{confirmBook.total * 0.5}</div>
+                            <p>Claimed Deposit:</p>
+                            <div>₱{edit.deposit}</div>
                         </div>
                         <div className="btns">
-                            <button onClick={() => handleConfirmBook(confirmBook)}>Confirm</button>
-                            <button onClick={() => setConfirmBook(null)}>Cancel</button>
+                            <button onClick={() => handleedit(edit)}>Save</button>
+                            <button onClick={() => setEdit(null)}>Cancel</button>
                         </div>
                     </div>
                 </div>
             }
+            {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
             {cancelBook &&
                 <Confirmation
                     mssg={"Are you sure you want to cancel this Reservation?"}

@@ -146,7 +146,7 @@ export default function Users() {
                     </div>
                 </div>
             </div>
-            {selectedUser.length > 0 && selectedUser.map(user => (<User setSelectedUser={setSelectedUser} user={user} />))}
+            {selectedUser.length > 0 && selectedUser.map(user => (<User key={user._id} setSelectedUser={setSelectedUser} user={user} />))}
         </div >
     )
 }

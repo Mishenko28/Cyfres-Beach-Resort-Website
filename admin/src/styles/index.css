@@ -109,9 +109,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    padding: 50px;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .tab .cont a {

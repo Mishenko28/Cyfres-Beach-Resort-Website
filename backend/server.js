@@ -46,3 +46,6 @@ mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongo
     .catch((error) => {
         console.log(error)
     })
+
+// ATLAS      'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
+// COMPASS    'mongodb://localhost:27017/Cyfres'
