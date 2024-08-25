@@ -20,16 +20,12 @@ module.exports = mongoose.model('BookConfirmed', new mongoose.Schema({
         type: Array,
         required: true
     },
+    total: {
+        type: Number,
+        required: true
+    },
     deposit: {
         type: Number,
         required: true
-    },
-    balance: {
-        type: Number,
-        required: true
-    },
-    status: {
-        type: String,
-        default: "Confirmed"
     }
 }, { timestamps: true }), 'book-confirmed')

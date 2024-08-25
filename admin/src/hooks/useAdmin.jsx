@@ -28,7 +28,7 @@ const reducer = (state, action) => {
 export function AdminContextProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, {
         admin: { expired: false },
-        uri: "http://localhost:5000"
+        uri: "https://cyfres-beach-resort-api.onrender.com"
     })
     // DEV      "http://localhost:5000"
     // SERVER   "https://cyfres-beach-resort-api.onrender.com"

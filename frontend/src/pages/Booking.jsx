@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../hooks/useGlobalContext"
 import { useNavigate } from "react-router-dom"
-import { format, set } from 'date-fns'
 
 import Loader from '../components/Loader'
-import CancelOptions from "../components/CancelOptions"
 
-export default function Booking() {
+export default function Booking({ setCartNum }) {
     const { state } = useGlobalContext()
     const navigate = useNavigate()
 
@@ -22,11 +20,11 @@ export default function Booking() {
     const totalPeriod = (new Date(dateOut) - new Date(dateIn)) / 86400000
     const [totalAmount, setTotalAmount] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
-    const [books, setBooks] = useState([])
+
     const [roomImg, setRoomImg] = useState(false)
 
     const [emptyTogg, setEmptyTogg] = useState(false)
-    const [cancelOpts, setCancelOpts] = useState([])
+
 
     useEffect(() => {
         if (state.user) {
@@ -41,19 +39,9 @@ export default function Booking() {
         } else {
             navigate('/signup')
         }
+    }, [])
 
-        const fetchAllBook = async () => {
-            const response = await fetch(`${state.uri}/book/get?_id=${state.user._id}`, {
-                headers: {
-                    'Authorization': `Bearer ${state.user.token}`
-                }
-            })
-
-            const json = await response.json()
-            setBooks([])
-            json.books.map(book => setBooks(p => [...p, book]))
-        }
-
+    useEffect(() => {
         const rooms = [
             { _id: 111, type: 'room', name: 'Room 1', addFee: 200, max: 3, rate: 1500 },
             { _id: 112, type: 'room', name: 'Room 2', addFee: 200, max: 5, rate: 2500 },
@@ -80,7 +68,6 @@ export default function Booking() {
         setRooms(rooms.map(room => ({ ...room, add: 0 })))
         setCottages(cottages.map(cottage => ({ ...cottage, isChecked: false })))
         setAmenities(amenities.map(amenity => ({ ...amenity, isChecked: false })))
-        state.user && fetchAllBook()
     }, [])
 
     useEffect(() => {
@@ -132,7 +119,7 @@ export default function Booking() {
         }
 
         const fetchAddBook = async () => {
-            const response = await fetch(`${state.uri}/book/add`, {
+            await fetch(`${state.uri}/book/add`, {
                 method: 'POST',
                 body: JSON.stringify({ _id: state.user._id, total: totalAmount, dateIn, dateOut, question, selected }),
                 headers: {
@@ -141,9 +128,15 @@ export default function Booking() {
                 }
             })
 
+            const response = await fetch(`${state.uri}/book/get?_id=${state.user._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${state.user.token}`
+                }
+            })
+
             const json = await response.json()
 
-            setBooks(p => [json.book, ...p])
+            setCartNum(json.books.length)
 
             setRooms(rooms.map(room => ({ ...room, isChecked: false })))
             setCottages(cottages.map(cottage => ({ ...cottage, isChecked: false })))
@@ -173,33 +166,6 @@ export default function Booking() {
                             </div>
                         </div>
                     }
-                    {books.map(book => (
-                        <div key={book._id} className="books">
-                            <div className="head">
-                                <h1>{book.status}</h1>
-                                {book.status == "Pending" && !cancelOpts.includes(book._id) && <button onClick={() => setCancelOpts(p => [...p, book._id])}>Cancel</button>}
-                            </div>
-                            <hr />
-                            {cancelOpts.includes(book._id) ?
-                                <CancelOptions setBooks={setBooks} books={books} book={book} setCancelOpts={setCancelOpts} />
-                                :
-                                <>
-                                    <h2>{format(book.dateIn, 'MMM d, yyyy')} - {format(book.dateOut, 'MMM d, yyyy')}</h2>
-                                    <hr />
-                                    {book.slctRoom.map(room => (
-                                        <div key={room._id} className="room">
-                                            <h3>{room.name}</h3>
-                                            {room?.max && <h3>{room.add == 0 && 'Max'} {room.max + room.add} Person{room.max !== 1 && 's'}</h3>}
-                                            {room.add ? <h3>₱{room.rate + (room.add * room.addFee)}</h3> : <h3>₱{room.rate}</h3>}
-                                        </div>
-                                    ))}
-                                    <hr />
-                                    <h2>Total Amount: ₱{book.total}</h2>
-                                    <h2>Minimum Deposit: ₱{book.total * 0.5}</h2>
-                                </>
-                            }
-                        </div>
-                    ))}
                     <form>
                         <h1>Reservation Form</h1>
                         <div className="note">

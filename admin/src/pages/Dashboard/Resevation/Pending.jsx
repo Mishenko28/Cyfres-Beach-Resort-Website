@@ -64,7 +64,7 @@ export default function Pending() {
         setIsLoading(true)
         const response = await fetch(`${state.uri}/book/cancel`, {
             method: "POST",
-            body: JSON.stringify({ book, reason: "removed by admin" }),
+            body: JSON.stringify({ book, reason: `removed by admin (${state.admin.email})` }),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${state.admin.token}`,
@@ -97,7 +97,7 @@ export default function Pending() {
                 question,
                 slctRoom,
                 deposit,
-                balance: total - deposit,
+                total
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export default function Pending() {
         setIsLoading(false)
     }
 
-    const handleCancekBtn = (e, book) => {
+    const handleCancelBtn = (e, book) => {
         e.stopPropagation()
         setCancelBook(book)
     }
@@ -142,7 +142,7 @@ export default function Pending() {
                 <h2>Down Payment</h2>
                 <h2>Accommodations</h2>
                 <h2>Question</h2>
-                <i className="fa-solid fa-rotate" onClick={handleRefresh} />
+                <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
                 {books.map((book) => (
@@ -154,7 +154,7 @@ export default function Pending() {
                         </h2>
                         <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
                         <h2>₱{book.total}</h2>
-                        <h2>₱{book.total * 0.5}</h2>
+                        <h2>₱{book.deposit}</h2>
                         <div className="acc">
                             {book.slctRoom.map((acc) => {
                                 return (
@@ -162,10 +162,10 @@ export default function Pending() {
                                 )
                             })}
                         </div>
-                        <i style={book.question ? { color: "green" } : { color: "red", cursor: "not-allowed" }} onClick={(e) => handleQuestion(e, book.question)} className="fa-solid fa-circle-question" />
+                        <h2><i style={book.question ? { color: "green" } : { color: "red", cursor: "not-allowed" }} onClick={(e) => handleQuestion(e, book.question)} className="fa-solid fa-circle-question" /></h2>
                         <div className="btnss">
-                            <button onClick={(e) => handleConfirmBtn(e, book)}>Confirm</button>
-                            <button onClick={(e) => handleCancekBtn(e, book)}>Cancel</button>
+                            <button className="confirm" onClick={(e) => handleConfirmBtn(e, book)}>Confirm</button>
+                            <button className="cancel" onClick={(e) => handleCancelBtn(e, book)}>Cancel</button>
                         </div>
                     </div>
                 ))}
@@ -207,11 +207,11 @@ export default function Pending() {
                         </div>
                         <div className="edit-div2">
                             <p>Deposit:</p>
-                            <div>₱{confirmBook.total * 0.5}</div>
+                            <div>₱{confirmBook.deposit}</div>
                         </div>
                         <div className="btns">
                             <button onClick={() => handleConfirmBook(confirmBook)}>Confirm</button>
-                            <button onClick={() => setConfirmBook(null)}>Cancel</button>
+                            <button onClick={() => setConfirmBook(null)}>Back</button>
                         </div>
                     </div>
                 </div>

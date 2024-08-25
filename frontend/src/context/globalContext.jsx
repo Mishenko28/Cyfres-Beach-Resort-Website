@@ -21,18 +21,20 @@ export default function GlobalContextProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, {
         user: null,
         disposableCont: null,
-        uri: "http://localhost:5000"
+        uri: "https://cyfres-beach-resort-api.onrender.com"
         // "https://cyfres-beach-resort-api.onrender.com"
         // "http://localhost:5000"
     })
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'))
-
-        if (user) {
-            dispatch({ type: "LOGIN", payload: user })
+        const loginUser = () => {
+            const user = JSON.parse(localStorage.getItem('user'))
+            if (user) {
+                dispatch({ type: "LOGIN", payload: user })
+            }
         }
 
+        loginUser()
     }, [])
 
     return (

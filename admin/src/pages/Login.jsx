@@ -2,7 +2,7 @@ import { useState } from "react"
 import useAdmin from "../hooks/useAdmin"
 
 export default function Login() {
-    const [email, setEmail] = useState('Thomas28')
+    const [email, setEmail] = useState('thomas28')
     const [password, setPassword] = useState('thomas1228')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)

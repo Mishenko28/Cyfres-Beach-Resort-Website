@@ -24,6 +24,10 @@ module.exports = mongoose.model('Book', new mongoose.Schema({
         type: Number,
         required: true
     },
+    deposit: {
+        type: Number,
+        required: true
+    },
     status: {
         type: String,
         default: "Pending"

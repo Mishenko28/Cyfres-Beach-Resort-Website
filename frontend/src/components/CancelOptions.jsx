@@ -6,6 +6,7 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
 
     const [slctReas, setSlctReas] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const [pleaseSlctTogg, setPleaseSlctTogg] = useState(false)
 
     const handleCancelBook = async () => {
         setIsLoading(true)
@@ -35,21 +36,22 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
                 <div className="loader"></div>
                 :
                 <>
+                    {pleaseSlctTogg && <h3 className="please-slct">Please select a reason to cancel.</h3>}
                     <h1>Why do you want to cancel this Reservation?</h1>
                     <div className="optns">
                         <input onChange={() => setSlctReas("Change of Plans")} type="radio" className="reasons" name="options" />
                         <h2>Change of Plans</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Financial Constraints")} type="radio" className="reasons" name="options" />
+                        <input onChange={() => setSlctReas("Financial Constraints")} type="radio" className="reasons" name="options" />
                         <h2>Financial Constraints</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Emergency Situations")} type="radio" className="reasons" name="options" />
+                        <input onChange={() => setSlctReas("Emergency Situations")} type="radio" className="reasons" name="options" />
                         <h2>Emergency Situations</h2>
                     </div>
                     <div className="optns">
-                        <input onClick={() => setSlctReas("Personal Reasons")} type="radio" className="reasons" name="options" />
+                        <input onChange={() => setSlctReas("Personal Reasons")} type="radio" className="reasons" name="options" />
                         <h2>Personal Reasons</h2>
                     </div>
                     <div className="other">
@@ -57,8 +59,8 @@ export default function CancelOptions({ setBooks, books, book, setCancelOpts }) 
                         <textarea onChange={handleTextareaChange} ></textarea>
                     </div>
                     <div className="btns">
-                        <button className="cancel" onClick={() => setCancelOpts(p => p.filter(slct => slct !== book._id))}>Cancel</button>
-                        {slctReas && <button onClick={handleCancelBook} className="save">Save</button>}
+                        <button className="cancel" onClick={() => setCancelOpts(p => p.filter(slct => slct !== book._id))}>Back</button>
+                        <button onClick={slctReas ? handleCancelBook : () => setPleaseSlctTogg(true)} className="save">Confirm</button>
                     </div>
                 </>
             }

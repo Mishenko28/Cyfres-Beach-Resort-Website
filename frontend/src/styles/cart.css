@@ -1,0 +1,120 @@
+.cart {
+    padding-block: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 50vh;
+}
+
+.cart .books {
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    width: 85vw;
+    max-width: 700px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 3px solid var(--green);
+    border-radius: 6px;
+    color: var(--light-gray);
+}
+
+.cart .books .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart .books .head h1 {
+    color: var(--green);
+}
+
+.cart .books .head button {
+    border: none;
+    background-color: var(--red);
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.cart .books h2 {
+    font-size: 0.7rem;
+}
+
+.cart .books .room {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.cart .books hr {
+    border: none;
+    box-shadow: 0 0 0 0.1px var(--gray);
+}
+
+.cart .books .room h3 {
+    font-size: 0.8rem;
+    width: 100px;
+}
+
+/* CANCEL OPTIONS */
+.cart .books .cancel-optns-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cart .books .cancel-optns-cont h1 {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+.cart .books .cancel-optns-cont h3 {
+    font-size: 1rem;
+    color: var(--red);
+}
+
+.cart .books .cancel-optns-cont .optns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart .books .cancel-optns-cont .other textarea {
+    width: 250px;
+    padding: 5px;
+    height: 40px;
+    color: var(--gray);
+    border: var(--border);
+}
+
+.cart .books .cancel-optns-cont h2 {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+.cart .books .cancel-optns-cont .btns {
+    display: flex;
+    gap: 20px;
+}
+
+.cart .books .cancel-optns-cont .btns button {
+    border: none;
+    color: #fff;
+    padding-block: 8px;
+    width: 80px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cart .books .cancel-optns-cont .btns .save {
+    background-color: var(--green);
+}
+
+.cart .books .cancel-optns-cont .btns .cancel {
+    background-color: var(--red);
+}

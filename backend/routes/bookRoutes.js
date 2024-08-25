@@ -8,7 +8,8 @@ const {
     getPendings,
     confirmBook,
     getCancelled,
-    getConfirmed
+    getConfirmed,
+    editConfirmBook
 } = require('../controllers/bookController')
 
 router.use(auth)
@@ -22,6 +23,7 @@ router.get('/get/confirm', getConfirmed)
 
 router.post('/cancel', cancelBook)
 router.post('/confirm', confirmBook)
+router.post('/edit', editConfirmBook)
 
 
 module.exports = router

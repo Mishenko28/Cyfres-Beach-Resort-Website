@@ -83,48 +83,24 @@
     height: 40px;
 }
 
-.reserv .status-body .head {
-    position: relative;
-    display: flex;
-    padding: 15px;
-    justify-content: space-between;
+.reserv .status-body .pending {
+    background-color: yellow;
 }
 
-.reserv .status-body .head i {
-    position: absolute;
-    right: 15px;
-    color: #fff;
-    text-shadow: 0 1px 2px #555;
-    font-size: 1rem;
-    cursor: pointer;
+.reserv .status-body .ongoing {
+    background-color: orange;
 }
 
-.reserv .status-body .head h2 {
-    color: #fff;
-    text-shadow: 0 1px 2px #555;
-    font-size: 1rem;
-    width: 160px;
+.reserv .status-body .confirmed {
+    background-color: green;
 }
 
-.reserv .status-body .pending .head h2:nth-child(2) {
-    width: 200px;
+.reserv .status-body .completed {
+    background-color: blue;
 }
 
-.reserv .status-body .pending .head h2:nth-child(3),
-.reserv .status-body .pending .head h2:nth-child(4),
-.reserv .status-body .pending .head h2:nth-child(5) {
-    width: 130px;
-    text-align: center;
-}
-
-.reserv .status-body .pending .head h2:nth-child(6) {
-    width: 150px;
-}
-
-.reserv .status-body .pending .head h2:nth-child(7) {
-    width: 80px;
-    text-align: center;
-    margin-right: 100px;
+.reserv .status-body .cancelled {
+    background-color: red;
 }
 
 .reserv .status-body .table {
@@ -135,6 +111,51 @@
     padding: 0 10px 10px 10px;
 }
 
+.reserv .status-body .head {
+    display: flex;
+    padding-block: 15px;
+    justify-content: space-between;
+    margin-inline: 15px;
+}
+
+.reserv .status-body .head h3 {
+    width: 90px;
+    text-align: center;
+}
+
+.reserv .status-body .head h3 i {
+    color: #fff;
+    text-shadow: 0 1px 2px #555;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+.reserv .status-body .head h2 {
+    color: #fff;
+    text-shadow: 0 1px 2px #555;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.reserv .status-body .pending .box .acc,
+.reserv .status-body .pending .box h2,
+.reserv .status-body .pending .head h2 {
+    width: 150px;
+}
+
+.reserv .status-body .confirmed .box .acc,
+.reserv .status-body .confirmed .box h2,
+.reserv .status-body .confirmed .head h2 {
+    width: 200px;
+}
+
+.reserv .status-body .cancelled .box .acc,
+.reserv .status-body .cancelled .box h2,
+.reserv .status-body .cancelled .head h2 {
+    width: 250px;
+}
+
 .reserv .status-body .data {
     display: flex;
     flex-direction: column;
@@ -142,12 +163,7 @@
     overflow: hidden;
 }
 
-.reserv .status-body .pending {
-    background-color: yellow;
-}
-
 .reserv .status-body .box {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -157,36 +173,23 @@
     cursor: pointer;
 }
 
-.reserv .status-body .pending .box i {
-    font-size: 1.5rem;
-    width: 80px;
-    text-align: center;
-    z-index: 1;
-    margin-right: 100px;
+.reserv .status-body .box:nth-child(even) {
+    background-color: #f5f5f5;
 }
 
 .reserv .status-body .box h2 {
     font-size: 0.7rem;
     font-weight: 500;
-    width: 160px;
     color: #002244;
     text-overflow: ellipsis;
+    text-align: center;
     overflow: hidden;
 }
 
-.reserv .status-body .pending .box h2:nth-child(2) {
-    width: 200px;
-}
-
-.reserv .status-body .pending .box h2:nth-child(3),
-.reserv .status-body .pending .box h2:nth-child(4),
-.reserv .status-body .pending .box h2:nth-child(5) {
+.reserv .status-body .pending .box h2 i {
+    font-size: 1.5rem;
     text-align: center;
-    width: 130px;
-}
-
-.reserv .status-body .box:nth-child(even) {
-    background-color: #f5f5f5;
+    z-index: 1;
 }
 
 .reserv .status-body .box:hover {
@@ -197,18 +200,20 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    text-align: center;
 }
 
 .reserv .status-body .box .acc h3 {
     font-size: 0.7rem;
     font-weight: 500;
-    width: 150px;
     color: #002244;
 }
 
+
+
+/* BUTTONS */
 .reserv .status-body .box .btnss {
-    position: absolute;
-    right: 10px;
+    width: 90px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -216,19 +221,31 @@
 
 .reserv .status-body .box .btnss button {
     padding-block: 5px;
-    border-radius: 4px;
+    border-radius: 3px;
     color: #fff;
-    width: 80px;
+    flex-grow: 1;
     cursor: pointer;
 }
 
-.reserv .status-body .box .btnss button:nth-child(1) {
+.reserv .status-body .box .btnss button:hover {
+    transform: scale(1.05);
+}
+
+.reserv .status-body .box .btnss .confirm {
     background-color: green;
 }
 
-.reserv .status-body .box .btnss button:nth-child(2) {
+.reserv .status-body .box .btnss .cancel {
     background-color: red;
 }
+
+.reserv .status-body .box .btnss .edit {
+    background-color: blue;
+}
+
+/* END */
+
+
 
 .reserv .status-body .pending .q-cont {
     position: relative;
@@ -310,21 +327,7 @@
     background-color: #f00;
 }
 
-.reserv .status-body .ongoing {
-    background-color: orange;
-}
 
-.reserv .status-body .confirmed {
-    background-color: green;
-}
-
-.reserv .status-body .completed {
-    background-color: blue;
-}
-
-.reserv .status-body .cancelled {
-    background-color: red;
-}
 
 .reserv .status-body .cancelled .head h2:nth-child(1),
 .reserv .status-body .cancelled .head h2:nth-child(2),

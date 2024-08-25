@@ -2,11 +2,14 @@ const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
 const BookConfirmed = require('../models/bookConfirmedModel')
 
+
+// BOOK
 const addBooking = async (req, res) => {
     const { _id, total, dateIn, dateOut, question, selected } = req.body
+    const deposit = total * 0.5
 
     try {
-        const book = await Book.create({ userId: _id, total, dateIn, dateOut, question, slctRoom: selected })
+        const book = await Book.create({ userId: _id, total, deposit, dateIn, dateOut, question, slctRoom: selected })
 
         res.status(200).json({ book })
     } catch (error) {
@@ -25,6 +28,9 @@ const getBookings = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
+// END
+
+
 
 const cancelBook = async (req, res) => {
     const { book, reason } = req.body
@@ -39,25 +45,42 @@ const cancelBook = async (req, res) => {
     }
 }
 
-const getPendings = async (req, res) => {
+const confirmBook = async (req, res) => {
+    const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
+
     try {
-        const pendings = await Book.find({ status: "Pending" })
-        res.status(200).json({ pendings })
+        const bookConfirm = await BookConfirmed.create({ userId, dateIn, dateOut, question, slctRoom, deposit, total })
+        await Book.findOneAndUpdate({ _id }, { status: 'Confirmed', deposit: deposit })
+
+        if (bookConfirm) {
+            res.status(200).json({ _id })
+        }
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
 
-const confirmBook = async (req, res) => {
-    const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, balance } = req.body
+// EDIT
+const editConfirmBook = async (req, res) => {
+    const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
 
     try {
-        const bookConfirm = await BookConfirmed.create({ userId, dateIn, dateOut, question, slctRoom, deposit, balance })
-        await Book.findOneAndUpdate({ _id }, { status: 'Confirmed' })
+        const newConfirmBook = await BookConfirmed.findOneAndUpdate({ _id, }, { userId, dateIn, dateOut, question, slctRoom, deposit, total }, { new: true })
 
-        if (bookConfirm) {
-            res.status(200).json({ _id })
-        }
+        res.status(200).json(newConfirmBook)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+// END
+
+
+
+// GET
+const getPendings = async (req, res) => {
+    try {
+        const pendings = await Book.find({ status: "Pending" })
+        res.status(200).json({ pendings })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -80,6 +103,9 @@ const getConfirmed = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
+// END
+
+
 
 module.exports = {
     addBooking,
@@ -88,5 +114,6 @@ module.exports = {
     getPendings,
     confirmBook,
     getCancelled,
-    getConfirmed
+    getConfirmed,
+    editConfirmBook
 }

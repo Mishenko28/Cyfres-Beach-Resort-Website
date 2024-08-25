@@ -2,14 +2,12 @@ import { useEffect, useState } from "react"
 import useAdmin from "../../../hooks/useAdmin"
 import User from "../../../components/User"
 import { format, formatDistance } from "date-fns"
-import Confirmation from "../../../components/Confirmation"
 
 export default function Confirmed() {
     const { state, dispatch } = useAdmin()
 
     const [isLoading, setIsLoading] = useState(false)
     const [books, setBooks] = useState([])
-    const [cancelBook, setCancelBook] = useState(null)
     const [selectedUser, setSelectedUser] = useState([])
     const [edit, setEdit] = useState(null)
 
@@ -35,29 +33,6 @@ export default function Confirmed() {
         setIsLoading(false)
     }
 
-    const handleCancelBook = async (book) => {
-        setIsLoading(true)
-        const response = await fetch(`${state.uri}/book/cancel`, {
-            method: "POST",
-            body: JSON.stringify({ book, reason: "removed by admin" }),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${state.admin.token}`,
-            },
-        })
-
-        const json = await response.json()
-
-        if (json.error?.message == "jwt expired") {
-            dispatch({ type: "EXPIRED" })
-            return
-        }
-
-        setBooks(books.filter((book) => book._id !== json.bookCancel._id))
-        setCancelBook(null)
-        setIsLoading(false)
-    }
-
     const handleSelectedUser = async (id) => {
         setIsLoading(true)
         const response = await fetch(`${state.uri}/user/details?_id=${id}`, {
@@ -77,9 +52,38 @@ export default function Confirmed() {
         setIsLoading(false)
     }
 
-    const handleCancekBtn = (e, book) => {
-        e.stopPropagation()
-        setCancelBook(book)
+    const handleSaveEdit = async (book) => {
+        setIsLoading(true)
+        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
+
+        const response = await fetch(`${state.uri}/book/edit`, {
+            method: "POST",
+            body: JSON.stringify({
+                _id,
+                userId,
+                dateIn,
+                dateOut,
+                question,
+                slctRoom,
+                deposit,
+                total
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${state.admin.token}`,
+            },
+        })
+
+        const json = await response.json()
+
+        if (json.error?.message == "jwt expired") {
+            dispatch({ type: "EXPIRED" })
+            return
+        }
+
+        setBooks(prev => prev.map(obj => obj._id == json._id ? { ...json } : obj))
+        setEdit(null)
+        setIsLoading(false)
     }
 
     const handleEdit = (e, book) => {
@@ -100,7 +104,7 @@ export default function Confirmed() {
                 <h2>Claimed Deposit</h2>
                 <h2>Remaining Balance</h2>
                 <h2>Accommodations</h2>
-                <i className="fa-solid fa-rotate" onClick={handleRefresh} />
+                <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
                 {books.map(book => (
@@ -111,7 +115,7 @@ export default function Confirmed() {
                         </h2>
                         <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
                         <h2>{book.deposit}</h2>
-                        <h2>{book.balance}</h2>
+                        <h2>{book.total - book.deposit}</h2>
                         <div className="acc">
                             {book.slctRoom.map((acc) => {
                                 return (
@@ -120,8 +124,7 @@ export default function Confirmed() {
                             })}
                         </div>
                         <div className="btnss">
-                            <button onClick={(e) => handleEdit(e, book)}>Edit</button>
-                            <button onClick={(e) => handleCancekBtn(e, book)}>Cancel</button>
+                            <button className="edit" onClick={(e) => handleEdit(e, book)}>Edit</button>
                         </div>
                     </div>
                 ))}
@@ -148,29 +151,20 @@ export default function Confirmed() {
                         </div>
                         <div className="edit-div2">
                             <p>Total:</p>
-                            <div>₱{edit.balance + edit.deposit}</div>
+                            <div>₱{edit.total}</div>
                         </div>
                         <div className="edit-div2">
                             <p>Claimed Deposit:</p>
                             <div>₱{edit.deposit}</div>
                         </div>
                         <div className="btns">
-                            <button onClick={() => handleedit(edit)}>Save</button>
+                            <button onClick={() => handleSaveEdit(edit)}>Save</button>
                             <button onClick={() => setEdit(null)}>Cancel</button>
                         </div>
                     </div>
                 </div>
             }
             {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
-            {cancelBook &&
-                <Confirmation
-                    mssg={"Are you sure you want to cancel this Reservation?"}
-                    btn1={"Yes"}
-                    btn2={"No"}
-                    btn1F={() => handleCancelBook(cancelBook)}
-                    btn2F={() => setCancelBook(null)}
-                />
-            }
         </div>
     )
 }

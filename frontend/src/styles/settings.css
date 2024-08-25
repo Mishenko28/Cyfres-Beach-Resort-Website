@@ -95,6 +95,7 @@
     gap: 4px;
     background-color: #fff;
     border: var(--border);
+    cursor: pointer;
 }
 
 .settings .details div .sex .sex-dropdown hr {

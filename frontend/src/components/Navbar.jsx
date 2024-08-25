@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group'
 import Menu from './Menu'
 import ProfileDrawer from './ProfileDrawer'
 
-export default function Navbar() {
+export default function Navbar({ cartNum }) {
     const { state } = useGlobalContext()
 
     const [profileTog, setProfileTog] = useState(false)
@@ -15,7 +15,7 @@ export default function Navbar() {
     useEffect(() => {
         const handler = (e) => {
             if (profileRef.current !== null) {
-                if (e.target !== profileRef.current && !profileRef.current.contains(e.target)) {
+                if (state.user && e.target !== profileRef.current && !profileRef.current.contains(e.target)) {
                     setProfileTog(false)
                 }
             }
@@ -45,7 +45,10 @@ export default function Navbar() {
                         </div>}
                     {state.user &&
                         <div className='profile-nav'>
-                            <i className="fa-solid fa-cart-flatbed" />
+                            <Link to='cart'>
+                                <i className="fa-solid fa-cart-flatbed" />
+                                <h6 className='cart-num'>{cartNum}</h6>
+                            </Link>
                             <div ref={profileRef} className='profile-cont'>
                                 <i className="fa-solid fa-user" onClick={handleProfileTog} />
                                 <CSSTransition

@@ -64,7 +64,7 @@ export default function Cancelled() {
                 <h2>Date Cancelled</h2>
                 <h2>Accommodations</h2>
                 <h2>Reason</h2>
-                <i className="fa-solid fa-rotate" onClick={handleRefresh} />
+                <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
                 {books.map(book => (
@@ -79,6 +79,7 @@ export default function Cancelled() {
                             })}
                         </div>
                         <h2>{book.reason}</h2>
+                        <div className="btnss"></div>
                     </div>
                 ))}
             </div>
