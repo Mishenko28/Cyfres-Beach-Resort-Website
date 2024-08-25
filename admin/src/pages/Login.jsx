@@ -1,9 +1,10 @@
 import { useState } from "react"
 import useAdmin from "../hooks/useAdmin"
+import { AdminEmail, AdminPassword } from '../../../debug'
 
 export default function Login() {
-    const [email, setEmail] = useState('thomas28')
-    const [password, setPassword] = useState('thomas1228')
+    const [email, setEmail] = useState(AdminEmail)
+    const [password, setPassword] = useState(AdminPassword)
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 

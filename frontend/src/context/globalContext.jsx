@@ -1,3 +1,4 @@
+import { URI } from "../../../debug"
 import { createContext, useReducer, useEffect } from "react"
 
 export const GlobalContext = createContext()
@@ -8,10 +9,6 @@ const reducer = (state, action) => {
             return { ...state, user: action.payload }
         case "LOGOUT":
             return { ...state, user: null }
-        case "SET_DISPO":
-            return { ...state, disposableCont: action.payload }
-        case "CLEAR_DISPO":
-            return { ...state, disposableCont: null }
         default:
             return state
     }
@@ -20,10 +17,7 @@ const reducer = (state, action) => {
 export default function GlobalContextProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, {
         user: null,
-        disposableCont: null,
-        uri: "https://cyfres-beach-resort-api.onrender.com"
-        // "https://cyfres-beach-resort-api.onrender.com"
-        // "http://localhost:5000"
+        uri: URI
     })
 
     useEffect(() => {

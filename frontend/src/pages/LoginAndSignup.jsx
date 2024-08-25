@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useGlobalContext } from '../hooks/useGlobalContext'
+import { frontEmail, fronPassword } from '../../../debug'
 import { Link } from 'react-router-dom'
 
 export default function LoginAndSignup({ type }) {
     const { state, dispatch } = useGlobalContext()
 
-    const [email, setEmail] = useState("johnthomasalog@gmail.com")
-    const [password, setPassword] = useState("thomas1228")
+    const [email, setEmail] = useState(frontEmail)
+    const [password, setPassword] = useState(fronPassword)
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
