@@ -36,6 +36,7 @@ export default function Booking({ setCartNum }) {
                 .then(response => response.json())
                 .then(json => json.length == 0 && navigate('/settings/personal-details'))
                 .finally(() => setIsLoading(false))
+
         } else {
             navigate('/signup')
         }

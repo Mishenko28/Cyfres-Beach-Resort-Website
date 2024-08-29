@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const authRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const databaseRoutes = require('./routes/bookRoutes')
+const accommodationRoutes = require('./routes/accommodationRoutes')
 
 const app = express()
 
@@ -22,6 +23,8 @@ app.use((req, res, next) => {
     }
 })
 
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(express.json())
 
 app.use('/refresh-token', (req, res) => {
@@ -36,6 +39,7 @@ app.use('/refresh-token', (req, res) => {
 app.use('/admin', adminRoutes)
 app.use('/user', authRoutes)
 app.use('/book', databaseRoutes)
+app.use('/accommodation', accommodationRoutes)
 
 mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres')
     .then(() => {

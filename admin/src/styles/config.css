@@ -138,3 +138,210 @@
     text-align: start;
     flex-grow: 1;
 }
+
+/* ACCOMODATION */
+
+.accommodation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.accommodation .nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    background-color: #002244;
+    padding: 8px 10px;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.accommodation .nav h2 {
+    font-size: 2rem;
+    color: #fff;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.accommodation .accommodation-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #002244;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.accommodation .accommodation-body .accomm-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.accommodation .accommodation-body .accomm-cont .head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #002244;
+}
+
+.accommodation .accommodation-body .accomm-cont .head h2 {
+    font-weight: 800;
+}
+
+.accommodation .accommodation-body .accomm-cont .categ {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #002244;
+    border-radius: 3px;
+}
+
+.accommodation .accommodation-body .accomm-cont .categ h2 {
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    width: 160px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.accommodation .accommodation-body .accomm-cont .categ i {
+    font-size: 2rem;
+    color: green;
+}
+
+.accommodation .accommodation-body .accomm-cont .categ i:hover {
+    cursor: pointer;
+}
+
+.accommodation .accommodation-body .accomm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #aaa;
+}
+
+.accommodation .accommodation-body .accomm h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: #002244;
+    width: 160px;
+    font-weight: 200;
+    font-size: 0.8rem;
+    text-align: justify;
+}
+
+.accommodation .accommodation-body .caption {
+    flex-grow: 1;
+}
+
+.accommodation .accommodation-body .accomm img {
+    width: 160px;
+    height: 90px;
+    border: 1px solid #aaa;
+}
+
+.accommodation .accommodation-body .bttns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+}
+
+.accommodation .accommodation-body .bttns i {
+    font-size: 2rem;
+}
+
+.accommodation .accommodation-body .bttns i:hover {
+    cursor: pointer;
+}
+
+.accommodation .accommodation-body .bttns i:nth-child(1) {
+    color: blue;
+}
+
+.accommodation .accommodation-body .bttns i:nth-child(2) {
+    color: red;
+}
+
+/* ADD ACCOMMODATION */
+.accommodation .add-accomm-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    background-color: #002244;
+    color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.accommodation .add-accomm-cont h3 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.accommodation .add-accomm-cont .input_cont {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.accommodation .add-accomm-cont .input_cont h2 {
+    font-size: 1rem;
+}
+
+.accommodation .add-accomm-cont .input_cont input {
+    height: 30px;
+    padding-inline: 10px;
+}
+
+.accommodation .add-accomm-cont .input_cont .empty {
+    color: #f00;
+}
+
+.accommodation .add-accomm-cont .input_cont textarea {
+    resize: none;
+    height: 80px;
+    padding: 10px;
+}
+
+.accommodation .add-accomm-cont .bttns {
+    display: flex;
+    gap: 10px;
+}
+
+.accommodation .add-accomm-cont .bttns button {
+    padding-block: 10px;
+    color: #fff;
+    font-weight: 700;
+    width: 80px;
+    border-radius: 3px;
+}
+
+.accommodation .add-accomm-cont .bttns button:nth-child(1) {
+    background-color: #0f0;
+}
+
+.accommodation .add-accomm-cont .bttns button:nth-child(2) {
+    background-color: #f00;
+}
+
+.accommodation .add-accomm-cont .bttns button:hover {
+    cursor: pointer;
+}

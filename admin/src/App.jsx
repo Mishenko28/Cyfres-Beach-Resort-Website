@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import useAdmin from './hooks/useAdmin'
 
@@ -11,6 +10,7 @@ import Login from './pages/Login'
 
 import Users from './pages/Configuration/Users'
 import Reservation from './pages/Dashboard/Reservation'
+import Accommodations from './pages/Configuration/Accommodations'
 
 import RootLayout from './layouts/RootLayout'
 
@@ -36,7 +36,7 @@ function App() {
                     </Route>
                     <Route path="configuration" element={<Configuration />}>
                         <Route path='home' element={<h1>home</h1>} />
-                        <Route path='accommodation' element={<h1>accommodation</h1>} />
+                        <Route path='accommodation' element={<Accommodations />} />
                         <Route path='amenities' element={<h1>amenities</h1>} />
                         <Route path='gallery' element={<h1>gallery</h1>} />
                         <Route path='about-us' element={<h1>about us</h1>} />
