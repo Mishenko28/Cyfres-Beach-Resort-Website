@@ -1,12 +1,11 @@
 export default function Loader() {
     return (
-        <div className="wrapper">
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="shadow"></div>
-            <div className="shadow"></div>
-            <div className="shadow"></div>
-        </div>
+        <section className="dots-container">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+        </section>
     )
 }

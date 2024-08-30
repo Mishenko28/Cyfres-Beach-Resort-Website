@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import useAdmin from "../../../hooks/useAdmin";
 import User from "../../../components/User"
 import { format, } from "date-fns"
+import Loader from "../../../components/Loader";
 
 export default function Cancelled() {
     const { state, dispatch } = useAdmin()
@@ -55,7 +56,7 @@ export default function Cancelled() {
     const handleRefresh = () => {
         fetchCancelled()
     }
-    
+
     return (
         <div className="cancelled table">
             {isLoading && <div className="loader"></div>}
@@ -67,21 +68,28 @@ export default function Cancelled() {
                 <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
-                {books.map(book => (
-                    <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
-                        <h2>{format(book.book.createdAt, "MMM d, yyyy")}</h2>
-                        <h2>{format(book.createdAt, "MMM d, yyyy")}</h2>
-                        <div className="acc">
-                            {book.book.slctRoom.map((acc) => {
-                                return (
-                                    <h3 key={acc._id}>{acc.name + (acc.add ? ` (${acc.max}+${acc.add} Persons)` : "")}</h3>
-                                )
-                            })}
-                        </div>
-                        <h2>{book.reason}</h2>
-                        <div className="btnss"></div>
-                    </div>
-                ))}
+                {isLoading ?
+                    <div className="box"><Loader /></div>
+                    :
+                    <>
+                        {books.map(book => (
+                            <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
+                                <h2>{format(book.book.createdAt, "MMM d, yyyy")}</h2>
+                                <h2>{format(book.createdAt, "MMM d, yyyy")}</h2>
+                                <div className="acc">
+                                    {book.book.slctRoom.map((acc) => {
+                                        return (
+                                            <h3 key={acc._id}>{acc.accommName + (acc.add ? ` (${acc.maxPerson}+${acc.add} Persons)` : "")}</h3>
+                                        )
+                                    })}
+                                </div>
+                                <h2>{book.reason}</h2>
+                                <div className="btnss"></div>
+                            </div>
+                        ))}
+                        {books.length == 0 && (<div className="box" style={{ justifyContent: "center" }}>There are currently no cancelled reservations.</div>)}
+                    </>
+                }
             </div>
             {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
         </div>

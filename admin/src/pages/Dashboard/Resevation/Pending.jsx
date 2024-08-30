@@ -3,6 +3,8 @@ import useAdmin from "../../../hooks/useAdmin"
 import { format, formatDistance, formatDistanceToNow } from "date-fns"
 import User from "../../../components/User"
 import Confirmation from "../../../components/Confirmation"
+import ConfirmReservation from "./ConfirmReservation"
+import Loader from "../../../components/Loader"
 
 export default function Pending() {
     const { state, dispatch } = useAdmin()
@@ -83,40 +85,6 @@ export default function Pending() {
         setIsLoading(false)
     }
 
-    const handleConfirmBook = async (book) => {
-        setIsLoading(true)
-        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
-
-        const response = await fetch(`${state.uri}/book/confirm`, {
-            method: "POST",
-            body: JSON.stringify({
-                _id,
-                userId,
-                dateIn,
-                dateOut,
-                question,
-                slctRoom,
-                deposit,
-                total
-            }),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${state.admin.token}`,
-            },
-        })
-
-        const json = await response.json()
-
-        if (json.error?.message == "jwt expired") {
-            dispatch({ type: "EXPIRED" })
-            return
-        }
-
-        setBooks(books.filter((book) => book._id !== json._id))
-        setConfirmBook(null)
-        setIsLoading(false)
-    }
-
     const handleCancelBtn = (e, book) => {
         e.stopPropagation()
         setCancelBook(book)
@@ -145,31 +113,37 @@ export default function Pending() {
                 <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
-                {books.map((book) => (
-                    <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
-                        <h2>{formatDistanceToNow(book.createdAt, { addSuffix: true })}</h2>
-                        <h2>
-                            {format(book.dateIn, "MMM d, yyyy")} - {" "}
-                            {format(book.dateOut, "MMM d, yyyy")}
-                        </h2>
-                        <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
-                        <h2>₱{book.total}</h2>
-                        <h2>₱{book.deposit}</h2>
-                        <div className="acc">
-                            {book.slctRoom.map((acc) => {
-                                return (
-                                    <h3 key={acc._id}>{acc.name + (acc.add ? ` (${acc.max}+${acc.add} Persons)` : "")}</h3>
-                                )
-                            })}
-                        </div>
-                        <h2><i style={book.question ? { color: "green" } : { color: "red", cursor: "not-allowed" }} onClick={(e) => handleQuestion(e, book.question)} className="fa-solid fa-circle-question" /></h2>
-                        <div className="btnss">
-                            <button className="confirm" onClick={(e) => handleConfirmBtn(e, book)}>Confirm</button>
-                            <button className="cancel" onClick={(e) => handleCancelBtn(e, book)}>Cancel</button>
-                        </div>
-                    </div>
-                ))}
-                {books.length == 0 && (<div className="box" style={{ justifyContent: "center" }}>There are currently no reservations.</div>)}
+                {isLoading ?
+                    <div className="box"><Loader /></div>
+                    :
+                    <>
+                        {books.map((book) => (
+                            <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
+                                <h2>{formatDistanceToNow(book.createdAt, { addSuffix: true })}</h2>
+                                <h2>
+                                    {format(book.dateIn, "MMM d, yyyy")} - {" "}
+                                    {format(book.dateOut, "MMM d, yyyy")}
+                                </h2>
+                                <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
+                                <h2>₱{book.total}</h2>
+                                <h2>₱{book.deposit}</h2>
+                                <div className="acc">
+                                    {book.slctRoom.map((acc) => {
+                                        return (
+                                            <h3 key={acc._id}>{acc.accommName + (acc.add ? ` (${acc.maxPerson}+${acc.add} Persons)` : "")}</h3>
+                                        )
+                                    })}
+                                </div>
+                                <h2><i style={book.question ? { color: "green" } : { color: "red", cursor: "not-allowed" }} onClick={(e) => handleQuestion(e, book.question)} className="fa-solid fa-circle-question" /></h2>
+                                <div className="btnss">
+                                    <button className="confirm" onClick={(e) => handleConfirmBtn(e, book)}>Confirm</button>
+                                    <button className="cancel" onClick={(e) => handleCancelBtn(e, book)}>Cancel</button>
+                                </div>
+                            </div>
+                        ))}
+                        {books.length == 0 && (<div className="box" style={{ justifyContent: "center" }}>There are currently no pending reservations.</div>)}
+                    </>
+                }
             </div>
             {question && (
                 <div className="blur-cont">
@@ -182,40 +156,11 @@ export default function Pending() {
             )}
             {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
             {confirmBook &&
-                <div className="blur-cont">
-                    <div className="edit-cont">
-                        <h2>Reservation ConfirmFation</h2>
-                        <div className="edit-div">
-                            <p>Date In:</p>
-                            <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateIn: e.target.value }))} value={new Date(confirmBook.dateIn).toLocaleDateString("en-CA")} />
-                        </div>
-                        <div className="edit-div">
-                            <p>Date Out:</p>
-                            <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(confirmBook.dateOut).toLocaleDateString("en-CA")} />
-                        </div>
-                        <div className="edit-div">
-                            <p>Room:</p>
-                            <div className="inputs">Example Room</div>
-                        </div>
-                        <div className="edit-div">
-                            <p>Claimed Deposit:</p>
-                            <input className="inputs" type="number" onChange={(e) => setConfirmBook(prev => ({ ...prev, deposit: e.target.value }))} value={confirmBook.deposit} />
-                        </div>
-                        <div className="edit-div2">
-                            <p>Total:</p>
-                            <div>₱{confirmBook.total}</div>
-                        </div>
-                        <div className="edit-div2">
-                            <p>Deposit:</p>
-                            <div>₱{confirmBook.deposit}</div>
-                        </div>
-                        <div className="btns">
-                            <button onClick={() => handleConfirmBook(confirmBook)}>Confirm</button>
-                            <button onClick={() => setConfirmBook(null)}>Back</button>
-                        </div>
-                    </div>
-                </div>
-            }
+                <ConfirmReservation
+                    confirmBook={confirmBook}
+                    setConfirmBook={setConfirmBook}
+                    setBooks={setBooks}
+                />}
             {cancelBook &&
                 <Confirmation
                     mssg={"Are you sure you want to cancel this Reservation?"}

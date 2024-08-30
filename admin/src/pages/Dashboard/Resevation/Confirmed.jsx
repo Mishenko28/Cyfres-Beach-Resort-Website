@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import useAdmin from "../../../hooks/useAdmin"
 import User from "../../../components/User"
 import { format, formatDistance } from "date-fns"
+import Loader from "../../../components/Loader"
 
 export default function Confirmed() {
     const { state, dispatch } = useAdmin()
@@ -107,27 +108,34 @@ export default function Confirmed() {
                 <h3><i className="fa-solid fa-rotate" onClick={handleRefresh} /></h3>
             </div>
             <div className="data">
-                {books.map(book => (
-                    <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
-                        <h2>
-                            {format(book.dateIn, "MMM d, yyyy")} - {" "}
-                            {format(book.dateOut, "MMM d, yyyy")}
-                        </h2>
-                        <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
-                        <h2>{book.deposit}</h2>
-                        <h2>{book.total - book.deposit}</h2>
-                        <div className="acc">
-                            {book.slctRoom.map((acc) => {
-                                return (
-                                    <h3 key={acc._id}>{acc.name + (acc.add ? ` (${acc.max}+${acc.add} Persons)` : "")}</h3>
-                                )
-                            })}
-                        </div>
-                        <div className="btnss">
-                            <button className="edit" onClick={(e) => handleEdit(e, book)}>Edit</button>
-                        </div>
-                    </div>
-                ))}
+                {isLoading ?
+                    <div className="box"><Loader /></div>
+                    :
+                    <>
+                        {books.map(book => (
+                            <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
+                                <h2>
+                                    {format(book.dateIn, "MMM d, yyyy")} - {" "}
+                                    {format(book.dateOut, "MMM d, yyyy")}
+                                </h2>
+                                <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
+                                <h2>{book.deposit}</h2>
+                                <h2>{book.total - book.deposit}</h2>
+                                <div className="acc">
+                                    {book.slctRoom.map((acc) => {
+                                        return (
+                                            <h3 key={acc._id}>{acc.accommName + (acc.add ? ` (${acc.maxPerson}+${acc.add} Persons)` : "")}</h3>
+                                        )
+                                    })}
+                                </div>
+                                <div className="btnss">
+                                    <button className="edit" onClick={(e) => handleEdit(e, book)}>Edit</button>
+                                </div>
+                            </div>
+                        ))}
+                        {books.length == 0 && (<div className="box" style={{ justifyContent: "center" }}>There are currently no confirmed reservations.</div>)}
+                    </>
+                }
             </div>
             {edit &&
                 <div className="blur-cont">
@@ -140,10 +148,6 @@ export default function Confirmed() {
                         <div className="edit-div">
                             <p>Date Out:</p>
                             <input className="inputs" type="date" onChange={(e) => setEdit(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(edit.dateOut).toLocaleDateString("en-CA")} />
-                        </div>
-                        <div className="edit-div">
-                            <p>Room:</p>
-                            <div className="inputs">Example Room</div>
                         </div>
                         <div className="edit-div">
                             <p>Claimed Deposit:</p>

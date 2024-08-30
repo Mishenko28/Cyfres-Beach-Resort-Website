@@ -50,7 +50,7 @@ const confirmBook = async (req, res) => {
 
     try {
         const bookConfirm = await BookConfirmed.create({ userId, dateIn, dateOut, question, slctRoom, deposit, total })
-        await Book.findOneAndUpdate({ _id }, { status: 'Confirmed', deposit: deposit })
+        await Book.findOneAndUpdate({ _id }, { status: 'Confirmed', dateIn, dateOut, deposit, total, slctRoom, })
 
         if (bookConfirm) {
             res.status(200).json({ _id })

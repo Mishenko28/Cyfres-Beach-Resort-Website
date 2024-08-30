@@ -3,7 +3,6 @@ import { useEffect } from "react"
 export default function OfflinePage() {
     useEffect(() => {
         const online = () => {
-            console.log("online!")
             location.reload()
         }
 

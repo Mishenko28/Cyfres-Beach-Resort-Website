@@ -54,9 +54,9 @@ export default function Cart({ setCartNum }) {
                                     <hr />
                                     {book.slctRoom.map(room => (
                                         <div key={room._id} className="room">
-                                            <h3>{room.name}</h3>
-                                            {room?.max && <h3>{room.add == 0 && 'Max'} {room.max + room.add} Person{room.max !== 1 && 's'}</h3>}
-                                            {room.add ? <h3>₱{room.rate + (room.add * room.addFee)}</h3> : <h3>₱{room.rate}</h3>}
+                                            <h3>{room.accommName}</h3>
+                                            {room?.maxPerson > 0 && <h3>{room.add == 0 && 'Max'} {room.maxPerson + room.add} Person{room.maxPerson !== 1 && 's'}</h3>}
+                                            {room.add ? <h3>₱{room.rate + (room.add * room.addPersonRate)}</h3> : <h3>₱{room.rate}</h3>}
                                         </div>
                                     ))}
                                     <hr />
