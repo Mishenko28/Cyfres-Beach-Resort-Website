@@ -1,4 +1,5 @@
 const { format } = require('date-fns')
+const { utcToZonedTime } = require('date-fns-tz')
 
 const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
@@ -108,10 +109,9 @@ const getConfirmed = async (req, res) => {
 // END
 
 const getDate = async (req, res) => {
-    const date = new Date()
-    const newDate = format(date, 'MMMM dd, uuuu / hh:mm aaa')
+    const date = format(utcToZonedTime(new Date(), 'Asia/Manila'), 'MMMM dd, uuuu / hh:mm aaa', { timeZone: 'Asia/Manila' })
     try {
-        res.status(200).json({ date: newDate })
+        res.status(200).json({ date })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
