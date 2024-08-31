@@ -1,5 +1,4 @@
-const { format } = require('date-fns')
-const { utcToZonedTime } = require('date-fns-tz')
+const moment = require('moment-timezone')
 
 const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
@@ -108,14 +107,20 @@ const getConfirmed = async (req, res) => {
 }
 // END
 
+
 const getDate = async (req, res) => {
-    const date = format(utcToZonedTime(new Date(), 'Asia/Manila'), 'MMMM dd, uuuu / hh:mm aaa', { timeZone: 'Asia/Manila' })
     try {
+        const timeZone = 'Asia/Manila'
+        const date = moment().tz(timeZone).format('MMMM DD, YYYY / hh:mm A')
+
         res.status(200).json({ date })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
+
+module.exports = { getDate }
+
 
 
 module.exports = {
