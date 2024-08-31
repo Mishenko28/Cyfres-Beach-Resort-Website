@@ -4,7 +4,7 @@ export let fronPassword
 export let AdminEmail
 export let AdminPassword
 
-const isInDevelopment = false
+const isInDevelopment = true
 
 if (isInDevelopment) {
     URI = "http://localhost:5000"

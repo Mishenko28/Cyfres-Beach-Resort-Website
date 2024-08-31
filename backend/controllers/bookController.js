@@ -1,3 +1,5 @@
+const { format } = require('date-fns')
+
 const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
 const BookConfirmed = require('../models/bookConfirmedModel')
@@ -105,6 +107,15 @@ const getConfirmed = async (req, res) => {
 }
 // END
 
+const getDate = async (req, res) => {
+    const date = new Date()
+    const newDate = format(date, 'MMMM dd, uuuu / hh:mm aaa')
+    try {
+        res.status(200).json({ date: newDate })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 
 
 module.exports = {
@@ -115,5 +126,6 @@ module.exports = {
     confirmBook,
     getCancelled,
     getConfirmed,
-    editConfirmBook
+    editConfirmBook,
+    getDate
 }

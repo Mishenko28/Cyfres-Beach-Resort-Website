@@ -47,7 +47,7 @@ export default function Navbar({ cartNum }) {
                         <div className='profile-nav'>
                             <Link to='cart'>
                                 <i className="fa-solid fa-cart-flatbed" />
-                                <h6 className='cart-num'>{cartNum}</h6>
+                                {cartNum > 0 && <h6 className='cart-num'>{cartNum}</h6>}
                             </Link>
                             <div ref={profileRef} className='profile-cont'>
                                 <i className="fa-solid fa-user" onClick={handleProfileTog} />
