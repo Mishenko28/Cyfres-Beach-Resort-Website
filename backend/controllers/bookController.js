@@ -3,6 +3,9 @@ const moment = require('moment-timezone')
 const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
 const BookConfirmed = require('../models/bookConfirmedModel')
+const BookOngoing = require('../models/bookOngoingModel')
+
+
 
 
 // BOOK
@@ -51,7 +54,7 @@ const confirmBook = async (req, res) => {
     const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
 
     try {
-        const bookConfirm = await BookConfirmed.create({ userId, dateIn, dateOut, question, slctRoom, deposit, total })
+        const bookConfirm = await BookConfirmed.create({ bookId: _id, userId, dateIn, dateOut, question, slctRoom, deposit, total })
         await Book.findOneAndUpdate({ _id }, { status: 'Confirmed', dateIn, dateOut, deposit, total, slctRoom, })
 
         if (bookConfirm) {
@@ -62,14 +65,28 @@ const confirmBook = async (req, res) => {
     }
 }
 
-// EDIT
+// EDIT CONFIRM BOOK
 const editConfirmBook = async (req, res) => {
-    const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
+    const { _id, bookId, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
 
     try {
-        const newConfirmBook = await BookConfirmed.findOneAndUpdate({ _id, }, { userId, dateIn, dateOut, question, slctRoom, deposit, total }, { new: true })
+        const newBook = await BookConfirmed.findOneAndUpdate({ _id, }, { userId, dateIn, dateOut, question, slctRoom, deposit, total }, { new: true })
+        await Book.findOneAndUpdate({ _id: bookId }, { dateIn, dateOut, deposit, total, slctRoom, })
 
-        res.status(200).json(newConfirmBook)
+        res.status(200).json(newBook)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+// EDIT ONGOING BOOK
+const editOngoingBook = async (req, res) => {
+    const { _id, bookId, userId, dateIn, dateOut, question, slctRoom, deposit, total } = req.body
+
+    try {
+        const newBook = await BookOngoing.findOneAndUpdate({ _id, }, { userId, dateIn, dateOut, question, slctRoom, deposit, total }, { new: true })
+        await Book.findOneAndUpdate({ _id: bookId }, { dateIn, dateOut, deposit, total, slctRoom, })
+
+        res.status(200).json(newBook)
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -99,27 +116,53 @@ const getCancelled = async (req, res) => {
 
 const getConfirmed = async (req, res) => {
     try {
+        await setOngoingBooks()
+
         const confirmed = await BookConfirmed.find({})
         res.status(200).json({ confirmed })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
-// END
 
-
-const getDate = async (req, res) => {
+const getOngoing = async (req, res) => {
     try {
-        const timeZone = 'Asia/Manila'
-        const date = moment().tz(timeZone).format('MMMM DD, YYYY / hh:mm A')
+        await setOngoingBooks()
 
-        res.status(200).json({ date })
+        const ongoing = await BookOngoing.find({})
+        res.status(200).json({ ongoing })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
+// END
 
-module.exports = { getDate }
+const setOngoingBooks = async () => {
+    const dateNow = moment().tz('Asia/Manila')
+    const books = await BookConfirmed.find({})
+
+    await Promise.all(books.map(async book => {
+        book.dateIn.setHours(8)
+        book.dateOut.setHours(8)
+
+        const isOnGoing = dateNow.isSameOrAfter(book.dateIn)
+
+        if (isOnGoing) {
+            await BookOngoing.create({
+                bookId: book.bookId,
+                userId: book.userId,
+                dateIn: book.dateIn,
+                dateOut: book.dateOut,
+                question: book.question,
+                slctRoom: book.slctRoom,
+                total: book.total,
+                deposit: book.deposit
+            })
+            await Book.findOneAndUpdate({ _id: book.bookId }, { status: 'On Going' })
+            await BookConfirmed.findOneAndDelete({ _id: book._id })
+        }
+    }))
+}
 
 
 
@@ -132,5 +175,6 @@ module.exports = {
     getCancelled,
     getConfirmed,
     editConfirmBook,
-    getDate
+    getOngoing,
+    editOngoingBook
 }

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 module.exports = mongoose.model('BookConfirmed', new mongoose.Schema({
+    bookId: {
+        type: String,
+        required: true
+    },
     userId: {
         type: String,
         required: true

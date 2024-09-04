@@ -5,7 +5,7 @@ import { format, formatDistance } from "date-fns"
 import Loader from "../../../components/Loader"
 import EditReservation from "./EditReservation"
 
-export default function Confirmed() {
+export default function OnGoing() {
     const { state, dispatch } = useAdmin()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +19,7 @@ export default function Confirmed() {
 
     const fetchBooks = async () => {
         setIsLoading(true)
-        const response = await fetch(`${state.uri}/book/get/confirm`, {
+        const response = await fetch(`${state.uri}/book/get/ongoing`, {
             headers: {
                 Authorization: `Bearer ${state.admin.token}`
             }
@@ -31,7 +31,7 @@ export default function Confirmed() {
             return
         }
 
-        setBooks(json.confirmed)
+        setBooks(json.ongoing)
         setIsLoading(false)
     }
 
@@ -54,6 +54,40 @@ export default function Confirmed() {
         setIsLoading(false)
     }
 
+    const handleSaveEdit = async (book) => {
+        setIsLoading(true)
+        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
+
+        const response = await fetch(`${state.uri}/book/edit`, {
+            method: "POST",
+            body: JSON.stringify({
+                _id,
+                userId,
+                dateIn,
+                dateOut,
+                question,
+                slctRoom,
+                deposit,
+                total
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${state.admin.token}`,
+            },
+        })
+
+        const json = await response.json()
+
+        if (json.error?.message == "jwt expired") {
+            dispatch({ type: "EXPIRED" })
+            return
+        }
+
+        setBooks(prev => prev.map(obj => obj._id == json._id ? { ...json } : obj))
+        setEdit(null)
+        setIsLoading(false)
+    }
+
     const handleEdit = (e, book) => {
         e.stopPropagation()
         setEdit(book)
@@ -64,7 +98,7 @@ export default function Confirmed() {
     }
 
     return (
-        <div className="confirmed table">
+        <div className="ongoing table">
             {isLoading && <div className="loader"></div>}
             <div className="head">
                 <h2>Reservation Date</h2>
@@ -99,6 +133,7 @@ export default function Confirmed() {
                                 </div>
                                 <div className="btnss">
                                     <button className="edit" onClick={(e) => handleEdit(e, book)}>Edit</button>
+                                    <button className="complete" onClick={(e) => handleEdit(e, book)}>Complete</button>
                                 </div>
                             </div>
                         ))}
@@ -106,7 +141,7 @@ export default function Confirmed() {
                     </>
                 }
             </div>
-            {edit && <EditReservation status={'confirm'} edit={edit} setEdit={setEdit} setBooks={setBooks} />}
+            {edit && <EditReservation status={'ongoing'} edit={edit} setBooks={setBooks} setEdit={setEdit} />}
             {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
         </div>
     )

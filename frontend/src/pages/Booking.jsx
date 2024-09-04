@@ -142,6 +142,7 @@ export default function Booking({ setCartNum }) {
             setRooms(rooms.map(room => ({ ...room, isChecked: false })))
             setCottages(cottages.map(cottage => ({ ...cottage, isChecked: false })))
             setAmenities(amenities.map(amenity => ({ ...amenity, isChecked: false })))
+            setQuestion("")
             setIsLoading(false)
         }
         fetchAddBook()

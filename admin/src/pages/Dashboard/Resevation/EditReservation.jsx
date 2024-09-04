@@ -3,11 +3,11 @@ import useAdmin from "../../../hooks/useAdmin"
 import { useEffect, useState } from "react"
 import Loader from '../../../components/Loader'
 
-export default function ConfirmReservation({ confirmBook, setConfirmBook, setBooks }) {
+export default function EditReservation({ status, edit, setEdit, setBooks }) {
     const { state, dispatch } = useAdmin()
     const [accommodations, setAccommodations] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [isLoadingConfirm, setIsLoadingConfirm] = useState(false)
+    const [isLoadingSave, setIsLoadingSave] = useState(false)
 
     useEffect(() => {
         fetchAccomm()
@@ -15,7 +15,7 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
 
     useEffect(() => {
         handleTotal()
-    }, [confirmBook.slctRoom])
+    }, [edit.slctRoom])
 
     const fetchAccomm = async () => {
         setIsLoading(true)
@@ -31,14 +31,15 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
         setIsLoading(false)
     }
 
-    const handleConfirmBook = async (book) => {
-        setIsLoadingConfirm(true)
-        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
+    const handleSaveEdit = async (book) => {
+        setIsLoadingSave(true)
+        const { _id, bookId, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
 
-        const response = await fetch(`${state.uri}/book/confirm`, {
+        const response = await fetch(`${state.uri}/book/edit/${status}`, {
             method: "POST",
             body: JSON.stringify({
                 _id,
+                bookId,
                 userId,
                 dateIn,
                 dateOut,
@@ -60,48 +61,48 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
             return
         }
 
-        await setBooks(prev => prev.filter((book) => book._id !== json._id))
-        await setConfirmBook(null)
-        setIsLoadingConfirm(false)
+        await setBooks(prev => prev.map(obj => obj._id == json._id ? { ...json } : obj))
+        await setEdit(null)
+        setIsLoadingSave(false)
     }
 
     const handleToggleRoom = (accomm) => {
-        if (confirmBook.slctRoom.some(room => room.accommName == accomm.accommName)) {
-            setConfirmBook(prev => ({ ...prev, slctRoom: prev.slctRoom.filter(room => room.accommName !== accomm.accommName) }))
+        if (edit.slctRoom.some(room => room.accommName == accomm.accommName)) {
+            setEdit(prev => ({ ...prev, slctRoom: prev.slctRoom.filter(room => room.accommName !== accomm.accommName) }))
             return
         }
         accomm.add = 0
-        setConfirmBook(prev => ({ ...prev, slctRoom: [...prev.slctRoom, accomm] }))
+        setEdit(prev => ({ ...prev, slctRoom: [...prev.slctRoom, accomm] }))
     }
 
     const handleAddPerson = (e, isIncreament, accomm) => {
         e.stopPropagation()
 
-        setConfirmBook(prev => ({ ...prev, slctRoom: prev.slctRoom.map(room => room.accommName == accomm.accommName ? { ...room, add: isIncreament ? room.add + 1 : room.add - 1 } : room) }))
+        setEdit(prev => ({ ...prev, slctRoom: prev.slctRoom.map(room => room.accommName == accomm.accommName ? { ...room, add: isIncreament ? room.add + 1 : room.add - 1 } : room) }))
     }
 
     const handleTotal = () => {
-        setConfirmBook(prev => ({ ...prev, total: 0 }))
-        setConfirmBook(prev => ({ ...prev, total: prev.slctRoom.reduce((sum, room) => sum + room.rate + (room.add ? room.add * room.addPersonRate : 0), 0) }))
-        setConfirmBook(prev => ({ ...prev, deposit: prev.total * 0.5 }))
+        setEdit(prev => ({ ...prev, total: 0 }))
+        setEdit(prev => ({ ...prev, total: prev.slctRoom.reduce((sum, room) => sum + room.rate + (room.add ? room.add * room.addPersonRate : 0), 0) }))
+        setEdit(prev => ({ ...prev, deposit: prev.total * 0.5 }))
     }
 
     const handleBackButton = () => {
-        setConfirmBook(null)
+        setEdit(null)
     }
 
     return (
         <div className="blur-cont">
             <div className="edit-cont">
-                {isLoadingConfirm && <div className="loader"></div>}
-                <h2>Confirm Reservation </h2>
+                {isLoadingSave && <div className="loader"></div>}
+                <h2>Edit Reservation </h2>
                 <div className="edit-div">
                     <p>Date In:</p>
-                    <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateIn: e.target.value }))} value={new Date(confirmBook.dateIn).toLocaleDateString("en-CA")} />
+                    <input className="inputs" type="date" onChange={(e) => setEdit(prev => ({ ...prev, dateIn: e.target.value }))} value={new Date(edit.dateIn).toLocaleDateString("en-CA")} />
                 </div>
                 <div className="edit-div">
-                    <p>Date Out: ({formatDistance(confirmBook.dateIn, confirmBook.dateOut)})</p>
-                    <input className="inputs" type="date" onChange={(e) => setConfirmBook(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(confirmBook.dateOut).toLocaleDateString("en-CA")} />
+                    <p>Date Out: ({formatDistance(edit.dateIn, edit.dateOut)})</p>
+                    <input className="inputs" type="date" onChange={(e) => setEdit(prev => ({ ...prev, dateOut: e.target.value }))} value={new Date(edit.dateOut).toLocaleDateString("en-CA")} />
                 </div>
                 <div className="edit-div">
                     <p>Accommodations:</p>
@@ -115,17 +116,17 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
                                     {accommodations.map(accomm => accomm.accommType == 'room' && (
                                         <div
                                             className="accomm"
-                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
                                             <h2>rate:<h3>₱ {accomm.rate}</h3></h2>
                                             <h2>max:<h3>{accomm.maxPerson}</h3></h2>
-                                            {confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ?
+                                            {edit.slctRoom.some(room => room.accommName == accomm.accommName) ?
                                                 <>
-                                                    <h2>add: <h3>({accomm.addPersonRate} * {confirmBook.slctRoom.map(room => room.accommName == accomm.accommName && room.add)})</h3></h2>
+                                                    <h2>add: <h3>({accomm.addPersonRate} * {edit.slctRoom.map(room => room.accommName == accomm.accommName && room.add)})</h3></h2>
                                                     <div className="bttns">
                                                         <button onClick={(e) => { handleAddPerson(e, false, accomm) }}>-</button>
                                                         <button onClick={(e) => { handleAddPerson(e, true, accomm) }}>+</button>
@@ -142,12 +143,12 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
                                     {accommodations.map(accomm => accomm.accommType == 'cottage' && (
                                         <div
                                             className="accomm"
-                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
                                             <h2>rate: <h3>₱ {accomm.rate}</h3></h2>
                                         </div>
                                     ))}
@@ -158,19 +159,19 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
                 </div>
                 <div className="edit-div">
                     <p>Claimed Deposit:</p>
-                    <input className="inputs" type="number" onChange={(e) => setConfirmBook(prev => ({ ...prev, deposit: e.target.value }))} value={confirmBook.deposit} />
+                    <input className="inputs" type="number" onChange={(e) => setEdit(prev => ({ ...prev, deposit: e.target.value }))} value={edit.deposit} />
                 </div>
                 <div className="edit-div2">
                     <p>Total:</p>
-                    <div>₱{confirmBook.total}</div>
+                    <div>₱{edit.total}</div>
                 </div>
                 <div className="edit-div2">
                     <p>Deposit:</p>
-                    <div>₱{confirmBook.deposit}</div>
+                    <div>₱{edit.deposit}</div>
                 </div>
-                {!isLoadingConfirm && !isLoading &&
+                {!isLoading && !isLoadingSave &&
                     <div className="btns">
-                        <button onClick={() => handleConfirmBook(confirmBook)}>Confirm</button>
+                        <button onClick={() => handleSaveEdit(edit)}>Save</button>
                         <button onClick={handleBackButton}>Back</button>
                     </div>
                 }

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 module.exports = mongoose.model('BookOngoing', new mongoose.Schema({
+    bookId: {
+        type: String,
+        required: true
+    },
     userId: {
         type: String,
         required: true
@@ -28,4 +32,4 @@ module.exports = mongoose.model('BookOngoing', new mongoose.Schema({
         type: Number,
         required: true
     }
-}, { timestamps: true }), 'book-confirmed')
+}, { timestamps: true }), 'book-ongoing')

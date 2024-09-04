@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import Status from "./Resevation/Status";
-import Pending from "./Resevation/Pending";
-import Cancelled from "./Resevation/Cancelled";
-import Confirmed from "./Resevation/Confirmed";
+import Status from "./Resevation/Status"
+import Pending from "./Resevation/Pending"
+import Cancelled from "./Resevation/Cancelled"
+import Confirmed from "./Resevation/Confirmed"
+import OnGoing from "./Resevation/OnGoing"
 
 export default function Reservation() {
     const [toggles, setToggles] = useState('ongoing')
@@ -15,16 +16,7 @@ export default function Reservation() {
             </div>
             <Status toggles={toggles} setToggles={setToggles} />
             <div className="status-body">
-                {toggles == 'ongoing' &&
-                    <div className="ongoing table">
-                        <div className="head">
-
-                        </div>
-                        <div className="data">
-
-                        </div>
-                    </div>
-                }
+                {toggles == 'ongoing' && <OnGoing />}
                 {toggles == 'pending' && <Pending />}
                 {toggles == 'confirmed' && <Confirmed />}
                 {toggles == 'completed' &&

@@ -92,7 +92,7 @@ export default function Pending() {
 
     const handleConfirmBtn = (e, book) => {
         e.stopPropagation()
-        setConfirmBook({ ...book, deposit: book.total * 0.5 })
+        setConfirmBook(book)
     }
 
     const handleRefresh = () => {
