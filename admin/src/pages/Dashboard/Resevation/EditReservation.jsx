@@ -8,6 +8,11 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
     const [accommodations, setAccommodations] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingSave, setIsLoadingSave] = useState(false)
+    const totalPeriod = (new Date(edit.dateOut) - new Date(edit.dateIn)) / 86400000
+
+    const [newTotal, setNewTotal] = useState(0)
+    const [newDeposit, setNewDeposit] = useState(0)
+    const [changeDeposit, setChangeDeposit] = useState(edit.deposit)
 
     useEffect(() => {
         fetchAccomm()
@@ -15,7 +20,7 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
 
     useEffect(() => {
         handleTotal()
-    }, [edit.slctRoom])
+    }, [edit.slctRoom, edit.dateIn, edit.dateOut])
 
     const fetchAccomm = async () => {
         setIsLoading(true)
@@ -33,7 +38,7 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
 
     const handleSaveEdit = async (book) => {
         setIsLoadingSave(true)
-        const { _id, bookId, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
+        const { _id, bookId, userId, dateIn, dateOut, question, slctRoom } = book
 
         const response = await fetch(`${state.uri}/book/edit/${status}`, {
             method: "POST",
@@ -45,8 +50,8 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
                 dateOut,
                 question,
                 slctRoom,
-                deposit,
-                total
+                deposit: changeDeposit,
+                total: newTotal
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -82,9 +87,10 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
     }
 
     const handleTotal = () => {
-        setEdit(prev => ({ ...prev, total: 0 }))
-        setEdit(prev => ({ ...prev, total: prev.slctRoom.reduce((sum, room) => sum + room.rate + (room.add ? room.add * room.addPersonRate : 0), 0) }))
-        setEdit(prev => ({ ...prev, deposit: prev.total * 0.5 }))
+        setNewTotal(0)
+        setNewTotal(edit.slctRoom.reduce((sum, room) => sum + (totalPeriod * (room.rate + (room.add ? room.add * room.addPersonRate : 0))), 0))
+        setNewDeposit(edit.slctRoom.reduce((sum, room) => sum + (totalPeriod * (room.rate + (room.add ? room.add * room.addPersonRate : 0))), 0) * 0.5)
+        setChangeDeposit(edit.slctRoom.reduce((sum, room) => sum + (totalPeriod * (room.rate + (room.add ? room.add * room.addPersonRate : 0))), 0) * 0.5)
     }
 
     const handleBackButton = () => {
@@ -116,12 +122,12 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
                                     {accommodations.map(accomm => accomm.accommType == 'room' && (
                                         <div
                                             className="accomm"
-                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#9FD0EA" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr />
                                             <h2>rate:<h3>₱ {accomm.rate}</h3></h2>
                                             <h2>max:<h3>{accomm.maxPerson}</h3></h2>
                                             {edit.slctRoom.some(room => room.accommName == accomm.accommName) ?
@@ -143,12 +149,12 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
                                     {accommodations.map(accomm => accomm.accommType == 'cottage' && (
                                         <div
                                             className="accomm"
-                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#9FD0EA" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={edit.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr />
                                             <h2>rate: <h3>₱ {accomm.rate}</h3></h2>
                                         </div>
                                     ))}
@@ -158,16 +164,24 @@ export default function EditReservation({ status, edit, setEdit, setBooks }) {
                     </div>
                 </div>
                 <div className="edit-div">
-                    <p>Claimed Deposit:</p>
-                    <input className="inputs" type="number" onChange={(e) => setEdit(prev => ({ ...prev, deposit: e.target.value }))} value={edit.deposit} />
+                    <p>Change Deposit:</p>
+                    <input className="inputs" type="number" onChange={(e) => setChangeDeposit(e.target.value)} value={changeDeposit} />
                 </div>
                 <div className="edit-div2">
                     <p>Total:</p>
-                    <div>₱{edit.total}</div>
+                    {newTotal > edit.total ?
+                        <div>{edit.total} (+{newTotal - edit.total}) = ₱{newTotal}</div>
+                        :
+                        <div>₱{edit.total}</div>
+                    }
                 </div>
                 <div className="edit-div2">
-                    <p>Deposit:</p>
-                    <div>₱{edit.deposit}</div>
+                    <p>Claimed Deposit:</p>
+                    {newDeposit > edit.deposit ?
+                        <div>{edit.deposit} (+{newDeposit - edit.deposit}) = ₱{newDeposit}</div>
+                        :
+                        <div>₱{edit.deposit}</div>
+                    }
                 </div>
                 {!isLoading && !isLoadingSave &&
                     <div className="btns">

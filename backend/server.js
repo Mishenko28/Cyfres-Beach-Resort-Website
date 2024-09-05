@@ -8,6 +8,11 @@ const adminRoutes = require('./routes/adminRoutes')
 const databaseRoutes = require('./routes/bookRoutes')
 const accommodationRoutes = require('./routes/accommodationRoutes')
 
+const connectionString = 'mongodb://localhost:27017/Cyfres'
+
+// ATLAS           'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
+// OFFLINE         'mongodb://localhost:27017/Cyfres'
+
 const app = express()
 
 app.use((req, res, next) => {
@@ -41,7 +46,7 @@ app.use('/user', authRoutes)
 app.use('/book', databaseRoutes)
 app.use('/accommodation', accommodationRoutes)
 
-mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres')
+mongoose.connect(connectionString)
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log('DB connected on port ' + process.env.PORT)
@@ -50,6 +55,3 @@ mongoose.connect('mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongo
     .catch((error) => {
         console.log(error)
     })
-
-// ATLAS      'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
-// COMPASS    'mongodb://localhost:27017/Cyfres'

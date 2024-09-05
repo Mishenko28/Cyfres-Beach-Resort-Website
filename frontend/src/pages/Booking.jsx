@@ -57,14 +57,14 @@ export default function Booking({ setCartNum }) {
         setTotalAmount(0)
         setSlctRoom([])
 
-        rooms.map(room => room.isChecked && setTotalAmount(p => p + room.rate + (room.add * room.addPersonRate)))
-        cottages.map(cottage => cottage.isChecked && setTotalAmount(p => p + cottage.rate))
+        rooms.map(room => room.isChecked && setTotalAmount(p => p + (totalPeriod * (room.rate + (room.add * room.addPersonRate)))))
+        cottages.map(cottage => cottage.isChecked && setTotalAmount(p => p + (totalPeriod * cottage.rate)))
         amenities.map(amenity => amenity.isChecked && setTotalAmount(p => p + amenity.rate))
 
         rooms.map(room => room.isChecked && setSlctRoom(p => [...p, room]))
         cottages.map(cottage => cottage.isChecked && setSlctRoom(p => [...p, cottage]))
         amenities.map(amenity => amenity.isChecked && setSlctRoom(p => [...p, amenity]))
-    }, [rooms, cottages, amenities])
+    }, [rooms, cottages, amenities, dateIn, dateOut])
 
     const fetchAccomm = async () => {
         const response = await fetch(`${state.uri}/accommodation/all`, {
@@ -193,8 +193,8 @@ export default function Booking({ setCartNum }) {
                         </div>
                         <div style={emptyTogg ? { border: '1px solid #f00' } : null} className="rooms-cont">
                             <h3>Rooms</h3>
-                            <h4>Total Amount: ₱ {totalAmount}</h4>
-                            <h4>Minimum Deposit: ₱ {totalAmount * 0.5}</h4>
+                            <h4>Total Amount:<p>₱{totalAmount}</p></h4>
+                            <h4>Minimum Deposit:<p>₱{totalAmount * 0.5}</p></h4>
                             <div className="rooms">
                                 {rooms.map(room => (
                                     <div key={room._id}>
@@ -207,10 +207,14 @@ export default function Booking({ setCartNum }) {
                                         </div>
                                         {room.isChecked &&
                                             <div className="add">
-                                                <p>Add Person ₱{room.addPersonRate}:</p>
-                                                <p className="value">{room.add == 0 ? 'none' : room.add}</p>
-                                                <button onClick={(e) => handleAddPerson(e, 'add', room._id)}>+</button>
-                                                <button onClick={(e) => handleAddPerson(e, 'remove', room._id)}>-</button>
+                                                <div className="txt">
+                                                    <p>Add Person ₱{room.addPersonRate}:</p>
+                                                    <p className="value">{room.add == 0 ? 'none' : room.add}</p>
+                                                </div>
+                                                <div className="bttns">
+                                                    <button onClick={(e) => handleAddPerson(e, 'add', room._id)}>+</button>
+                                                    <button onClick={(e) => handleAddPerson(e, 'remove', room._id)}>-</button>
+                                                </div>
                                             </div>
                                         }
                                     </div>

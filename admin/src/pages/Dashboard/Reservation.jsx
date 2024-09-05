@@ -5,6 +5,8 @@ import Pending from "./Resevation/Pending"
 import Cancelled from "./Resevation/Cancelled"
 import Confirmed from "./Resevation/Confirmed"
 import OnGoing from "./Resevation/OnGoing"
+import Completed from "./Resevation/Completed"
+import NoShow from "./Resevation/NoShow"
 
 export default function Reservation() {
     const [toggles, setToggles] = useState('ongoing')
@@ -19,29 +21,9 @@ export default function Reservation() {
                 {toggles == 'ongoing' && <OnGoing />}
                 {toggles == 'pending' && <Pending />}
                 {toggles == 'confirmed' && <Confirmed />}
-                {toggles == 'completed' &&
-                    <div className="completed table">
-                        <div className="head">
-
-                        </div>
-                        <div className="data">
-
-                        </div>
-
-                    </div>
-                }
+                {toggles == 'completed' && <Completed />}
                 {toggles == 'cancelled' && <Cancelled />}
-                {toggles == 'noshow' &&
-                    <div className="noshow table">
-                        <div className="head">
-
-                        </div>
-                        <div className="data">
-
-                        </div>
-
-                    </div>
-                }
+                {toggles == 'noshow' && <NoShow />}
             </div>
         </div>
     )

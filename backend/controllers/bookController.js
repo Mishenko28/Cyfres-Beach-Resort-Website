@@ -4,6 +4,8 @@ const Book = require('../models/bookModel')
 const BookCancelled = require('../models/bookCancelledModel')
 const BookConfirmed = require('../models/bookConfirmedModel')
 const BookOngoing = require('../models/bookOngoingModel')
+const BookCompleted = require('../models/bookCompletedModel')
+const BookNoShow = require('../models/bookNoShowModel')
 
 
 
@@ -60,6 +62,56 @@ const confirmBook = async (req, res) => {
         if (bookConfirm) {
             res.status(200).json({ _id })
         }
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const completeBook = async (req, res) => {
+    const { _id } = req.query
+
+    try {
+        const bookToComplete = await BookOngoing.findOneAndDelete({ _id })
+
+        await Book.findOneAndUpdate({ _id: bookToComplete.bookId }, { status: 'Complete' })
+
+        const completedBook = await BookCompleted.create({
+            bookId: bookToComplete.bookId,
+            dateIn: bookToComplete.dateIn,
+            dateOut: bookToComplete.dateOut,
+            deposit: bookToComplete.deposit,
+            question: bookToComplete.question,
+            slctRoom: bookToComplete.slctRoom,
+            total: bookToComplete.total,
+            userId: bookToComplete.userId
+        })
+
+        res.status(200).json({ completedBook })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const noShowBook = async (req, res) => {
+    const { _id } = req.query
+
+    try {
+        const bookToNoShow = await BookOngoing.findOneAndDelete({ _id })
+
+        await Book.findOneAndUpdate({ _id: bookToNoShow.bookId }, { status: 'No Show' })
+
+        const noShowBook = await BookNoShow.create({
+            bookId: bookToNoShow.bookId,
+            dateIn: bookToNoShow.dateIn,
+            dateOut: bookToNoShow.dateOut,
+            deposit: bookToNoShow.deposit,
+            question: bookToNoShow.question,
+            slctRoom: bookToNoShow.slctRoom,
+            total: bookToNoShow.total,
+            userId: bookToNoShow.userId
+        })
+
+        res.status(200).json({ noShowBook })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -135,6 +187,24 @@ const getOngoing = async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 }
+
+const getComplete = async (req, res) => {
+    try {
+        const complete = await BookCompleted.find({})
+        res.status(200).json({ complete })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const getNoShow = async (req, res) => {
+    try {
+        const noshow = await BookNoShow.find({})
+        res.status(200).json({ noshow })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 // END
 
 const setOngoingBooks = async () => {
@@ -176,5 +246,9 @@ module.exports = {
     getConfirmed,
     editConfirmBook,
     getOngoing,
-    editOngoingBook
+    editOngoingBook,
+    completeBook,
+    noShowBook,
+    getComplete,
+    getNoShow
 }

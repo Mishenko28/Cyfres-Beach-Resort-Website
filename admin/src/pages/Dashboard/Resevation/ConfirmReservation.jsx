@@ -8,6 +8,7 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
     const [accommodations, setAccommodations] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingConfirm, setIsLoadingConfirm] = useState(false)
+    const totalPeriod = (new Date(confirmBook.dateOut) - new Date(confirmBook.dateIn)) / 86400000
 
     useEffect(() => {
         fetchAccomm()
@@ -82,7 +83,7 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
 
     const handleTotal = () => {
         setConfirmBook(prev => ({ ...prev, total: 0 }))
-        setConfirmBook(prev => ({ ...prev, total: prev.slctRoom.reduce((sum, room) => sum + room.rate + (room.add ? room.add * room.addPersonRate : 0), 0) }))
+        setConfirmBook(prev => ({ ...prev, total: prev.slctRoom.reduce((sum, room) => sum + (totalPeriod * (room.rate + (room.add ? room.add * room.addPersonRate : 0))), 0) }))
         setConfirmBook(prev => ({ ...prev, deposit: prev.total * 0.5 }))
     }
 
@@ -115,12 +116,12 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
                                     {accommodations.map(accomm => accomm.accommType == 'room' && (
                                         <div
                                             className="accomm"
-                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#9FD0EA" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr />
                                             <h2>rate:<h3>₱ {accomm.rate}</h3></h2>
                                             <h2>max:<h3>{accomm.maxPerson}</h3></h2>
                                             {confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ?
@@ -142,12 +143,12 @@ export default function ConfirmReservation({ confirmBook, setConfirmBook, setBoo
                                     {accommodations.map(accomm => accomm.accommType == 'cottage' && (
                                         <div
                                             className="accomm"
-                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#002244", color: "#fff" } : null}
+                                            style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#9FD0EA" } : null}
                                             key={accomm._id}
                                             onClick={() => handleToggleRoom(accomm)}
                                         >
                                             <h2>{accomm.accommName}</h2>
-                                            <hr style={confirmBook.slctRoom.some(room => room.accommName == accomm.accommName) ? { backgroundColor: "#fff" } : null} />
+                                            <hr />
                                             <h2>rate: <h3>₱ {accomm.rate}</h3></h2>
                                         </div>
                                     ))}

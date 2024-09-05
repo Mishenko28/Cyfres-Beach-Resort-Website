@@ -103,6 +103,10 @@
     background-color: red;
 }
 
+.reserv .status-body .noshow {
+    background-color: gray;
+}
+
 .reserv .status-body .table {
     display: flex;
     flex-direction: column;
@@ -137,6 +141,18 @@
     text-align: center;
 }
 
+.reserv .status-body .noshow .box .acc,
+.reserv .status-body .noshow .box h2,
+.reserv .status-body .noshow .head h2 {
+    width: 250px;
+}
+
+.reserv .status-body .completed .box .acc,
+.reserv .status-body .completed .box h2,
+.reserv .status-body .completed .head h2 {
+    width: 250px;
+}
+
 .reserv .status-body .pending .box .acc,
 .reserv .status-body .pending .box h2,
 .reserv .status-body .pending .head h2 {
@@ -169,6 +185,7 @@
 }
 
 .reserv .status-body .box {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -179,7 +196,27 @@
 }
 
 .reserv .status-body .box:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: #e0e0e0;
+}
+
+.reserv .status-body .box .notif {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    color: #fff;
+}
+
+.reserv .status-body .box .bttn-paid {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    background-color: darkgreen;
+}
+
+.reserv .status-body .box .bttn-reached {
+    font-size: 0.85rem;
+    background-color: blue;
+    padding: 6px 12px;
 }
 
 .reserv .status-body .box h2 {
@@ -198,7 +235,7 @@
 }
 
 .reserv .status-body .box:hover {
-    box-shadow: inset 0 0 0 1px #002244;
+    box-shadow: inset 0 0 0 3px #666;
 }
 
 .reserv .status-body .box .acc {
@@ -252,6 +289,10 @@
 
 .reserv .status-body .box .btnss .complete {
     background-color: blue;
+}
+
+.reserv .status-body .box .btnss .no-show {
+    background-color: gray;
 }
 
 /* END */
@@ -343,16 +384,16 @@
     height: 95px;
     padding: 5px;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .reserv .status-body .edit-cont .accomm-inputs .accomm:hover {
-    transform: scale(1.03);
+    box-shadow: 0 0 1px 1px #002244;
 }
 
 .reserv .status-body .edit-cont .accomm-inputs .accomm hr {
     background-color: #002244;
-    height: 1px;
+    height: 0.5px;
     width: 100%;
 }
 
@@ -381,10 +422,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #002244;
-    box-shadow: inset 0 0 0 1.2px #fff;
     border-radius: 4px;
-    color: #fff;
+    color: #002244;
     width: 30px;
     height: 20px;
     font-weight: 700;
@@ -445,8 +484,4 @@
 .reserv .status-body .cancelled .box h2:nth-child(1),
 .reserv .status-body .cancelled .box h2:nth-child(2) {
     text-align: center;
-}
-
-.reserv .status-body .noshow {
-    background-color: gray;
 }

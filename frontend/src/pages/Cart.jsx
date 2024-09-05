@@ -66,7 +66,10 @@ export default function Cart({ setCartNum }) {
                                             <h2>Minimum Deposit: ₱{book.deposit}</h2>
                                         </>
                                     }
-                                    {book.status == "Confirmed" &&
+                                    {book.status == "Complete" &&
+                                        <h2>Total Amount: ₱{book.total}</h2>
+                                    }
+                                    {(book.status == "Confirmed" || book.status == "On Going") &&
                                         <>
                                             <h2>Total Amount: ₱{book.total}</h2>
                                             <h2>Total Deposits: ₱{book.deposit}</h2>

@@ -4,6 +4,7 @@ import User from "../../../components/User"
 import { format, formatDistance } from "date-fns"
 import Loader from "../../../components/Loader"
 import EditReservation from "./EditReservation"
+import Confirmation from "../../../components/Confirmation"
 
 export default function OnGoing() {
     const { state, dispatch } = useAdmin()
@@ -12,6 +13,8 @@ export default function OnGoing() {
     const [books, setBooks] = useState([])
     const [selectedUser, setSelectedUser] = useState([])
     const [edit, setEdit] = useState(null)
+    const [completeBook, setCompleteBook] = useState(null)
+    const [noShowBook, setNoShowBook] = useState(null)
 
     useEffect(() => {
         fetchBooks()
@@ -40,7 +43,7 @@ export default function OnGoing() {
         const response = await fetch(`${state.uri}/user/details?_id=${id}`, {
             headers: {
                 Authorization: `Bearer ${state.admin.token}`,
-            },
+            }
         })
 
         const json = await response.json()
@@ -54,26 +57,33 @@ export default function OnGoing() {
         setIsLoading(false)
     }
 
-    const handleSaveEdit = async (book) => {
-        setIsLoading(true)
-        const { _id, userId, dateIn, dateOut, question, slctRoom, deposit, total } = book
+    const handleEdit = (e, book) => {
+        e.stopPropagation()
+        setEdit(book)
+    }
 
-        const response = await fetch(`${state.uri}/book/edit`, {
-            method: "POST",
-            body: JSON.stringify({
-                _id,
-                userId,
-                dateIn,
-                dateOut,
-                question,
-                slctRoom,
-                deposit,
-                total
-            }),
+    const handleRefresh = () => {
+        fetchBooks()
+    }
+
+    const handleCompleteBtn = (e, book) => {
+        e.stopPropagation()
+
+        setCompleteBook(book)
+    }
+
+    const handleNoShowBtn = (e, book) => {
+        e.stopPropagation()
+
+        setNoShowBook(book)
+    }
+
+    const handleBook = async (type, book) => {
+        const response = await fetch(`${state.uri}/book/${type}?_id=${book._id}`, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${state.admin.token}`,
-            },
+                Authorization: `Bearer ${state.admin.token}`
+            }
         })
 
         const json = await response.json()
@@ -83,18 +93,12 @@ export default function OnGoing() {
             return
         }
 
-        setBooks(prev => prev.map(obj => obj._id == json._id ? { ...json } : obj))
-        setEdit(null)
-        setIsLoading(false)
-    }
+        if (json.completedBook || json.noShowBook) {
+            setBooks(prev => prev.filter(boook => boook._id !== book._id))
+            setCompleteBook(null)
+            setNoShowBook(null)
+        }
 
-    const handleEdit = (e, book) => {
-        e.stopPropagation()
-        setEdit(book)
-    }
-
-    const handleRefresh = () => {
-        fetchBooks()
     }
 
     return (
@@ -116,10 +120,15 @@ export default function OnGoing() {
                     <>
                         {books.map(book => (
                             <div onClick={() => handleSelectedUser(book.userId)} key={book._id} className="box">
-                                <h2>
-                                    {format(book.dateIn, "MMM d, yyyy")} - {" "}
-                                    {format(book.dateOut, "MMM d, yyyy")}
-                                </h2>
+                                <div className="notif">
+                                    {new Date() > new Date(book.dateOut) &&
+                                        <h3 className="bttn-reached"><i className="fa-solid fa-circle-exclamation" /> Date reached</h3>
+                                    }
+                                    {book.total <= book.deposit &&
+                                        <h3 className="bttn-paid"><i className="fa-solid fa-check" /> Fully paid</h3>
+                                    }
+                                </div>
+                                <h2>{format(book.dateIn, "MMM d, yyyy")} - {format(book.dateOut, "MMM d, yyyy")}</h2>
                                 <h2>{formatDistance(book.dateIn, book.dateOut)}</h2>
                                 <h2>₱ {book.total}</h2>
                                 <h2>₱ {book.deposit}</h2>
@@ -133,7 +142,8 @@ export default function OnGoing() {
                                 </div>
                                 <div className="btnss">
                                     <button className="edit" onClick={(e) => handleEdit(e, book)}>Edit</button>
-                                    <button className="complete" onClick={(e) => handleEdit(e, book)}>Complete</button>
+                                    <button className="complete" onClick={(e) => handleCompleteBtn(e, book)}>Complete</button>
+                                    <button className="no-show" onClick={(e) => handleNoShowBtn(e, book)}>No Show</button>
                                 </div>
                             </div>
                         ))}
@@ -141,6 +151,24 @@ export default function OnGoing() {
                     </>
                 }
             </div>
+            {completeBook &&
+                <Confirmation
+                    mssg={"Are you sure you want to mark this as Complete?"}
+                    btn1={"Yes"}
+                    btn2={"Back"}
+                    btn1F={() => handleBook('complete', completeBook)}
+                    btn2F={() => setCompleteBook(null)}
+                />
+            }
+            {noShowBook &&
+                <Confirmation
+                    mssg={"Are you sure you want to mark this as No Show?"}
+                    btn1={"Yes"}
+                    btn2={"Back"}
+                    btn1F={() => handleBook('noshow', noShowBook)}
+                    btn2F={() => setNoShowBook(null)}
+                />
+            }
             {edit && <EditReservation status={'ongoing'} edit={edit} setBooks={setBooks} setEdit={setEdit} />}
             {selectedUser.length > 0 && selectedUser.map((user) => <User key={user._id} setSelectedUser={setSelectedUser} user={user} />)}
         </div>
