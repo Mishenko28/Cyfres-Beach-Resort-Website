@@ -163,8 +163,9 @@ export default function Booking({ setCartNum }) {
                     {roomImg &&
                         <div className="img">
                             <div>
-                                <i onClick={() => setRoomImg("")} className="fa-solid fa-square-xmark" />
-                                <img src={roomImg} />
+                                <i onClick={() => setRoomImg(null)} className="fa-solid fa-square-xmark" />
+                                <img src={roomImg.img} />
+                                <h1>{roomImg.accommName}</h1>
                             </div>
                         </div>
                     }
@@ -203,7 +204,7 @@ export default function Booking({ setCartNum }) {
                                             <label htmlFor={room.accommName}>{room.accommName}</label>
                                             <h6>Max {room.maxPerson} Person{room.maxPerson !== 1 && 's'}</h6>
                                             <h6>₱ {room.rate}</h6>
-                                            <i onClick={() => setRoomImg(room.img)} className="fa-solid fa-image" />
+                                            <i onClick={() => setRoomImg(room)} className="fa-solid fa-image" />
                                         </div>
                                         {room.isChecked &&
                                             <div className="add">

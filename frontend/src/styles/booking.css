@@ -231,7 +231,7 @@
     width: 90%;
     position: relative;
     max-width: 700px;
-    background-color: #000;
+    background-color: var(--green);
     padding: 10px;
     border-radius: 10px;
 }
