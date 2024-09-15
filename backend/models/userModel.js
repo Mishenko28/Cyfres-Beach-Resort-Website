@@ -14,7 +14,7 @@ module.exports = mongoose.model('User', new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    lastOnline : {
+    lastOnline: {
         type: Date,
         default: Date.now
     }
