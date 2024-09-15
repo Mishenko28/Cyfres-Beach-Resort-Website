@@ -8,7 +8,7 @@ const adminRoutes = require('./routes/adminRoutes')
 const databaseRoutes = require('./routes/bookRoutes')
 const accommodationRoutes = require('./routes/accommodationRoutes')
 
-const connectionString = 'mongodb://localhost:27017/Cyfres'
+const connectionString = 'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
 
 // ATLAS           'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
 // OFFLINE         'mongodb://localhost:27017/Cyfres'
