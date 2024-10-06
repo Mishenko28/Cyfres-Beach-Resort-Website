@@ -29,13 +29,18 @@ const lastNames = [
     "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez", "Powell", "Jenkins", "Perry"
 ]
 
+const URI = 'http://localhost:5000'
+// 'http://localhost:5000'
+// 'https://cyfres-beach-resort-api.onrender.com
+
 function App() {
     const [loadingNo, setLoadingNo] = useState(0)
     const [noOfUser, setNoOfUser] = useState(0)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        setIsLoading(true)
         for (let i = 0; i < noOfUser; i++) {
             let isNoMatch = false
 
@@ -44,7 +49,7 @@ function App() {
                 const LastName = lastNames[Math.floor(Math.random() * 100) + 1]
                 const email = firstName + LastName + '@gmai.com'
 
-                const response = await fetch('https://cyfres-beach-resort-api.onrender.com/user/signup', {
+                const response = await fetch(URI + '/user/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email.toLocaleLowerCase(), password: 'thomas1228' })
@@ -57,7 +62,7 @@ function App() {
                 }
 
                 if (Math.random() > 0.5) {
-                    await fetch('https://cyfres-beach-resort-api.onrender.com/user/details', {
+                    await fetch(URI + '/user/details', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -78,6 +83,7 @@ function App() {
                 isNoMatch = true
             }
         }
+        setIsLoading(false)
     }
 
     return (
@@ -88,7 +94,7 @@ function App() {
                 <input type="number" value={noOfUser} onChange={(e) => setNoOfUser(e.target.value)} />
             </div>
             <h2>No. of User Added: {loadingNo}</h2>
-            <button>Submit</button>
+            <button disabled={isLoading}>{isLoading ? 'Wait while adding the users....' : 'Submit'}</button>
         </form>
     )
 }
