@@ -79,6 +79,7 @@ export default function OnGoing() {
     }
 
     const handleBook = async (type, book) => {
+        setIsLoading(true)
         const response = await fetch(`${state.uri}/book/${type}?_id=${book._id}`, {
             method: 'POST',
             headers: {
@@ -98,7 +99,7 @@ export default function OnGoing() {
             setCompleteBook(null)
             setNoShowBook(null)
         }
-
+        setIsLoading(false)
     }
 
     return (

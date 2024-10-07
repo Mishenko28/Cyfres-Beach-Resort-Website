@@ -74,7 +74,7 @@ const getUsers = async (req, res) => {
         const totalUsers = await User.countDocuments({})
 
         const users = await User.find({})
-            .sort({ createdAt: -1 })
+            .sort({ lastOnline: -1 })
             .skip((page - 1) * 30)
             .limit(30)
             .select('_id email details createdAt lastOnline')
@@ -93,13 +93,13 @@ const getMatchingUser = async (req, res) => {
     const page = req.query.page
 
     try {
-        const matching = await User.find({ email: { $regex: `^${searchUser}`, $options: 'i' } })
+        const matching = await User.find({ email: { $regex: `${searchUser}`, $options: 'i' } })
             .sort({ createdAt: -1 })
             .skip((page - 1) * returnedNumUser)
             .limit(returnedNumUser)
             .select('_id email details createdAt lastOnline')
 
-        const totalUsers = await User.countDocuments({ email: { $regex: `^${searchUser}`, $options: 'i' } })
+        const totalUsers = await User.countDocuments({ email: { $regex: `${searchUser}`, $options: 'i' } })
 
         matching.length == 0 ? res.status(200).json({ matching: "No User Found", totalUsers }) : res.status(200).json({ matching, totalUsers })
     } catch (error) {

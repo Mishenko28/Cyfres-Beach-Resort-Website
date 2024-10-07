@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function MenuBtn({ handleNavTog, checked }) {
     return (
         <div className="hamburger">

@@ -5,11 +5,14 @@ const Accomm = require('../models/accommodationModel')
 const getAccommodations = async (req, res) => {
     try {
         const accommodations = await Accomm.find({})
+            .sort({ accommType: { $eq: 'room' } ? -1 : 1 })
+
         res.status(200).json({ accommodations })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
 }
+
 
 // GET SINGLE
 const getAccommodation = async (req, res) => {

@@ -7,6 +7,7 @@ import './styles/loginAndSignup.css'
 import './styles/booking.css'
 import './styles/settings.css'
 import './styles/cart.css'
+import './styles/accomm.css'
 import GlobalContextProvider from './context/globalContext'
 import { BrowserRouter } from 'react-router-dom'
 

@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
+.accommodations {
+    display: flex;
+    flex-direction: column;
+}
+
+.accommodations .accomms {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.accommodations .accomms .accomm {
+    display: flex;
+    flex-direction: column;
+}
+
+.accommodations .accomms .accomm:nth-child(even) {
+    background-color: #dedede;
+}
+
+.accommodations .accomms .accomm .details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.accommodations .accomms .accomm .details h1 {
+    font-family: 'Cinzel';
+    font-size: 1.8rem;
+}
+
+.accommodations .accomms .accomm .details h2 {
+    font-family: Roboto;
+    font-size: 0.9rem;
+    font-weight: 300;
+    width: 250px;
+}
+
+.accommodations .accomms .accomm .details h3 {
+    font-family: 'Cinzel';
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+.accommodations .accomms .accomm .details button {
+    width: fit-content;
+    padding: 20px;
+    background-color: #fff;
+    border: none;
+    font-weight: 700;
+    box-shadow: 2px 2px 5px #aaa;
+}
+
+.accommodations .accomms .accomm img {
+    width: 100vw;
+}
+
+@media only screen and (min-width: 860px) {
+    .accommodations .accomms {
+        padding: 50px;
+    }
+
+    .accommodations .accomms .accomm {
+        flex-direction: row;
+    }
+
+    .accommodations .accomms .accomm:nth-child(even) {
+        flex-direction: row-reverse;
+        text-align: end;
+    }
+
+    .accommodations .accomms .accomm:nth-child(even) .details {
+        align-items: flex-end;
+    }
+
+    .accommodations .accomms .accomm .details button {
+        cursor: pointer;
+    }
+
+    .accommodations .accomms .accomm img {
+        width: 500px;
+    }
+}
