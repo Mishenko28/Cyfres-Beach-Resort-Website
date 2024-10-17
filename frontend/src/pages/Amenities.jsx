@@ -14,6 +14,7 @@ export default function Amenities() {
 
     const fetchAllAmenities = async () => {
         setIsLoading(true)
+
         const response = await fetch(`${state.uri}/amenities/all`, {
             headers: {
                 Authorization: `Bearer ${state.user.token}`
@@ -22,6 +23,7 @@ export default function Amenities() {
 
         const json = await response.json()
         setAmenities(json.amenities)
+
         setIsLoading(false)
     }
 

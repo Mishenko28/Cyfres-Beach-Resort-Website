@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    margin-block: 20px;
+}
+
+.gallery .gallery-body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.gallery .gallery-body .picture {
+    width: 40vw;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.gallery .gallery-body .picture img {
+    border-radius: 4px;
+}
+
+.gallery .gallery-body .picture h1 {
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Agdasima';
+    text-align: center;
+}
+
+@media only screen and (min-width: 860px) {
+    .gallery {
+        margin-block: 50px;
+    }
+
+    .gallery .gallery-body {
+        gap: 50px;
+    }
+
+    .gallery .gallery-body .picture {
+        width: 25vw;
+        padding: 20px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+
+    .gallery .gallery-body .picture h1 {
+        font-size: 2rem;
+    }
+
+    .gallery .gallery-body .picture:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+}

@@ -9,6 +9,7 @@ import './styles/settings.css'
 import './styles/cart.css'
 import './styles/accomm.css'
 import './styles/amenities.css'
+import './styles/gallery.css'
 import GlobalContextProvider from './context/globalContext'
 import { BrowserRouter } from 'react-router-dom'
 
