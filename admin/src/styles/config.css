@@ -1,12 +1,4 @@
-/* USERS */
-.users {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100%;
-}
-
-.users .nav {
+.nav {
     position: sticky;
     top: 0;
     display: flex;
@@ -17,7 +9,7 @@
     border-radius: 6px;
 }
 
-.users .nav h2 {
+.nav h2 {
     font-size: 2rem;
     color: #fff;
     display: flex;
@@ -25,8 +17,16 @@
     align-items: center;
 }
 
-.users .nav h2 i {
+.nav h2 i {
     font-size: 1.5rem;
+}
+
+/* USERS */
+.users {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
 }
 
 .users .nav h3 {
@@ -148,25 +148,6 @@
     height: 100%;
 }
 
-.accommodation .nav {
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    background-color: #002244;
-    padding: 8px 10px;
-    border-radius: 6px;
-    z-index: 1;
-}
-
-.accommodation .nav h2 {
-    font-size: 2rem;
-    color: #fff;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
 .accommodation .accommodation-body {
     display: flex;
     flex-direction: column;
@@ -280,7 +261,7 @@
 }
 
 /* ADD ACCOMMODATION */
-.accommodation .add-accomm-cont {
+.add-accomm-cont {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -291,42 +272,42 @@
     border-radius: 6px;
 }
 
-.accommodation .add-accomm-cont h3 {
+.add-accomm-cont h3 {
     text-align: center;
     font-size: 1.5rem;
 }
 
-.accommodation .add-accomm-cont .input_cont {
+.add-accomm-cont .input_cont {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.accommodation .add-accomm-cont .input_cont h2 {
+.add-accomm-cont .input_cont h2 {
     font-size: 1rem;
 }
 
-.accommodation .add-accomm-cont .input_cont input {
+.add-accomm-cont .input_cont input {
     height: 30px;
     padding-inline: 10px;
 }
 
-.accommodation .add-accomm-cont .input_cont .empty {
+.add-accomm-cont .input_cont .empty {
     color: #f00;
 }
 
-.accommodation .add-accomm-cont .input_cont textarea {
+.add-accomm-cont .input_cont textarea {
     resize: none;
     height: 80px;
     padding: 10px;
 }
 
-.accommodation .add-accomm-cont .bttns {
+.add-accomm-cont .bttns {
     display: flex;
     gap: 10px;
 }
 
-.accommodation .add-accomm-cont .bttns button {
+.add-accomm-cont .bttns button {
     padding-block: 10px;
     color: #fff;
     font-weight: 700;
@@ -334,14 +315,258 @@
     border-radius: 3px;
 }
 
-.accommodation .add-accomm-cont .bttns button:nth-child(1) {
+.add-accomm-cont .bttns button:nth-child(1) {
     background-color: #0f0;
 }
 
-.accommodation .add-accomm-cont .bttns button:nth-child(2) {
+.add-accomm-cont .bttns button:nth-child(2) {
     background-color: #f00;
 }
 
-.accommodation .add-accomm-cont .bttns button:hover {
+.add-accomm-cont .bttns button:hover {
     cursor: pointer;
+}
+
+/* AMENITIES */
+
+.amenities {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.amenities .amenities-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #002244;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.amenities .amenities-body .categ {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.amenities .amenities-body .categ h2 {
+    text-align: center;
+    font-size: 1rem;
+    color: #002244;
+    width: 160px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.amenities .amenities-body .categ i {
+    font-size: 2rem;
+    color: green;
+}
+
+.amenities .amenities-body .categ i:hover {
+    cursor: pointer;
+}
+
+.amenities .amenities-body .caption {
+    flex-grow: 1;
+}
+
+.amenities .amenities-body .amenity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.amenities .amenities-body .amenity h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: #002244;
+    width: 160px;
+    font-weight: 200;
+    font-size: 0.8rem;
+    text-align: justify;
+}
+
+.amenities .amenities-body .amenity .caption {
+    flex-grow: 1;
+}
+
+.amenities .amenities-body .amenity img {
+    width: 160px;
+    height: 90px;
+    border: 1px solid #aaa;
+}
+
+.amenities .amenities-body .amenity .bttns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+}
+
+.amenities .amenities-body .amenity .bttns i {
+    font-size: 2rem;
+}
+
+.amenities .amenities-body .amenity .bttns i:hover {
+    cursor: pointer;
+}
+
+.amenities .amenities-body .amenity .bttns i:nth-child(1) {
+    color: blue;
+}
+
+.amenities .amenities-body .amenity .bttns i:nth-child(2) {
+    color: red;
+}
+
+/* GALLERY */
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.gallery .nav .fa-square-plus {
+    color: green;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.gallery .galleries-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.gallery .galleries-body .picture {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #002244;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.gallery .galleries-body .picture:hover {
+    transform: scale(0.96);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.gallery .galleries-body .picture img {
+    width: 100%;
+    height: 140px;
+    border-bottom: 2px solid #002244;
+}
+
+.gallery .galleries-body .picture h1 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 5px;
+}
+
+/* GALLERY COMPONENT */
+.gallery .add-edit-delete-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 400px;
+    background-color: #002244;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.gallery .add-edit-delete-cont input[type="text"] {
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.gallery .add-edit-delete-cont input[type="file"] {
+    color: #fff;
+}
+
+.gallery .add-edit-delete-cont .image,
+.gallery .add-edit-delete-cont .caption {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.gallery .add-edit-delete-cont .image img {
+    width: 100%;
+    min-height: 200px;
+    max-height: 300px;
+    border: 1px solid #fff;
+}
+
+.gallery .add-edit-delete-cont h1 {
+    color: #fff;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.gallery .add-edit-delete-cont h2 {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.gallery .add-edit-delete-cont .error {
+    border: 1px solid #f00;
+    padding: 10px 5px;
+}
+
+.gallery .add-edit-delete-cont .error h2 {
+    font-size: 0.8rem;
+    color: #f00;
+    font-weight: 500;
+}
+
+.gallery .add-edit-delete-cont .bttns {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.gallery .add-edit-delete-cont .bttns button {
+    padding-block: 10px;
+    color: #fff;
+    font-weight: 700;
+    width: 80px;
+    border-radius: 3px;
+}
+
+.gallery .add-edit-delete-cont .bttns button:hover {
+    cursor: pointer;
+}
+
+.gallery .add-edit-delete-cont .bttns button:nth-child(1) {
+    background-color: #0f0;
+}
+
+.gallery .add-edit-delete-cont .bttns button:nth-child(2) {
+    background-color: #f00;
+}
+
+.gallery .add-edit-delete-cont .bttns i {
+    position: absolute;
+    right: 0;
+    color: #f00;
+    font-size: 2rem;
+}
+
+.gallery .add-edit-delete-cont .bttns i:hover {
+    cursor: pointer;
+    transform: scale(1.2);
 }

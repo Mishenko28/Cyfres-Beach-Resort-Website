@@ -19,7 +19,6 @@ export default function Accommodations() {
                 Authorization: `Bearer ${state.user.token}`
             }
         })
-
         const json = await response.json()
         setAccomms(json.accommodations)
         setIsLoading(false)

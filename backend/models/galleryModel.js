@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 module.exports = mongoose.model('Gallery', new mongoose.Schema({
-    galleryName: {
+    caption: {
         type: String,
         required: true
     },
@@ -9,4 +9,4 @@ module.exports = mongoose.model('Gallery', new mongoose.Schema({
         type: String,
         required: true
     }
-}))
+}), 'gallery')

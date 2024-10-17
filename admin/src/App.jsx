@@ -17,6 +17,9 @@ import RootLayout from './layouts/RootLayout'
 import TokenExpired from './components/TokenExpired'
 import OfflinePage from './components/OfflinePage'
 import PCOnly from './components/PCOnly'
+import Amenities from './pages/Configuration/Amenities'
+import Gallery from './pages/Configuration/Gallery'
+import AboutUs from './pages/Configuration/AboutUs'
 
 function App() {
     const { state } = useAdmin()
@@ -37,9 +40,9 @@ function App() {
                     <Route path="configuration" element={<Configuration />}>
                         <Route path='home' element={<h1>home</h1>} />
                         <Route path='accommodation' element={<Accommodations />} />
-                        <Route path='amenities' element={<h1>amenities</h1>} />
-                        <Route path='gallery' element={<h1>gallery</h1>} />
-                        <Route path='about-us' element={<h1>about us</h1>} />
+                        <Route path='amenities' element={<Amenities />} />
+                        <Route path='gallery' element={<Gallery />} />
+                        <Route path='about-us' element={<AboutUs />} />
                         <Route path='users' element={<Users />} />
                     </Route>
                     <Route path="utilities" element={<Utilities />}>

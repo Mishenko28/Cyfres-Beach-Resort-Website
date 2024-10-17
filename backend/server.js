@@ -7,6 +7,8 @@ const authRoutes = require('./routes/userRoutes')
 const adminRoutes = require('./routes/adminRoutes')
 const databaseRoutes = require('./routes/bookRoutes')
 const accommodationRoutes = require('./routes/accommodationRoutes')
+const amenitiesRoutes = require('./routes/amenitiesRoutes')
+const galleryRoutes = require('./routes/galleryRoutes')
 
 const connectionString = 'mongodb+srv://johnthomasalog:thomas121323@cyfres.ji2xnew.mongodb.net/Cyfres'
 
@@ -45,6 +47,8 @@ app.use('/admin', adminRoutes)
 app.use('/user', authRoutes)
 app.use('/book', databaseRoutes)
 app.use('/accommodation', accommodationRoutes)
+app.use('/amenities', amenitiesRoutes)
+app.use('/gallery', galleryRoutes)
 
 mongoose.connect(connectionString)
     .then(() => {

@@ -1,0 +1,68 @@
+.amenities {
+    display: flex;
+    flex-direction: column;
+}
+
+.amenities .amenities-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.amenities .amenities-body .amenity {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+.amenities .amenities-body img {
+    width: 100vw;
+    height: 180px;
+    object-fit: cover;
+}
+
+.amenities .amenities-body .details {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 25px;
+    gap: 10px;
+}
+
+.amenities .amenities-body .details h1 {
+    font-size: 2.1rem;
+    color: var(--gray);
+}
+
+.amenities .amenities-body .details h2 {
+    font-size: 0.8rem;
+    color: var(--light-gray);
+    font-weight: 300;
+}
+
+.amenities .amenities-body .details h3 {
+    font-size: 2rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+@media only screen and (min-width: 860px) {
+    .amenities .amenities-body {
+        padding: 20px;
+    }
+
+    .amenities .amenities-body .amenity {
+        flex-direction: row;
+        padding: 20px;
+        background-color: #dedede;
+        margin-bottom: 20px;
+    }
+
+    .amenities .amenities-body .details {
+        width: 300px;
+    }
+
+    .amenities .amenities-body img {
+        width: 300px;
+        object-fit: fill;
+    }
+
+}

@@ -34,23 +34,13 @@ export default function Booking({ setCartNum }) {
                 }
             })
                 .then(response => response.json())
-                .then(json => json.length == 0 ? navigate('/settings/personal-details') : fetchAccomm())
+                .then(json => json.length == 0 ? navigate('/settings/personal-details') : fetchAccomms())
                 .finally(() => setIsLoading(false))
 
         } else {
             navigate('/signup')
         }
 
-    }, [])
-
-    useEffect(() => {
-        const amenities = [
-            { _id: 121, accommType: 'amenity', accommName: 'Bed', rate: 250 },
-            { _id: 122, accommType: 'amenity', accommName: 'Table', rate: 100 },
-            { _id: 123, accommType: 'amenity', accommName: 'Grill', rate: 100 }
-        ]
-
-        setAmenities(amenities.map(amenity => ({ ...amenity, isChecked: false })))
     }, [])
 
     useEffect(() => {
@@ -66,20 +56,28 @@ export default function Booking({ setCartNum }) {
         amenities.map(amenity => amenity.isChecked && setSlctRoom(p => [...p, amenity]))
     }, [rooms, cottages, amenities, dateIn, dateOut])
 
-    const fetchAccomm = async () => {
-        const response = await fetch(`${state.uri}/accommodation/all`, {
+    const fetchAccomms = async () => {
+        const response1 = await fetch(`${state.uri}/accommodation/all`, {
+            headers: {
+                Authorization: `Bearer ${state.user.token}`
+            }
+        })
+        const response2 = await fetch(`${state.uri}/amenities/all`, {
             headers: {
                 Authorization: `Bearer ${state.user.token}`
             }
         })
 
-        const json = await response.json()
+        const json1 = await response1.json()
+        const json2 = await response2.json()
 
-        setRooms(json.accommodations.map(accomm => accomm.accommType == 'room' ? { ...accomm, isChecked: false, add: 0 } : false))
+        setRooms(json1.accommodations.map(accomm => accomm.accommType == 'room' ? { ...accomm, isChecked: false, add: 0 } : false))
         setRooms(prev => prev.filter(accomm => accomm !== false))
 
-        setCottages(json.accommodations.map(accomm => accomm.accommType == 'cottage' ? { ...accomm, isChecked: false, add: 0 } : false))
+        setCottages(json1.accommodations.map(accomm => accomm.accommType == 'cottage' ? { ...accomm, isChecked: false, add: 0 } : false))
         setCottages(prev => prev.filter(accomm => accomm !== false))
+
+        setAmenities(json2.amenities.map(amenity => ({ ...amenity, isChecked: false, add: 0 })))
     }
 
     const handleDate = (e, type) => {
@@ -228,7 +226,7 @@ export default function Booking({ setCartNum }) {
                                         <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.accommName} />
                                         <label htmlFor={room.accommName}>{room.accommName}</label>
                                         <h6>₱ {room.rate}</h6>
-                                        <i onClick={() => setRoomImg(room.img)} className="fa-solid fa-image" />
+                                        <i onClick={() => setRoomImg(room)} className="fa-solid fa-image" />
                                     </div>
                                 ))}
                             </div>
@@ -239,7 +237,7 @@ export default function Booking({ setCartNum }) {
                                         <input checked={room.isChecked} onChange={() => handleCheckbox(room._id)} type="checkbox" id={room.accommName} />
                                         <label htmlFor={room.accommName}>{room.accommName}</label>
                                         <h6>₱ {room.rate}</h6>
-                                        <i onClick={() => setRoomImg(room.img)} className="fa-solid fa-image" />
+                                        <i onClick={() => setRoomImg(room)} className="fa-solid fa-image" />
                                     </div>
                                 ))}
                             </div>
