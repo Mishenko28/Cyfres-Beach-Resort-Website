@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap');
+
+.home {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 50px;
+}
+
+.home .page1 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.home .page1 img {
+    width: 100vw;
+    opacity: 0.6;
+}
+
+.home .page1 h1 {
+    position: absolute;
+    top: 20vw;
+    font-family: 'Playfair';
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 2px #999;
+}
+
+.home .page1 .book-now-cont {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    width: 80vw;
+    padding: 40px 20px 30px 20px;
+    border: 3px solid var(--blue);
+}
+
+.home .page1 .book-now-cont h2 {
+    position: absolute;
+    top: -25px;
+    background-color: var(--blue);
+    padding: 12px 25px;
+    font-size: 1.3rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.home .page1 .book-now-cont div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home .page1 .book-now-cont div input {
+    padding: 10px 2px;
+    font-size: 0.7rem;
+    border: 2px solid var(--blue);
+    color: var(--light-gray);
+    border-radius: 4px;
+}
+
+.home .page1 .book-now-cont div h3 {
+    font-size: 0.6rem;
+    color: var(--light-gray);
+}
+
+.home .page2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5vw;
+}
+
+.home .page2 .arrow {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-block: 5px;
+}
+
+.home .page2 .arrow i {
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.home .page2 h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    font-family: 'Arima';
+    color: var(--green);
+    margin-bottom: 10px;
+}
+
+.home .page2 a {
+    box-shadow: var(--shadow);
+    padding: 15px 25px;
+    text-decoration: none;
+    color: var(--light-gray);
+}
+
+.home .page2 .images {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 90vw;
+}
+
+.home .page2 .images img {
+    flex-shrink: 0;
+    width: 90vw;
+    object-fit: cover;
+    scroll-snap-align: start;
+}
+
+@media only screen and (min-width: 860px) {
+    .home .page1 img {
+        height: 100vh;
+        transform: translateY(-100px);
+    }
+
+    .home .page1 h1 {
+        top: 10vw;
+        font-size: 5rem;
+        margin-inline: 80px;
+    }
+
+    .home .page1 h2:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    .home .page1 .book-now-cont {
+        position: absolute;
+        top: 370px;
+        width: 700px;
+        border: 4px solid var(--blue);
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .home .page1 .book-now-cont div input {
+        cursor: pointer;
+    }
+
+    .home .page1 .book-now-cont div input {
+        padding: 10px 8px;
+        font-size: 1rem;
+        border: 3px solid var(--blue);
+    }
+
+    .home .page1 .book-now-cont div h3 {
+        font-size: 0.8rem;
+    }
+
+    .home .page2 {
+        padding-inline: 25vw;
+    }
+
+    .home .page2 a {
+        padding: 20px 35px;
+        font-size: 1.5rem;
+    }
+
+    .home .page2 a:hover {
+        transform: scale(1.05);
+    }
+
+    .home .page2 .images {
+        width: 50vw;
+    }
+
+    .home .page2 .images img {
+        width: 50vw;
+    }
+}

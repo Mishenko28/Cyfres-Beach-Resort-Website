@@ -135,7 +135,7 @@
     border-radius: 3px;
     cursor: pointer;
     text-decoration: none;
-    box-shadow: var(--shadow);
+    box-shadow: 0px 3px 3px 1px #ddd;
 }
 
 .navbar .nav i {
@@ -288,8 +288,6 @@
 }
 
 
-
-
 @media only screen and (min-width: 860px) {
     .navbar {
         padding-inline: 30px;
@@ -366,5 +364,23 @@
         width: 20px;
         height: 20px;
         border: 3px solid;
+    }
+}
+
+@media only screen and (min-width: 860px) and (max-width: 1000px) {
+    .navbar .menu-nav-cont a h6 {
+        font-size: 1.1vw;
+    }
+
+    .navbar .menu-nav-cont a i {
+        font-size: 1.1vw;
+    }
+
+    .navbar .profile-nav .fa-cart-flatbed {
+        font-size: 2.5vw;
+    }
+
+    .navbar .profile-nav .profile-cont .fa-user {
+        font-size: 2.5vw;
     }
 }
