@@ -9,20 +9,16 @@ export default function Gallery() {
     const [pictures, setPictures] = useState([])
 
     useEffect(() => {
-        state.user && fetchGalley()
+        fetchGalley()
     }, [state])
 
     const fetchGalley = async () => {
         setIsLoading(true)
 
-        const response = await fetch(`${state.uri}/gallery/all`, {
-            headers: {
-                Authorization: `Bearer ${state.user.token}`
-            }
-        })
-
+        const response = await fetch(`${state.uri}/frontpage/galleries`)
         const json = await response.json()
         setPictures(json.galleries)
+
         setIsLoading(false)
     }
 

@@ -9,18 +9,16 @@ export default function Accommodations() {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        state.user && fetchAllAccomm()
+        fetchAllAccomm()
     }, [state])
 
     const fetchAllAccomm = async () => {
         setIsLoading(true)
-        const response = await fetch(`${state.uri}/accommodation/all`, {
-            headers: {
-                Authorization: `Bearer ${state.user.token}`
-            }
-        })
+
+        const response = await fetch(`${state.uri}/frontpage/accommodations`)
         const json = await response.json()
         setAccomms(json.accommodations)
+
         setIsLoading(false)
     }
 

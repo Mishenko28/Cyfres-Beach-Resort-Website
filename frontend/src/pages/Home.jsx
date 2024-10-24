@@ -15,13 +15,11 @@ export default function Home() {
 
     const fetchRooms = async () => {
         setRoomLoading(true)
-        const response = await fetch(`${state.uri}/accommodation/all`, {
-            headers: {
-                Authorization: `Bearer ${state.user.token}`
-            }
-        })
+
+        const response = await fetch(`${state.uri}/frontpage/accommodations`)
         const json = await response.json()
         setRooms(json.accommodations)
+
         setRoomLoading(false)
     }
 

@@ -9,18 +9,13 @@ export default function Amenities() {
     const [amenities, setAmenities] = useState([])
 
     useEffect(() => {
-        state.user && fetchAllAmenities()
+        fetchAllAmenities()
     }, [state])
 
     const fetchAllAmenities = async () => {
         setIsLoading(true)
 
-        const response = await fetch(`${state.uri}/amenities/all`, {
-            headers: {
-                Authorization: `Bearer ${state.user.token}`
-            }
-        })
-
+        const response = await fetch(`${state.uri}/frontpage/amenities`)
         const json = await response.json()
         setAmenities(json.amenities)
 
