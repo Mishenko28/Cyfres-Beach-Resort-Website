@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useGlobalContext } from "../hooks/useGlobalContext"
+import { Link } from "react-router-dom"
 import Loader from "../components/Loader"
 
 export default function Accommodations() {
@@ -35,7 +36,7 @@ export default function Accommodations() {
                                 <h1>{accomm.accommName}</h1>
                                 <h2>{accomm.caption}</h2>
                                 <h3>₱{accomm.rate}</h3>
-                                <button>BOOK NOW</button>
+                                <Link to='/booking'><button>BOOK NOW</button></Link>
                             </div>
                         </div>
                     ))}

@@ -56,7 +56,7 @@ export default function Home() {
                     <i className="fa-solid fa-hand-pointer" />
                     <i className="fa-solid fa-arrow-right-long" />
                 </div>
-                <Link to='/booking'>Discover</Link>
+                <Link to='/accommodations'>Discover</Link>
             </div>
         </div>
     )
