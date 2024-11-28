@@ -11,6 +11,7 @@ import './styles/accomm.css'
 import './styles/amenities.css'
 import './styles/gallery.css'
 import './styles/home.css'
+import './styles/aboutus.css'
 import GlobalContextProvider from './context/globalContext'
 import { BrowserRouter } from 'react-router-dom'
 

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../hooks/useGlobalContext"
 import Loader from "../components/Loader"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function Home() {
-    const { state } = useGlobalContext()
+    const { state, dispatch } = useGlobalContext()
+    const navigate = useNavigate()
 
     const [rooms, setRooms] = useState([])
     const [roomLoading, setRoomLoading] = useState(false)
+
+    const [date, setDate] = useState({ ...state.date })
+
 
     useEffect(() => {
         fetchRooms()
@@ -23,20 +27,43 @@ export default function Home() {
         setRoomLoading(false)
     }
 
+    const handleDataIn = (e) => {
+        const currentDate = new Date().toISOString().split('T')[0]
+
+        if (e.target.value >= currentDate) {
+            setDate({ in: e.target.value, out: new Date(new Date(e.target.value).setDate(new Date(e.target.value).getDate() + 1)).toISOString().split('T')[0] })
+        } else {
+            setDate(prev => ({ ...prev, in: new Date().toISOString().split('T')[0] }))
+        }
+    }
+
+    const handleDataOut = (e) => {
+        if (e.target.value <= date.in) {
+            setDate(prev => ({ ...prev, out: new Date(new Date(date.in).setDate(new Date(date.in).getDate() + 1)).toISOString().split('T')[0] }))
+        } else {
+            setDate(prev => ({ ...prev, out: e.target.value }))
+        }
+    }
+
+    const handleBookNow = () => {
+        dispatch({ type: "DATE", payload: date })
+        navigate('/booking')
+    }
+
     return (
         <div className="home">
             <div className="page1">
                 <img src="images\home.jpg" />
                 <h1>CYFRES BEACH RESORT</h1>
                 <div className="book-now-cont">
-                    <h2>BOOK NOW</h2>
+                    <h2 onClick={handleBookNow}>BOOK NOW</h2>
                     <div>
                         <h3>From:</h3>
-                        <input type="date" />
+                        <input value={date.in} onChange={handleDataIn} type="date" />
                     </div>
                     <div>
                         <h3>To:</h3>
-                        <input type="date" />
+                        <input value={date.out} onChange={handleDataOut} type="date" />
                     </div>
                 </div>
             </div>

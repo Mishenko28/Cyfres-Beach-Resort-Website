@@ -52,7 +52,7 @@
     .amenities .amenities-body .amenity {
         flex-direction: row;
         padding: 20px;
-        background-color: #dedede;
+        background-color: #eee;
         margin-bottom: 20px;
     }
 

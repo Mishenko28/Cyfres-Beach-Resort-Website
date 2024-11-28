@@ -8,8 +8,8 @@ export default function Booking({ setCartNum }) {
     const { state } = useGlobalContext()
     const navigate = useNavigate()
 
-    const [dateIn, setDateIn] = useState(new Date().toLocaleDateString('en-CA'))
-    const [dateOut, setDateOut] = useState(new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString('en-CA'))
+    const [dateIn, setDateIn] = useState(state.date.in)
+    const [dateOut, setDateOut] = useState(state.date.out)
     const [question, setQuestion] = useState("")
     const [slctRoom, setSlctRoom] = useState([])
 
@@ -82,6 +82,7 @@ export default function Booking({ setCartNum }) {
 
     const handleDate = (e, type) => {
         if (type == 'in') {
+            // dateIn 
             if (Math.ceil((new Date(e.target.value) - new Date()) / 86400000) >= 0) {
                 setDateIn(e.target.value)
                 setDateOut(new Date(new Date(e.target.value).setDate(new Date(e.target.value).getDate() + 1)).toLocaleDateString('en-CA'))
@@ -89,10 +90,11 @@ export default function Booking({ setCartNum }) {
                 setDateIn(new Date().toLocaleDateString('en-CA'))
             }
         } else {
-            if (((new Date(e.target.value) - new Date(dateIn)) / 86400000) > 0) {
+            // dateOut
+            if (new Date(e.target.value) > new Date(dateIn)) {
                 setDateOut(e.target.value)
             } else {
-                setDateOut(new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString('en-CA'))
+                setDateOut(new Date(dateIn).setDate(new Date(dateIn).getDate() + 1).toLocaleDateString('en-CA'))
             }
         }
     }
